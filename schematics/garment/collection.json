@@ -1,0 +1,34 @@
+{
+  "schematics": {
+    "package": {
+      "description": "Monorepo Package",
+      "factory": "./lib/package/index",
+      "schema": "./lib/package/schema.json"
+    },
+    "plugin": {
+      "description": "Monorepo Plugin",
+      "factory": "./lib/plugin/index",
+      "schema": "./lib/plugin/schema.json"
+    },
+    "runner": {
+      "description": "Monorepo Runner",
+      "factory": "./lib/runner/index",
+      "schema": "./lib/runner/schema.json"
+    },
+    "sync-pkg-field": {
+      "description": "Sync Monorepo package.json field",
+      "factory": "./lib/sync-pkg-field/index",
+      "schema": "./lib/sync-pkg-field/schema.json"
+    },
+    "add-pkg-dep": {
+      "description": "Add dependency from one monorepo project to another",
+      "factory": "./lib/add-pkg-dep/index",
+      "schema": "./lib/add-pkg-dep/schema.json"
+    },
+    "add-tests": {
+      "description": "Add tests to the specified project",
+      "factory": "./lib/tests/index",
+      "schema": "./lib/tests/schema.json"
+    }
+  }
+}

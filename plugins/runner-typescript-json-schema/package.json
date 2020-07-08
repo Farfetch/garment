@@ -1,0 +1,20 @@
+{
+  "name": "@garment/plugin-runner-typescript-json-schema",
+  "license": "MIT",
+  "version": "0.13.7",
+  "main": "lib/index.js",
+  "files": [
+    "lib",
+    "runners.json"
+  ],
+  "dependencies": {
+    "matcher": "^2.1.0",
+    "typescript-json-schema": "^0.42.0"
+  },
+  "peerDependencies": {
+    "@garment/runner": "^0.13.2"
+  },
+  "devDependencies": {
+    "@garment/fixture-helper": "^0.13.7"
+  }
+}

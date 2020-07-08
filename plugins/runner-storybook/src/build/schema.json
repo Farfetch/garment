@@ -1,0 +1,1 @@
+{"description":"Build storybook","type":"object","properties":{"configDir":{"description":"The config folder to build Storybook from","format":"path","default":"{{projectDir}}/.storybook","type":"string"}},"$schema":"http://json-schema.org/draft-07/schema#"}

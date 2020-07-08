@@ -1,0 +1,15 @@
+{
+  "name": "@garment/schematics-client",
+  "version": "0.13.7",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@angular-devkit/core": "^7.3.1",
+    "@angular-devkit/schematics": "^7.3.1",
+    "inquirer": "^6.2.2",
+    "symbol-observable": "^1.2.0"
+  },
+  "files": [
+    "lib"
+  ]
+}

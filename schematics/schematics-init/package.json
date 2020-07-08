@@ -1,0 +1,16 @@
+{
+  "name": "@garment/schematics-init",
+  "version": "0.13.7",
+  "main": "lib/index.js",
+  "schematics": "./collection.json",
+  "license": "MIT",
+  "dependencies": {
+    "@angular-devkit/core": "^7.3.1",
+    "@angular-devkit/schematics": "^7.3.1",
+    "execa": "^1.0.0"
+  },
+  "files": [
+    "lib",
+    "collection.json"
+  ]
+}

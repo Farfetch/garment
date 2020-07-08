@@ -1,0 +1,13 @@
+{
+  "runners": {
+    "default": {
+      "handler": "./lib/default",
+      "description": "Runs wdio in batch mode",
+      "batch": true
+    },
+    "single": {
+      "handler": "./lib/default#singleRunner",
+      "description": "Runs wdio"
+    }
+  }
+}

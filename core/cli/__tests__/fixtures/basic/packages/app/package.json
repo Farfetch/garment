@@ -1,0 +1,6 @@
+{
+  "name": "@garment_test/cli",
+  "dependencies": {
+    "@garment_test/lib": "^0.0.0"
+  }
+}

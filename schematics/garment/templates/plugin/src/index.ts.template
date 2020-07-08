@@ -1,0 +1,7 @@
+import { Workspace, Plugin } from '@garment/workspace';
+
+export class <%= classify(name) %>Plugin extends Plugin {
+  apply(workspace: Workspace) {
+    // Your code goes here
+  }
+}

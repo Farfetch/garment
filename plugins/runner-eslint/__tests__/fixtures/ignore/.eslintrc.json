@@ -1,0 +1,6 @@
+{
+  "rules": {
+    "semi": "error",
+    "no-var": "warn"
+  }
+}

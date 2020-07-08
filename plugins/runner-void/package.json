@@ -1,0 +1,13 @@
+{
+  "name": "@garment/plugin-runner-void",
+  "license": "MIT",
+  "version": "0.13.7",
+  "main": "lib/index.js",
+  "files": [
+    "lib",
+    "runners.json"
+  ],
+  "peerDependencies": {
+    "@garment/runner": "^0.13.2"
+  }
+}

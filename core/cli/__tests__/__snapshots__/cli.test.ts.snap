@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cli should execute if given correct number of commands 1`] = `
+"🧤 Garment vX.X.X
+
+ DONE  Project app 1 subtasks done
+
+Projects: 1 total
+Tasks:    1 total
+
+"
+`;
+
+exports[`cli should fail if given incorrect number of commands 1`] = `
+"Command failed with exit code 1: node ../../../lib/cli.js --no-cache
+garment <cmd> [project]
+
+Run command
+
+Global Options:
+  -h, --help     Show help                                             [boolean]
+  -v, --version  Show version number                                   [boolean]
+  --loglevel                                          [string] [default: \\"warn\\"]
+
+Options:
+  --watch          Activate watch mode                                 [boolean]
+  --skipLifecycle  Prevent running pre- and post- lifecycle tasks      [boolean]
+  --all            Run for all projects if none is provided            [boolean]
+  --projects       Provide list of projects                              [array]
+  --files          Provide list of files                                 [array]
+  --exclude        Projects to exclude from run                          [array]
+  --cache          Activate cache (--no-cache do deactivate)
+                                                       [boolean] [default: true]
+error Not enough non-option arguments: got 0, need at least 1"
+`;
+
+exports[`cli should fail if given unexisting command 1`] = `
+"Command failed with exit code 1: node ../../../lib/cli.js dep --no-cache
+error Specify one of available tasks: 
+      
+      copy
+      go
+      "
+`;
+
+exports[`cli should write help 1`] = `
+"garment <cmd> [project]
+
+Run command
+
+Commands:
+  garment <cmd> [project]                   Run command                [default]
+  garment run <cmd> [project]               Run command
+  garment generate [generatorName]          Run generator           [aliases: g]
+  garment dep-graph                         Show projects dependency graph
+  garment action-graph <task>               Show project task action graph
+  [projects...]
+  garment cache [sub-command]               Manage Garment cache
+  garment init                              Initialize Garment workspace
+  garment tasks [project]                   List project's tasks
+  garment projects                          List projects
+
+Global Options:
+  -h, --help     Show help                                             [boolean]
+  -v, --version  Show version number                                   [boolean]
+  --loglevel                                          [string] [default: \\"warn\\"]
+
+Options:
+  --watch          Activate watch mode                                 [boolean]
+  --skipLifecycle  Prevent running pre- and post- lifecycle tasks      [boolean]
+  --all            Run for all projects if none is provided            [boolean]
+  --projects       Provide list of projects                              [array]
+  --files          Provide list of files                                 [array]
+  --exclude        Projects to exclude from run                          [array]
+  --cache          Activate cache (--no-cache do deactivate)
+                                                       [boolean] [default: true]"
+`;

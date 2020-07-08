@@ -1,0 +1,17 @@
+{
+  "runners": {
+    "build": {
+      "handler": "./lib/build",
+      "watcher": "./lib/build#watch",
+      "description": ""
+    },
+    "start": {
+      "handler": "./lib/start",
+      "description": ""
+    },
+    "default": {
+      "handler": "./lib/start",
+      "description": ""
+    }
+  }
+}

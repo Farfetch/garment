@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "definitions": {
+    "RunnerConfig": {
+      "type": "object",
+      "properties": {
+        "handler": { "type": "string" },
+        "description": { "type": "string" },
+        "watcher": { "type": "string" },
+        "batch": { "type": "boolean" },
+        "cacheKeys": { "type": "string" }
+      },
+      "required": ["handler", "description"],
+      "additionalProperties": false
+    }
+  },
+  "type": "object",
+  "properties": {
+    "runners": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/RunnerConfig"
+      }
+    }
+  }
+}

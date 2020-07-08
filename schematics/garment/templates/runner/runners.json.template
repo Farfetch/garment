@@ -1,0 +1,9 @@
+{
+  "runners": {
+    "default": {
+      "handler": "./lib/default",
+      "schema": "./lib/default/schema.json",
+      "description": ""
+    }
+  }
+}

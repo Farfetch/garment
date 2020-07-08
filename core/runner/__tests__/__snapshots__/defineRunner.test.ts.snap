@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`defineRunner returns correct schema 1`] = `
+Object {
+  "additionalProperties": false,
+  "properties": Object {
+    "bar": Object {
+      "default": undefined,
+      "description": undefined,
+      "type": "number",
+    },
+    "configFile": Object {
+      "default": undefined,
+      "description": undefined,
+      "format": "path",
+      "type": "string",
+    },
+    "foo": Object {
+      "default": undefined,
+      "description": undefined,
+      "type": "string",
+    },
+  },
+  "required": Array [
+    "foo",
+    "configFile",
+  ],
+}
+`;

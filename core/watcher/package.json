@@ -1,0 +1,12 @@
+{
+  "name": "@garment/watcher",
+  "version": "0.13.7",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "dependencies": {
+    "chokidar": "^2.1.5"
+  },
+  "files": [
+    "lib"
+  ]
+}

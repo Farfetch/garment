@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getProjectTasks resolves references to the same project task starting with ":" 1`] = `
+Object {
+  "build": Object {
+    "parallel": Array [
+      Object {
+        "id": "5504c2d4a8e70847a2bf687b93808ebd6f4f63e8",
+        "runner": "clean-first",
+      },
+      Object {
+        "id": "41fa59f6d7a356f5917ba7258dbb72fe262325f5",
+        "runner": "build",
+      },
+    ],
+  },
+  "clean": Object {
+    "id": "5504c2d4a8e70847a2bf687b93808ebd6f4f63e8",
+    "runner": "clean-first",
+  },
+  "prebuild": Object {
+    "id": "5504c2d4a8e70847a2bf687b93808ebd6f4f63e8",
+    "runner": "clean-first",
+  },
+}
+`;
+
+exports[`getProjectTasks resolves tasks from preset and other project 1`] = `
+Object {
+  "build": Object {
+    "parallel": Array [
+      Object {
+        "id": "674541ba19370bbd5ed06d0916a84ad61342175e",
+        "runner": "package-build-css",
+      },
+      Object {
+        "id": "bffe55daff7e64bbf2d4a4be94f5baa4f59ddb8c",
+        "runner": "package-build",
+      },
+    ],
+  },
+  "buildCSS": Object {
+    "id": "674541ba19370bbd5ed06d0916a84ad61342175e",
+    "runner": "package-build-css",
+  },
+  "clean": Object {
+    "id": "5504c2d4a8e70847a2bf687b93808ebd6f4f63e8",
+    "runner": "clean-first",
+  },
+}
+`;
+
+exports[`getProjectTasks resolves tasks from preset and other project defined with ref 1`] = `
+Object {
+  "build": Object {
+    "parallel": Array [
+      Object {
+        "next": Object {
+          "parallel": Array [
+            Object {
+              "id": ">cdd80876be7565f1c86de3b32b057af4774aa759",
+              "runner": "build:foo",
+            },
+          ],
+        },
+        "parallel": Object {
+          "parallel": Array [
+            Object {
+              "id": "5504c2d4a8e70847a2bf687b93808ebd6f4f63e8",
+              "runner": "clean-first",
+            },
+            Object {
+              "id": "41fa59f6d7a356f5917ba7258dbb72fe262325f5",
+              "runner": "build",
+            },
+          ],
+        },
+      },
+    ],
+  },
+}
+`;
+
+exports[`getProjectTasks throws  1`] = `
+Object {
+  "prebuild": Object {
+    "id": "5504c2d4a8e70847a2bf687b93808ebd6f4f63e8",
+    "runner": "clean-first",
+  },
+}
+`;

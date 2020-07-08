@@ -1,0 +1,1 @@
+{"description":"Runs PostCSS","type":"object","properties":{"configFile":{"description":"The config file to load PostCSS config from.","format":"path","default":"postcss.config.js","type":"string"}},"required":["configFile"],"$schema":"http://json-schema.org/draft-07/schema#"}

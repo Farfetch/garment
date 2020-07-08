@@ -1,0 +1,18 @@
+{
+  "name": "@garment/plugin-runner-publish",
+  "license": "MIT",
+  "version": "0.13.7",
+  "main": "lib/index.js",
+  "files": [
+    "lib",
+    "runners.json"
+  ],
+  "dependencies": {
+    "execa": "^1.0.0",
+    "packument": "^1.0.0",
+    "pacote": "^9.5.0"
+  },
+  "peerDependencies": {
+    "@garment/runner": "^0.13.2"
+  }
+}

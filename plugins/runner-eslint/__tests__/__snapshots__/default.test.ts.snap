@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Emits errors and warnings 1`] = `
+Object {
+  "collectedOutput": Array [],
+  "dependsOnFile": Array [],
+  "isLongRunning": false,
+  "logs": Array [
+    Object {
+      "args": Array [
+        "Linting files with ESLint",
+      ],
+      "level": "info",
+    },
+    Object {
+      "args": Array [
+        "
+/test_path/test/index.js
+  1:13  error  Missing semicolon  semi
+  1 error and 0 warnings potentially fixable with the \`--fix\` option.
+",
+      ],
+      "level": "error",
+    },
+    Object {
+      "args": Array [
+        "
+/test_path/test/foo.js
+  1:1  warning  Unexpected var, use let or const instead  no-var
+",
+      ],
+      "level": "warn",
+    },
+  ],
+  "onDestroyHandler": undefined,
+  "shouldWatchDependencies": false,
+}
+`;
+
+exports[`Emits fixed files 1`] = `
+Object {
+  "collectedOutput": Array [
+    Object {
+      "data": "const a = 10;",
+      "path": "index.js",
+      "type": "text",
+    },
+    Object {
+      "data": "let a = \\"Im still using vars\\";",
+      "path": "foo.js",
+      "type": "text",
+    },
+  ],
+  "dependsOnFile": Array [],
+  "isLongRunning": false,
+  "logs": Array [
+    Object {
+      "args": Array [
+        "Linting files with ESLint",
+      ],
+      "level": "info",
+    },
+  ],
+  "onDestroyHandler": undefined,
+  "shouldWatchDependencies": false,
+}
+`;
+
+exports[`Takes into account .eslintignore 1`] = `
+Object {
+  "collectedOutput": Array [],
+  "dependsOnFile": Array [],
+  "isLongRunning": false,
+  "logs": Array [
+    Object {
+      "args": Array [
+        "Linting files with ESLint",
+      ],
+      "level": "info",
+    },
+    Object {
+      "args": Array [
+        "
+/test_path/test/index.js
+  1:13  error  Missing semicolon  semi
+  1 error and 0 warnings potentially fixable with the \`--fix\` option.
+",
+      ],
+      "level": "error",
+    },
+  ],
+  "onDestroyHandler": undefined,
+  "shouldWatchDependencies": false,
+}
+`;

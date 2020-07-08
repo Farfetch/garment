@@ -1,0 +1,1 @@
+{"description":"Runs Next.js","type":"object","properties":{"appPath":{"description":"Path to app","format":"path","type":"string"},"command":{"description":"Command to execute","default":"dev","enum":["build","dev","export","start","telemetry"],"type":"string"}},"required":["appPath"],"$schema":"http://json-schema.org/draft-07/schema#"}

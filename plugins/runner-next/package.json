@@ -1,0 +1,18 @@
+{
+  "name": "@garment/plugin-runner-next",
+  "license": "MIT",
+  "version": "0.13.7",
+  "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
+  "dependencies": {
+    "execa": "^1.0.0"
+  },
+  "peerDependencies": {
+    "@garment/runner": "^0.13.2"
+  },
+  "devDependencies": {
+    "next": "^9.3.4"
+  }
+}

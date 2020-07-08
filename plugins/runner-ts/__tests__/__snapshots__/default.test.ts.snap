@@ -1,0 +1,198 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Transpiles TypeScript 1`] = `
+Object {
+  "collectedOutput": Array [
+    Object {
+      "cacheKeys": Array [
+        "3.8.3",
+        "{\\"target\\":\\"es5\\",\\"module\\":\\"commonjs\\",\\"moduleResolution\\":\\"node\\",\\"declaration\\":true,\\"sourceMap\\":true,\\"noEmitOnError\\":true,\\"skipLibCheck\\":true}",
+        "export const foo: number = 420;",
+      ],
+      "dependencies": Array [],
+      "files": Array [
+        Object {
+          "data": "{\\"version\\":3,\\"file\\":\\"index.js\\",\\"sourceRoot\\":\\"\\",\\"sources\\":[\\"index.ts\\"],\\"names\\":[],\\"mappings\\":\\";;AAAa,QAAA,GAAG,GAAW,GAAG,CAAC\\"}",
+          "path": "nested/index.js.map",
+          "type": "text",
+        },
+        Object {
+          "data": "\\"use strict\\";
+Object.defineProperty(exports, \\"__esModule\\", { value: true });
+exports.foo = 420;
+//# sourceMappingURL=index.js.map",
+          "path": "nested/index.js",
+          "type": "text",
+        },
+        Object {
+          "data": "export declare const foo: number;
+",
+          "path": "nested/index.d.ts",
+          "type": "text",
+        },
+      ],
+      "logs": Array [],
+    },
+  ],
+  "dependsOnFile": Array [
+    "/test_path/tsconfig.json",
+  ],
+  "isLongRunning": false,
+  "logs": Array [
+    Object {
+      "args": Array [
+        "[TS] Processing",
+        "index.ts",
+      ],
+      "level": "debug",
+    },
+  ],
+  "onDestroyHandler": undefined,
+  "shouldWatchDependencies": false,
+}
+`;
+
+exports[`Transpiles TypeScript 2`] = `
+Object {
+  "collectedOutput": Array [
+    Object {
+      "cacheKeys": Array [
+        "3.8.3",
+        "{\\"declaration\\":true,\\"sourceMap\\":true,\\"noEmitOnError\\":true,\\"skipLibCheck\\":true,\\"target\\":\\"es5\\",\\"module\\":\\"esnext\\",\\"moduleResolution\\":\\"node\\"}",
+        "export const greet = (str: string) => \`Hello, \${str}\`",
+      ],
+      "dependencies": Array [],
+      "files": Array [
+        Object {
+          "data": "{\\"version\\":3,\\"file\\":\\"index.js\\",\\"sourceRoot\\":\\"\\",\\"sources\\":[\\"index.ts\\"],\\"names\\":[],\\"mappings\\":\\"AAAA,MAAM,CAAC,IAAM,KAAK,GAAG,UAAC,GAAW,IAAK,OAAA,YAAU,GAAK,EAAf,CAAe,CAAA\\"}",
+          "path": "nested/index.js.map",
+          "type": "text",
+        },
+        Object {
+          "data": "export var greet = function (str) { return \\"Hello, \\" + str; };
+//# sourceMappingURL=index.js.map",
+          "path": "nested/index.js",
+          "type": "text",
+        },
+        Object {
+          "data": "export declare const greet: (str: string) => string;
+",
+          "path": "nested/index.d.ts",
+          "type": "text",
+        },
+      ],
+      "logs": Array [],
+    },
+  ],
+  "dependsOnFile": Array [
+    "/test_path/tsconfig.json",
+    "/test_path/tsconfig.base.json",
+    "/test_path/common/tsconfig.common.json",
+  ],
+  "isLongRunning": false,
+  "logs": Array [
+    Object {
+      "args": Array [
+        "[TS] Processing",
+        "index.ts",
+      ],
+      "level": "debug",
+    },
+  ],
+  "onDestroyHandler": undefined,
+  "shouldWatchDependencies": false,
+}
+`;
+
+exports[`Transpiles TypeScript with relative imports including not provided as input 1`] = `
+Object {
+  "collectedOutput": Array [
+    Object {
+      "cacheKeys": Array [
+        "3.8.3",
+        "{\\"target\\":\\"es5\\",\\"module\\":\\"commonjs\\",\\"moduleResolution\\":\\"node\\",\\"declaration\\":true,\\"sourceMap\\":true,\\"noEmitOnError\\":true,\\"skipLibCheck\\":true}",
+        "export const foo: number = 420;",
+      ],
+      "dependencies": Array [],
+      "files": Array [
+        Object {
+          "data": "{\\"version\\":3,\\"file\\":\\"index.js\\",\\"sourceRoot\\":\\"\\",\\"sources\\":[\\"index.ts\\"],\\"names\\":[],\\"mappings\\":\\";;AAAa,QAAA,GAAG,GAAW,GAAG,CAAC\\"}",
+          "path": "nested/index.js.map",
+          "type": "text",
+        },
+        Object {
+          "data": "\\"use strict\\";
+Object.defineProperty(exports, \\"__esModule\\", { value: true });
+exports.foo = 420;
+//# sourceMappingURL=index.js.map",
+          "path": "nested/index.js",
+          "type": "text",
+        },
+        Object {
+          "data": "export declare const foo: number;
+",
+          "path": "nested/index.d.ts",
+          "type": "text",
+        },
+      ],
+      "logs": Array [],
+    },
+    Object {
+      "cacheKeys": Array [
+        "3.8.3",
+        "{\\"target\\":\\"es5\\",\\"module\\":\\"commonjs\\",\\"moduleResolution\\":\\"node\\",\\"declaration\\":true,\\"sourceMap\\":true,\\"noEmitOnError\\":true,\\"skipLibCheck\\":true}",
+        "import { foo } from \\"../nested\\"; console.log(foo);",
+        "export const foo: number = 420;",
+      ],
+      "dependencies": Array [
+        "/test_path/test-project/src/nested/index.ts",
+      ],
+      "files": Array [
+        Object {
+          "data": "{\\"version\\":3,\\"file\\":\\"index.js\\",\\"sourceRoot\\":\\"\\",\\"sources\\":[\\"index.ts\\"],\\"names\\":[],\\"mappings\\":\\";;AAAA,oCAAgC;AAAC,OAAO,CAAC,GAAG,CAAC,YAAG,CAAC,CAAC\\"}",
+          "path": "main/index.js.map",
+          "type": "text",
+        },
+        Object {
+          "data": "\\"use strict\\";
+Object.defineProperty(exports, \\"__esModule\\", { value: true });
+var nested_1 = require(\\"../nested\\");
+console.log(nested_1.foo);
+//# sourceMappingURL=index.js.map",
+          "path": "main/index.js",
+          "type": "text",
+        },
+        Object {
+          "data": "export {};
+",
+          "path": "main/index.d.ts",
+          "type": "text",
+        },
+      ],
+      "logs": Array [],
+    },
+  ],
+  "dependsOnFile": Array [
+    "/test_path/tsconfig.json",
+  ],
+  "isLongRunning": false,
+  "logs": Array [
+    Object {
+      "args": Array [
+        "[TS] Processing",
+        "nested/index.ts",
+      ],
+      "level": "debug",
+    },
+    Object {
+      "args": Array [
+        "[TS] Processing",
+        "main/index.ts",
+      ],
+      "level": "debug",
+    },
+  ],
+  "onDestroyHandler": undefined,
+  "shouldWatchDependencies": false,
+}
+`;

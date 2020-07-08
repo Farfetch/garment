@@ -1,0 +1,11 @@
+import { defineRunner } from '@garment/runner';
+
+export interface <%= classify(name) %>RunnerOptions {
+  // options
+}
+
+export default defineRunner<<%= classify(name) %>RunnerOptions>(async function*(ctx) {
+  for await (const file of ctx.input()) {
+    // yield ...
+  }
+})

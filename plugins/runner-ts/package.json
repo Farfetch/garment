@@ -1,0 +1,17 @@
+{
+  "name": "@garment/plugin-runner-ts",
+  "license": "MIT",
+  "version": "0.13.7",
+  "main": "lib/index.js",
+  "files": [
+    "input-provider.js",
+    "lib"
+  ],
+  "peerDependencies": {
+    "@garment/runner": "^0.13.2",
+    "typescript": "^3.2.4"
+  },
+  "devDependencies": {
+    "@garment/fixture-helper": "^0.13.7"
+  }
+}

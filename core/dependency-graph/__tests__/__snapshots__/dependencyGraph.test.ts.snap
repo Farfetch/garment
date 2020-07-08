@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`filters 1`] = `
+Graph {
+  "inEdges": Map {
+    "n1" => Set {},
+    "n3" => Set {},
+  },
+  "nodes": Set {
+    "n1",
+    "n3",
+  },
+  "outEdges": Map {
+    "n1" => Set {},
+    "n3" => Set {},
+  },
+}
+`;
+
+exports[`returns independent subgraphs 1`] = `
+Array [
+  Array [
+    "n5",
+    "n3",
+    "n2",
+    "n1",
+  ],
+  Array [
+    "n6",
+    "n4",
+    "n7",
+  ],
+]
+`;
+
+exports[`traverses graph parallelly 1`] = `
+Array [
+  "n6",
+  "n5",
+  "n2",
+  "n3",
+  "n4",
+  "n1",
+]
+`;

@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Emits style errors and warnings 1`] = `
+Object {
+  "collectedOutput": Array [],
+  "dependsOnFile": Array [],
+  "isLongRunning": false,
+  "logs": Array [
+    Object {
+      "args": Array [
+        "
+/test_path/test/foo.css
+  1:15  ✖  Unexpected invalid hex color \\"#00\\"   color-no-invalid-hex
+",
+      ],
+      "level": "error",
+    },
+    Object {
+      "args": Array [
+        "
+/test_path/test/bar.css
+  1:8  ✖  Unexpected unknown property \\"huight\\"   property-no-unknown
+",
+      ],
+      "level": "error",
+    },
+  ],
+  "onDestroyHandler": undefined,
+  "shouldWatchDependencies": false,
+}
+`;
+
+exports[`Emits style fixed files 1`] = `
+Object {
+  "collectedOutput": Array [
+    Object {
+      "data": ".baz { color: #BADA55; }",
+      "path": "baz.css",
+      "type": "text",
+    },
+  ],
+  "dependsOnFile": Array [],
+  "isLongRunning": false,
+  "logs": Array [],
+  "onDestroyHandler": undefined,
+  "shouldWatchDependencies": false,
+}
+`;

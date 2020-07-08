@@ -1,0 +1,16 @@
+{
+  "name": "@garment/yeoman-client",
+  "license": "MIT",
+  "version": "0.13.7",
+  "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
+  "dependencies": {
+    "globby": "10.0.1",
+    "yeoman-environment": "^2.3.4"
+  },
+  "devDependencies": {
+    "@types/yeoman-environment": "^2.3.1"
+  }
+}

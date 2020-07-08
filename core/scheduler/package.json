@@ -1,0 +1,29 @@
+{
+  "name": "@garment/scheduler",
+  "license": "MIT",
+  "version": "0.13.7",
+  "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
+  "dependencies": {
+    "@garment/dependency-graph": "^0.13.7",
+    "@garment/logger": "^0.13.7",
+    "@garment/runner": "^0.13.7",
+    "@garment/watcher": "^0.13.7",
+    "@garment/workspace": "^0.13.7",
+    "@types/glob-parent": "^3.1.1",
+    "fs-extra": "8.1.0",
+    "glob-parent": "^5.0.0",
+    "globby": "10.0.1",
+    "jest-worker": "^24.4.0",
+    "multimatch": "^4.0.0",
+    "normalize-path": "^3.0.0",
+    "object-hash": "^2.0.0",
+    "tempy": "0.3.0"
+  },
+  "devDependencies": {
+    "@types/normalize-path": "^3.0.0",
+    "@types/tempy": "^0.2.0"
+  }
+}

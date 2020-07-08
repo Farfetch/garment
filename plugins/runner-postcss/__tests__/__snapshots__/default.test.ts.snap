@@ -1,0 +1,153 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Resolves postcss @import 1`] = `
+Object {
+  "collectedOutput": Array [
+    Object {
+      "cacheKeys": Array [
+        "8de170ce8b6d1c1aeb78d959f4faa0cf",
+        "
+          @import './test.css'; 
+          .Slideshow {
+            position: relative;
+            height: 50%;
+        }",
+        "test2.css",
+      ],
+      "dependencies": Array [],
+      "files": Array [
+        Object {
+          "data": ".stuff{
+    background-color: aliceblue;
+} 
+          .Slideshow {
+            position: relative;
+            height: 50%;
+        }",
+          "path": "test2.css",
+          "type": "text",
+        },
+      ],
+      "logs": Array [],
+    },
+  ],
+  "dependsOnFile": Array [
+    "/test_path/postcss.config.js",
+  ],
+  "isLongRunning": false,
+  "logs": Array [
+    Object {
+      "args": Array [
+        "Transpiling files with PostCSS",
+      ],
+      "level": "info",
+    },
+    Object {
+      "args": Array [
+        "[PostCSS] Processing",
+        "test2.css",
+      ],
+      "level": "debug",
+    },
+  ],
+  "onDestroyHandler": undefined,
+  "shouldWatchDependencies": false,
+}
+`;
+
+exports[`Uses postcss.config.js from project 1`] = `
+Object {
+  "collectedOutput": Array [
+    Object {
+      "cacheKeys": Array [
+        "e1c061eef28e0cce2b1ff22fb7f6e12c",
+        "
+          :root {
+            --color: red;
+          }
+          :fullscreen {color: var(--color);}
+          ",
+        "index.css",
+      ],
+      "dependencies": Array [],
+      "files": Array [
+        Object {
+          "data": "
+          :fullscreen {color: red;}
+          ",
+          "path": "index.css",
+          "type": "text",
+        },
+      ],
+      "logs": Array [],
+    },
+  ],
+  "dependsOnFile": Array [
+    "/test_path/test-project/postcss.config.js",
+  ],
+  "isLongRunning": false,
+  "logs": Array [
+    Object {
+      "args": Array [
+        "Transpiling files with PostCSS",
+      ],
+      "level": "info",
+    },
+    Object {
+      "args": Array [
+        "[PostCSS] Processing",
+        "index.css",
+      ],
+      "level": "debug",
+    },
+  ],
+  "onDestroyHandler": undefined,
+  "shouldWatchDependencies": false,
+}
+`;
+
+exports[`Uses postcss.config.js from workspace root 1`] = `
+Object {
+  "collectedOutput": Array [
+    Object {
+      "cacheKeys": Array [
+        "8de170ce8b6d1c1aeb78d959f4faa0cf",
+        ":fullscreen {}",
+        "index.css",
+      ],
+      "dependencies": Array [],
+      "files": Array [
+        Object {
+          "data": ":-webkit-full-screen {}
+:-ms-fullscreen {}
+:fullscreen {}",
+          "path": "index.css",
+          "type": "text",
+        },
+      ],
+      "logs": Array [],
+    },
+  ],
+  "dependsOnFile": Array [
+    "/test_path/postcss.config.js",
+  ],
+  "isLongRunning": false,
+  "logs": Array [
+    Object {
+      "args": Array [
+        "Transpiling files with PostCSS",
+      ],
+      "level": "info",
+    },
+    Object {
+      "args": Array [
+        "[PostCSS] Processing",
+        "index.css",
+      ],
+      "level": "debug",
+    },
+  ],
+  "onDestroyHandler": undefined,
+  "shouldWatchDependencies": false,
+}
+`;

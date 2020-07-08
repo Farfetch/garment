@@ -1,0 +1,18 @@
+{
+  "name": "@garment/fixture-helper",
+  "license": "MIT",
+  "version": "0.13.7",
+  "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
+  "dependencies": {
+    "@garment/logger": "^0.13.7",
+    "@garment/runner": "^0.13.7",
+    "@garment/workspace": "^0.13.7",
+    "fs-extra": "8.1.0",
+    "globby": "10.0.1",
+    "strip-ansi": "^5.2.0",
+    "tempy": "0.3.0"
+  }
+}

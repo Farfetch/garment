@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "SchematicsSchematicSchema",
+  "title": "Schematic Options Schema",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The package name",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What name would you like to use for the package?"
+    },
+    "directory": {
+      "description": "The directory of the new package.",
+      "type": "string",
+      "x-prompt": "In which directory should the package be generated?"
+    },
+    "skipGarmentJson": {
+      "description": "Skip adding package to garment.json.",
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": []
+}

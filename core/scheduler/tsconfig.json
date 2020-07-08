@@ -1,0 +1,30 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "lib",
+    "composite": true
+  },
+  "exclude": [
+    "node_modules",
+    "lib",
+    "__tests__"
+  ],
+  "references": [
+    {
+      "path": "../dependency-graph"
+    },
+    {
+      "path": "../logger"
+    },
+    {
+      "path": "../runner"
+    },
+    {
+      "path": "../watcher"
+    },
+    {
+      "path": "../workspace"
+    }
+  ]
+}

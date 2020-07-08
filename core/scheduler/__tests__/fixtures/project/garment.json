@@ -1,0 +1,28 @@
+{
+  "projects": {
+    "app": {
+      "path": "packages/app",
+      "tasks": {
+        "build": {
+          "runner": "@garment/plugin-runner-void"
+        }
+      }
+    },
+    "utils": {
+      "path": "packages/utils",
+      "tasks": {
+        "prebuild": {
+          "runner": "@garment/plugin-runner-void"
+        },
+        "build": [
+          {
+            "runner": "@garment/plugin-runner-void"
+          },
+          {
+            "runner": "@garment/plugin-runner-void"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+
+# dependencies
+/node_modules
+/core/*/node_modules
+/plugins/*/node_modules
+/schematics/*/node_modules
+/utils/*/node_modules
+/test-manual
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+
+# misc
+/coverage
+npm-debug.log
+yarn-error.log
+lerna-debug.log
+
+# System Files
+.DS_Store
+Thumbs.db
+
+lib
+/.buildcache
+
+*.tsbuildinfo
+__tests__tmp__

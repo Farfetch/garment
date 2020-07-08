@@ -1,0 +1,45 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "lib",
+    "composite": true
+  },
+  "exclude": [
+    "node_modules",
+    "lib",
+    "__tests__"
+  ],
+  "references": [
+    {
+      "path": "../garment"
+    },
+    {
+      "path": "../logger"
+    },
+    {
+      "path": "../../utils/perf"
+    },
+    {
+      "path": "../../utils/print-tree"
+    },
+    {
+      "path": "../scheduler"
+    },
+    {
+      "path": "../schematics-client"
+    },
+    {
+      "path": "../../schematics/schematics-init"
+    },
+    {
+      "path": "../../utils/visualize-graph"
+    },
+    {
+      "path": "../workspace"
+    },
+    {
+      "path": "../yeoman-client"
+    }
+  ]
+}

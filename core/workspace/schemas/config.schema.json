@@ -1,0 +1,276 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "definitions": {
+    "Config": {
+      "type": "object",
+      "properties": {
+        "$schema": {
+          "type": "string"
+        },
+        "presets": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "extends": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                ]
+              },
+              "tasks": {
+                "type": "object",
+                "additionalProperties": {
+                  "$ref": "#/definitions/TaskConfig"
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "projects": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/ProjectConfig"
+          }
+        },
+        "schematics": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "yeomanGenerators": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "cache": {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "type": { "const": "file" },
+                "cacheDir": { "type": "string" }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "type": { "const": "remote" }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "type": { "const": "custom" },
+                "provider": { "type": "string" }
+              },
+              "required": ["provider"],
+              "additionalProperties": false
+            }
+          ]
+        },
+        "experimentalCacheSubscriptions": {
+          "type": "boolean"
+        }
+      },
+      "required": ["projects"],
+      "additionalProperties": false
+    },
+    "TaskDefinition": {
+      "oneOf": [
+        { "type": "string" },
+        {
+          "type": "object",
+          "properties": {
+            "runner": {
+              "type": "string"
+            },
+            "skipWatch": {
+              "type": "boolean"
+            },
+            "buildDependencies": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "task": { "type": "string" },
+                    "watch": { "type": "boolean" }
+                  },
+                  "required": ["task"],
+                  "additionalProperties": false
+                }
+              ]
+            },
+            "pipe": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "enum": [true]
+                }
+              ]
+            },
+            "input": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "rootDir": {
+                      "type": "string"
+                    },
+                    "include": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "exclude": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": { "const": "custom" },
+                    "provider": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["type", "provider"],
+                  "additionalProperties": false
+                }
+              ]
+            },
+            "output": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
+            },
+            "outputMode": {
+              "enum": ["after-all", "after-each", "in-memory"]
+            },
+            "options": {
+              "type": "object",
+              "additionalProperties": true
+            },
+            "env": {
+              "additionalProperties": {
+                "anyOf": [{ "type": "object" }, { "type": "string" }]
+              }
+            },
+            "next": { "$ref": "#/definitions/TaskConfig" }
+          },
+          "required": ["runner"],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "parallel": { "$ref": "#/definitions/TaskConfig" },
+            "next": { "$ref": "#/definitions/TaskConfig" }
+          },
+          "required": ["parallel"],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "ref": {
+              "type": "string"
+            },
+            "next": { "$ref": "#/definitions/TaskConfig" }
+          },
+          "required": ["ref"],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "TaskConfig": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/TaskDefinition"
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TaskDefinition"
+          }
+        },
+        {
+          "enum": [false]
+        }
+      ]
+    },
+    "ProjectConfig": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "extends": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tasks": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/TaskConfig"
+          }
+        }
+      },
+      "required": ["path"],
+      "additionalProperties": false
+    }
+  },
+  "$ref": "#/definitions/Config"
+}

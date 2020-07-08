@@ -1,0 +1,8 @@
+{
+  "schematics": {
+    "init": {
+      "description": "Init Garment Workspace",
+      "factory": "./lib/init/index"
+    }
+  }
+}

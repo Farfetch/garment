@@ -1,0 +1,10 @@
+{
+  "packages": [
+    "core/*",
+    "plugins/*",
+    "schematics/*",
+    "utils/*"
+  ],
+  "npmClient": "yarn",
+  "version": "0.13.7"
+}

@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "SchematicsSchematicSchema",
+  "title": "Schematic Options Schema",
+  "type": "object",
+  "properties": {
+    "project": {
+      "type": "string",
+      "description": "Project name",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "To which project you want to add the dependency?"
+    },
+    "dep": {
+      "type": "string",
+      "description": "Dependency name",
+      "$default": {
+        "$source": "argv",
+        "index": 1
+      },
+      "x-prompt": "What's dependency name?"
+    },
+    "dev": {
+      "description": "Add as dev dependency",
+      "type": "boolean",
+      "default": false,
+      "x-prompt": "As dev?"
+    }
+  },
+  "required": []
+}

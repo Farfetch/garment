@@ -1,0 +1,7 @@
+{
+  "rules": {
+    "color-no-invalid-hex": true,
+    "property-no-unknown": true,
+    "color-hex-case": "upper"
+  }
+}

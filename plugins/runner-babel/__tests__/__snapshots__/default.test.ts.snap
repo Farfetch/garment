@@ -1,0 +1,220 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Outputs .js extentension for TS files 1`] = `
+Object {
+  "collectedOutput": Array [
+    Object {
+      "cacheKeys": Array [
+        "{}",
+        "7.5.5",
+        "transform-typescript{\\"isTSX\\":false}",
+        "const message: string = \\"Hello\\"",
+        "index.ts",
+      ],
+      "dependencies": Array [
+        "/test_path/babel.config.js",
+      ],
+      "files": Array [
+        Object {
+          "data": "const message = \\"Hello\\";",
+          "path": "index.js",
+          "type": "text",
+        },
+      ],
+      "logs": Array [],
+    },
+  ],
+  "dependsOnFile": Array [],
+  "isLongRunning": false,
+  "logs": Array [
+    Object {
+      "args": Array [
+        "Transpiling files with Babel",
+      ],
+      "level": "info",
+    },
+    Object {
+      "args": Array [
+        "[Babel] Processing",
+        "index.ts",
+      ],
+      "level": "debug",
+    },
+  ],
+  "onDestroyHandler": undefined,
+  "shouldWatchDependencies": false,
+}
+`;
+
+exports[`Uses .babelrc from workspace root 1`] = `
+Object {
+  "collectedOutput": Array [
+    Object {
+      "cacheKeys": Array [
+        "{}",
+        "7.5.5",
+        "transform-modules-commonjs{\\"loose\\":false}",
+        "proposal-dynamic-import{\\"loose\\":false}",
+        "transform-dotall-regex{\\"spec\\":false,\\"loose\\":false,\\"useBuiltIns\\":false}",
+        "proposal-async-generator-functions{\\"spec\\":false,\\"loose\\":false,\\"useBuiltIns\\":false}",
+        "syntax-object-rest-spread{\\"spec\\":false,\\"loose\\":false,\\"useBuiltIns\\":false}",
+        "proposal-unicode-property-regex{\\"spec\\":false,\\"loose\\":false,\\"useBuiltIns\\":false}",
+        "proposal-json-strings{\\"spec\\":false,\\"loose\\":false,\\"useBuiltIns\\":false}",
+        "proposal-optional-catch-binding{\\"spec\\":false,\\"loose\\":false,\\"useBuiltIns\\":false}",
+        "transform-named-capturing-groups-regex{\\"spec\\":false,\\"loose\\":false,\\"useBuiltIns\\":false}",
+        "const a = 10;",
+        "index.js",
+      ],
+      "dependencies": Array [
+        "/test_path/.babelrc",
+        "/test_path/babel.config.js",
+      ],
+      "files": Array [
+        Object {
+          "data": "\\"use strict\\";
+
+const a = 10;",
+          "path": "index.js",
+          "type": "text",
+        },
+      ],
+      "logs": Array [],
+    },
+  ],
+  "dependsOnFile": Array [],
+  "isLongRunning": false,
+  "logs": Array [
+    Object {
+      "args": Array [
+        "Transpiling files with Babel",
+      ],
+      "level": "info",
+    },
+    Object {
+      "args": Array [
+        "[Babel] Processing",
+        "index.js",
+      ],
+      "level": "debug",
+    },
+  ],
+  "onDestroyHandler": undefined,
+  "shouldWatchDependencies": false,
+}
+`;
+
+exports[`Uses babel.config.js from project 1`] = `
+Object {
+  "collectedOutput": Array [
+    Object {
+      "cacheKeys": Array [
+        "{}",
+        "7.5.5",
+        "transform-modules-commonjs{\\"loose\\":false}",
+        "proposal-dynamic-import{\\"loose\\":false}",
+        "transform-dotall-regex{\\"spec\\":false,\\"loose\\":false,\\"useBuiltIns\\":false}",
+        "proposal-async-generator-functions{\\"spec\\":false,\\"loose\\":false,\\"useBuiltIns\\":false}",
+        "syntax-object-rest-spread{\\"spec\\":false,\\"loose\\":false,\\"useBuiltIns\\":false}",
+        "proposal-unicode-property-regex{\\"spec\\":false,\\"loose\\":false,\\"useBuiltIns\\":false}",
+        "proposal-json-strings{\\"spec\\":false,\\"loose\\":false,\\"useBuiltIns\\":false}",
+        "proposal-optional-catch-binding{\\"spec\\":false,\\"loose\\":false,\\"useBuiltIns\\":false}",
+        "transform-named-capturing-groups-regex{\\"spec\\":false,\\"loose\\":false,\\"useBuiltIns\\":false}",
+        "transform-react-jsx{\\"pragma\\":\\"React.createElement\\",\\"pragmaFrag\\":\\"React.Fragment\\",\\"throwIfNamespace\\":true,\\"useBuiltIns\\":false}",
+        "transform-react-display-name{}",
+        "const Header = <h1>Hello!</h1>",
+        "index.js",
+      ],
+      "dependencies": Array [
+        "/test_path/.babelrc",
+        "/test_path/test-project/babel.config.js",
+      ],
+      "files": Array [
+        Object {
+          "data": "\\"use strict\\";
+
+const Header = React.createElement(\\"h1\\", null, \\"Hello!\\");",
+          "path": "index.js",
+          "type": "text",
+        },
+      ],
+      "logs": Array [],
+    },
+  ],
+  "dependsOnFile": Array [],
+  "isLongRunning": false,
+  "logs": Array [
+    Object {
+      "args": Array [
+        "Transpiling files with Babel",
+      ],
+      "level": "info",
+    },
+    Object {
+      "args": Array [
+        "[Babel] Processing",
+        "index.js",
+      ],
+      "level": "debug",
+    },
+  ],
+  "onDestroyHandler": undefined,
+  "shouldWatchDependencies": false,
+}
+`;
+
+exports[`Uses babel.config.js from workspace root 1`] = `
+Object {
+  "collectedOutput": Array [
+    Object {
+      "cacheKeys": Array [
+        "{}",
+        "7.5.5",
+        "transform-modules-commonjs{\\"loose\\":false}",
+        "proposal-dynamic-import{\\"loose\\":false}",
+        "transform-dotall-regex{\\"spec\\":false,\\"loose\\":false,\\"useBuiltIns\\":false}",
+        "proposal-async-generator-functions{\\"spec\\":false,\\"loose\\":false,\\"useBuiltIns\\":false}",
+        "syntax-object-rest-spread{\\"spec\\":false,\\"loose\\":false,\\"useBuiltIns\\":false}",
+        "proposal-unicode-property-regex{\\"spec\\":false,\\"loose\\":false,\\"useBuiltIns\\":false}",
+        "proposal-json-strings{\\"spec\\":false,\\"loose\\":false,\\"useBuiltIns\\":false}",
+        "proposal-optional-catch-binding{\\"spec\\":false,\\"loose\\":false,\\"useBuiltIns\\":false}",
+        "transform-named-capturing-groups-regex{\\"spec\\":false,\\"loose\\":false,\\"useBuiltIns\\":false}",
+        "const a = 10;",
+        "index.js",
+      ],
+      "dependencies": Array [
+        "/test_path/.babelrc",
+        "/test_path/babel.config.js",
+      ],
+      "files": Array [
+        Object {
+          "data": "\\"use strict\\";
+
+const a = 10;",
+          "path": "index.js",
+          "type": "text",
+        },
+      ],
+      "logs": Array [],
+    },
+  ],
+  "dependsOnFile": Array [],
+  "isLongRunning": false,
+  "logs": Array [
+    Object {
+      "args": Array [
+        "Transpiling files with Babel",
+      ],
+      "level": "info",
+    },
+    Object {
+      "args": Array [
+        "[Babel] Processing",
+        "index.js",
+      ],
+      "level": "debug",
+    },
+  ],
+  "onDestroyHandler": undefined,
+  "shouldWatchDependencies": false,
+}
+`;

@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Creates typings for CSS file 1`] = `
+Object {
+  "collectedOutput": Array [
+    Object {
+      "data": "declare const styles: {
+  readonly \\"foo\\": string;
+  readonly \\"bar\\": string;
+};
+export = styles;
+
+",
+      "path": "index.css.d.ts",
+      "type": "text",
+    },
+    Object {
+      "data": "declare const styles: {
+  readonly \\"content\\": string;
+};
+export = styles;
+
+",
+      "path": "component/style.css.d.ts",
+      "type": "text",
+    },
+  ],
+  "dependsOnFile": Array [],
+  "isLongRunning": false,
+  "logs": Array [
+    Object {
+      "args": Array [
+        "Generating types for CSS modules",
+      ],
+      "level": "info",
+    },
+  ],
+  "onDestroyHandler": undefined,
+  "shouldWatchDependencies": false,
+}
+`;

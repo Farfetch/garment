@@ -1,0 +1,9 @@
+{
+  "name": "@garment/dependency-graph",
+  "version": "0.13.7",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "files": [
+    "lib"
+  ]
+}

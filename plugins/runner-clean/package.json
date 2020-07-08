@@ -1,0 +1,16 @@
+{
+  "name": "@garment/plugin-runner-clean",
+  "license": "MIT",
+  "version": "0.13.7",
+  "main": "lib/index.js",
+  "files": [
+    "lib",
+    "runners.json"
+  ],
+  "dependencies": {
+    "del": "^4.0.0"
+  },
+  "peerDependencies": {
+    "@garment/runner": "^0.13.2"
+  }
+}

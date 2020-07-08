@@ -1,0 +1,1 @@
+{"type":"object","properties":{"testSpecsPath":{"format":"path","default":"{{projectDir}}/test/specs","type":"string"},"configFile":{"format":"path","default":"'wdio.conf.js'","type":"string"}},"required":["configFile","testSpecsPath"],"$schema":"http://json-schema.org/draft-07/schema#"}

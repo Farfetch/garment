@@ -1,0 +1,8 @@
+{
+  "name": "@garment/plugin-runner-<%= name %>",
+  "version": "0.0.0",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "dependencies": {},
+  "files": ["lib", "runners.json"]
+}

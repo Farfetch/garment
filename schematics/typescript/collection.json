@@ -1,0 +1,9 @@
+{
+  "schematics": {
+    "sync-tsconfig": {
+      "description": "Sync Monorepo TypeScript configs",
+      "factory": "./lib/sync-tsconfig/index",
+      "schema": "./lib/sync-tsconfig/schema.json"
+    }
+  }
+}

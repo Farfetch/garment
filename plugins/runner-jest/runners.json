@@ -1,0 +1,10 @@
+{
+  "runners": {
+    "default": {
+      "handler": "./lib",
+      "watcher": "./lib#watch",
+      "description": "Runs jest",
+      "batch": true
+    }
+  }
+}

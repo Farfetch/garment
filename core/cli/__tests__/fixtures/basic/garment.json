@@ -1,0 +1,17 @@
+{
+  "projects": {
+    "app": {
+      "path": "packages/app",
+      "tasks": {
+        "copy": {
+          "runner": "@garment/plugin-runner-void",
+          "options": { "delay": 300 }
+        },
+        "go": {
+          "runner": "@garment/plugin-runner-void",
+          "options": { "delay": 300 }
+        }
+      }
+    }
+  }
+}

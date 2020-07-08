@@ -1,0 +1,1 @@
+{"description":"Serve the content of the directory","type":"object","properties":{"publicDir":{"description":"The directory to serve files from","format":"path","type":"string"},"port":{"description":"Port number","type":"number"}},"$schema":"http://json-schema.org/draft-07/schema#"}
