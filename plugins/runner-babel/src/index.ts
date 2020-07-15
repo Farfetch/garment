@@ -75,11 +75,7 @@ export default defineRunner(runnerOptions, async ctx => {
       partialConfig?.babelignore
     ].filter(Boolean) as string[];
 
-    const configKey = configDependencies.join('-');
-    if (!optionsByConfigKey[configKey]) {
-      optionsByConfigKey[configKey] = babel.loadOptions(partialConfig?.options);
-    }
-    const loadedOptions = optionsByConfigKey[configKey];
+    const loadedOptions = babel.loadOptions(partialConfig?.options);
 
     const cacheKeys = [
       JSON.stringify({
