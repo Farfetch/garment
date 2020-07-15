@@ -1,7 +1,7 @@
 {
   "name": "@garment/plugin-runner-stylelint",
   "license": "MIT",
-  "version": "0.13.7",
+  "version": "0.13.8",
   "main": "lib/index.js",
   "files": [
     "lib",
@@ -16,7 +16,7 @@
     "stylelint": "^9.10.1"
   },
   "devDependencies": {
-    "@garment/fixture-helper": "^0.13.7",
+    "@garment/fixture-helper": "^0.13.8",
     "@types/stylelint": "^9.10.0",
     "@types/text-table": "^0.2.0",
     "stylelint": "^9.10.1"

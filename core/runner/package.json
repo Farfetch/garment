@@ -1,17 +1,17 @@
 {
   "name": "@garment/runner",
   "license": "MIT",
-  "version": "0.13.7",
+  "version": "0.13.8",
   "main": "lib/index.js",
   "files": [
     "lib",
     "schemas"
   ],
   "dependencies": {
-    "@garment/logger": "^0.13.7",
-    "@garment/schema-validator": "^0.13.7",
-    "@garment/watcher": "^0.13.7",
-    "@garment/workspace": "^0.13.7",
+    "@garment/logger": "^0.13.8",
+    "@garment/schema-validator": "^0.13.8",
+    "@garment/watcher": "^0.13.8",
+    "@garment/workspace": "^0.13.8",
     "@types/fs-extra": "^5.0.5",
     "fs-extra": "8.1.0",
     "mustache": "^3.0.1"

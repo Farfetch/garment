@@ -1,7 +1,7 @@
 {
   "name": "@garment/plugin-runner-postcss",
   "license": "MIT",
-  "version": "0.13.7",
+  "version": "0.13.8",
   "main": "./lib/index.js",
   "files": [
     "lib",
@@ -15,7 +15,7 @@
     "postcss": "6.0.23"
   },
   "devDependencies": {
-    "@garment/fixture-helper": "^0.13.7",
+    "@garment/fixture-helper": "^0.13.8",
     "@types/dependency-tree": "^6.1.0",
     "postcss": "6.0.23",
     "postcss-custom-properties": "^6.0.23",

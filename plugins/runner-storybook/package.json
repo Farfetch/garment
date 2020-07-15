@@ -1,7 +1,7 @@
 {
   "name": "@garment/plugin-runner-storybook",
   "license": "MIT",
-  "version": "0.13.7",
+  "version": "0.13.8",
   "main": "lib/index.js",
   "files": [
     "lib",
