@@ -242,11 +242,11 @@ Defines which files are sent as an input to the runner. If defined as an object,
 {
   "rootDir": "{{projectDir}}/src",
   "include": ["**/*.js"],
-  "ignore": []
+  "exclude": []
 }
 ```
 
-`rootDir: string` defines where the input files are. `include: string[]` and `ignore: string[]` define glob patterns to include to or exclude from files set. Note, that each runner can have a default `include` and `ignore` patterns, so the developer only needs to define a `rootDir`. If `input` is a `string` then it defines a `rootDir` and uses default values `[**/*]` for include and `[]` for ignore, or the ones defined by runner.
+`rootDir: string` defines where the input files are. `include: string[]` and `exclude: string[]` define glob patterns to include to or exclude from files set. Note, that each runner can have a default `include` and `exclude` patterns, so the developer only needs to define a `rootDir`. If `input` is a `string` then it defines a `rootDir` and uses default values `[**/*]` for include and `[]` for exclude, or the ones defined by runner.
 
 If not specified, the files from previous tasks will be passed as input files. If you want to receive both files from the disk and previous tasks, you should specify `pipe` option as `true` or glob pattern;
 
