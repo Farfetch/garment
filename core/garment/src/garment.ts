@@ -1061,7 +1061,7 @@ async function garmentFromWorkspace(
 export default garment;
 export { garment, garmentFromWorkspace };
 
-function* createFileInput(
+export function* createFileInput(
   { rootDir, files = [], include, exclude = [] }: Input,
   fsInstance = fs
 ) {
@@ -1069,7 +1069,8 @@ function* createFileInput(
     ? globby.sync(include, {
         cwd: rootDir,
         absolute: true,
-        ignore: exclude
+        ignore: exclude,
+        dot: true
       })
     : [];
   const uniqueFiles = new Set([...files, ...filesFromGlob]);
