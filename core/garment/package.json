@@ -1,6 +1,6 @@
 {
   "name": "@garment/garment",
-  "version": "0.13.8",
+  "version": "0.13.9",
   "main": "lib/index.js",
   "license": "MIT",
   "dependencies": {
@@ -24,8 +24,8 @@
     "typings"
   ],
   "devDependencies": {
+    "@garment/fixture-helper": "^0.13.8",
     "@types/is-valid-path": "^0.1.0",
-    "@types/tempy": "^0.2.0",
-    "@garment/fixture-helper": "^0.13.8"
+    "@types/tempy": "^0.2.0"
   }
 }

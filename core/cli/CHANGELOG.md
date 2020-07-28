@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.9](https://github.com/Farfetch/garment/compare/v0.13.8...v0.13.9) (2020-07-28)
+
+
+### Bug Fixes
+
+* Update notifier [#6](https://github.com/Farfetch/garment/issues/6) ([#8](https://github.com/Farfetch/garment/issues/8)) ([55be2a9](https://github.com/Farfetch/garment/commit/55be2a99c2af6f10e894ee82df6b70a89250fe11))
+
+
+
+
+
 ## 0.13.8 (2020-07-15)
 
 **Note:** Version bump only for package @garment/cli

@@ -1,7 +1,7 @@
 {
   "name": "@garment/cli",
   "license": "MIT",
-  "version": "0.13.8",
+  "version": "0.13.9",
   "main": "lib/index.js",
   "bin": {
     "garment": "lib/cli.js",
@@ -11,7 +11,7 @@
     "lib"
   ],
   "dependencies": {
-    "@garment/garment": "^0.13.8",
+    "@garment/garment": "^0.13.9",
     "@garment/logger": "^0.13.8",
     "@garment/perf": "^0.13.8",
     "@garment/print-tree": "^0.13.8",
