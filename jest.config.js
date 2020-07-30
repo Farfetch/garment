@@ -6,5 +6,6 @@ module.exports = {
     'ts-jest': {
       tsConfig: 'tsconfig.test.json'
     }
-  }
+  },
+  resolver: './utils/fixture-helper/lib/resolver'
 };

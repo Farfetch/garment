@@ -1,0 +1,4 @@
+{
+    "@my-scope/tsconfig/tsconfig.base.json": "tmp__/default-config-extends-npm-module-0/node_modules/@my-scope/tsconfig/tsconfig.base.json",
+    "@my-scope/tsconfig/tsconfig.common.json": "tmp__/default-config-extends-npm-module-0/node_modules/@my-scope/tsconfig/tsconfig.common.json"
+}

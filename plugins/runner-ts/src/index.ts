@@ -5,6 +5,7 @@ import {
 } from '@garment/runner';
 import * as Path from 'path';
 import * as ts from 'typescript';
+import { platform } from 'os';
 
 /**
  * Runs TypeScript compiler
@@ -61,7 +62,7 @@ export default defineRunner(tsRunnerOptions, async ctx => {
       const parentCompilerOptions = getCompilerOptionsRecursively(
         ctx.fs.existsSync(parentConfigPath)
           ? parentConfigPath
-          : require.resolve(currentConfigPath)
+          : require.resolve(extendsOption)
       );
       return {
         ...parentCompilerOptions,
@@ -95,47 +96,49 @@ export default defineRunner(tsRunnerOptions, async ctx => {
     getCurrentDirectory: () => process.cwd(),
     getDefaultLibFileName: options => ts.getDefaultLibFilePath(options),
     fileExists: fileName => {
-      if (filesCache[fileName]) {
+      if (filesCache[Path.normalize(fileName)]) {
         return true;
       }
       return ts.sys.fileExists(fileName);
     },
     getSourceFile(fileName) {
-      if (fileName.endsWith('.d.ts')) {
-        const stats = ctx.fs.statSync(fileName);
-        let file = filesCache[fileName];
+      const normalizedFileName = Path.normalize(fileName);
+      if (normalizedFileName.endsWith('.d.ts')) {
+        const stats = ctx.fs.statSync(normalizedFileName);
+        let file = filesCache[normalizedFileName];
         if (!file) {
           file = {
             isExternal: true,
             lastModified: stats.mtimeMs
           };
-          filesCache[fileName] = file;
+          filesCache[normalizedFileName] = file;
         }
         if (stats.mtimeMs > (file.lastModified ?? 0)) {
-          sourceFilesCache[fileName] = undefined;
+          sourceFilesCache[normalizedFileName] = undefined;
         }
       }
-      if (!sourceFilesCache[fileName]) {
-        sourceFilesCache[fileName] = ts.createSourceFile(
+      if (!sourceFilesCache[normalizedFileName]) {
+        sourceFilesCache[normalizedFileName] = ts.createSourceFile(
           fileName,
           host.readFile(fileName) ?? '',
           config.options.target ?? ts.ScriptTarget.ES2015,
           true
         );
       }
-      return sourceFilesCache[fileName];
+      return sourceFilesCache[normalizedFileName];
     },
     readFile: fileName => {
-      const file = filesCache[fileName];
+      const normalizedFileName = Path.normalize(fileName);
+      const file = filesCache[normalizedFileName];
       if (!file?.isExternal && file?.content) {
         return file.content;
       }
-      return ctx.fs.readFileSync(fileName, 'utf8');
+      return ctx.fs.readFileSync(normalizedFileName, 'utf8');
     },
     readDirectory: ts.sys.readDirectory,
     directoryExists: fileName =>
       Object.keys(filesCache).some(
-        _ => Path.dirname(_).indexOf(fileName) === 0
+        _ => Path.dirname(_).indexOf(Path.normalize(fileName)) === 0
       ) || ts.sys.directoryExists(fileName),
 
     getDirectories: ts.sys.getDirectories

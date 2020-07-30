@@ -5,7 +5,7 @@ Object {
   "collectedOutput": Array [
     Object {
       "cacheKeys": Array [
-        "8de170ce8b6d1c1aeb78d959f4faa0cf",
+        "mockHash",
         "
           @import './test.css'; 
           .Slideshow {
@@ -60,7 +60,7 @@ Object {
   "collectedOutput": Array [
     Object {
       "cacheKeys": Array [
-        "e1c061eef28e0cce2b1ff22fb7f6e12c",
+        "mockHash",
         "
           :root {
             --color: red;
@@ -111,7 +111,7 @@ Object {
   "collectedOutput": Array [
     Object {
       "cacheKeys": Array [
-        "8de170ce8b6d1c1aeb78d959f4faa0cf",
+        "mockHash",
         ":fullscreen {}",
         "index.css",
       ],

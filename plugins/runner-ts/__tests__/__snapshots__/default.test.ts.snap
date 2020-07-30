@@ -104,6 +104,58 @@ Object {
 }
 `;
 
+exports[`Transpiles TypeScript when configFile contains npm module in extends field 1`] = `
+Object {
+  "collectedOutput": Array [
+    Object {
+      "cacheKeys": Array [
+        "3.8.3",
+        "{\\"declaration\\":true,\\"sourceMap\\":true,\\"noEmitOnError\\":true,\\"skipLibCheck\\":true,\\"target\\":\\"es5\\",\\"module\\":\\"esnext\\",\\"moduleResolution\\":\\"node\\"}",
+        "export const greet = (str: string) => \`Hello, \${str}\`",
+      ],
+      "dependencies": Array [],
+      "files": Array [
+        Object {
+          "data": "{\\"version\\":3,\\"file\\":\\"index.js\\",\\"sourceRoot\\":\\"\\",\\"sources\\":[\\"index.ts\\"],\\"names\\":[],\\"mappings\\":\\"AAAA,MAAM,CAAC,IAAM,KAAK,GAAG,UAAC,GAAW,IAAK,OAAA,YAAU,GAAK,EAAf,CAAe,CAAA\\"}",
+          "path": "nested/index.js.map",
+          "type": "text",
+        },
+        Object {
+          "data": "export var greet = function (str) { return \\"Hello, \\" + str; };
+//# sourceMappingURL=index.js.map",
+          "path": "nested/index.js",
+          "type": "text",
+        },
+        Object {
+          "data": "export declare const greet: (str: string) => string;
+",
+          "path": "nested/index.d.ts",
+          "type": "text",
+        },
+      ],
+      "logs": Array [],
+    },
+  ],
+  "dependsOnFile": Array [
+    "/test_path/tsconfig.json",
+    "/test_path/node_modules/@my-scope/tsconfig/tsconfig.base.json",
+    "/test_path/node_modules/@my-scope/tsconfig/tsconfig.common.json",
+  ],
+  "isLongRunning": false,
+  "logs": Array [
+    Object {
+      "args": Array [
+        "[TS] Processing",
+        "index.ts",
+      ],
+      "level": "debug",
+    },
+  ],
+  "onDestroyHandler": undefined,
+  "shouldWatchDependencies": false,
+}
+`;
+
 exports[`Transpiles TypeScript with relative imports including not provided as input 1`] = `
 Object {
   "collectedOutput": Array [

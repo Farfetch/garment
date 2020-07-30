@@ -1,4 +1,8 @@
-import { createBatchContext, initFixtureHelper } from '@garment/fixture-helper';
+import {
+  createBatchContext,
+  initFixtureHelper,
+  replaceTestPath
+} from '@garment/fixture-helper';
 import { getConfig, JestRunnerOptions } from '../src';
 
 const { initFixture, clean } = initFixtureHelper(module, {
@@ -37,15 +41,3 @@ test('Handles multiple projects sharing the same config and one having different
 
   expect(replaceTestPath(jestConfig, cwd)).toMatchSnapshot();
 });
-
-function replaceTestPath<T>(
-  obj: T,
-  testPath: string,
-  replaceWith = '/test_path'
-): T {
-  return JSON.parse(
-    JSON.stringify(obj, (_, value) =>
-      typeof value === 'string' ? value.replace(testPath, replaceWith) : value
-    )
-  );
-}
