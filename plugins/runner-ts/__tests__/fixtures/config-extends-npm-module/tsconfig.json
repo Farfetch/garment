@@ -1,0 +1,6 @@
+{
+  "extends": "@my-scope/tsconfig/tsconfig.base.json",
+  "compilerOptions": {
+    "target": "es5"
+  }
+}

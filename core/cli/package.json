@@ -34,6 +34,7 @@
     "@types/update-notifier": "^2.5.0",
     "@types/yargs": "13.0.3",
     "execa": "^4.0.0",
-    "strip-ansi": "^5.2.0"
+    "strip-ansi": "^5.2.0",
+    "@garment/fixture-helper": "^0.13.8"
   }
 }

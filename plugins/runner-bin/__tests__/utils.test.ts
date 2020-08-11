@@ -1,5 +1,6 @@
 import { parseOptions, resolveBin } from '../src/utils';
 import * as Path from 'path';
+import os = require('os');
 
 describe('parseOptions function ', () => {
   const expectedResult = ['prettier', '-o', '--output-dir', 'index.js'];
@@ -60,7 +61,11 @@ describe('resolveBin function ', () => {
   );
 
   test('if gets bin name returns as resolved bin', async () => {
-    expect(await resolveBin('prettier')).toBe(expectedResult);
+    const expectedPlatformResult = Path.format({
+      name: expectedResult,
+      ext: os.platform() === 'win32' ? '.CMD' : ''
+    });
+    expect(await resolveBin('prettier')).toBe(expectedPlatformResult);
   });
 
   test('if gets bin path returns as fullPath', async () => {

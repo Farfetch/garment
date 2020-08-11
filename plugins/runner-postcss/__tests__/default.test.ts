@@ -1,6 +1,11 @@
-import { executeRunner2, initFixtureHelper } from '@garment/fixture-helper';
+import {
+  executeRunner2,
+  initFixtureHelper,
+  ExecuteRunner2Result
+} from '@garment/fixture-helper';
 import * as Path from 'path';
 import handler from '../src';
+import os = require('os');
 
 const { initFixture, clean } = initFixtureHelper(module, {
   tempDir: __dirname + 'tmp__'
@@ -21,7 +26,15 @@ test('Uses postcss.config.js from workspace root', async () => {
     files: file => [file.text('index.css', `:fullscreen {}`)]
   });
 
+  const [hash] = extractHashes(result, 'mockHash');
+
   expect(result).toMatchSnapshot();
+
+  if (os.platform() === 'win32') {
+    expect(hash).toBe('b2fa5e79e89879036728c19a038eafac');
+  } else {
+    expect(hash).toBe('8de170ce8b6d1c1aeb78d959f4faa0cf');
+  }
 });
 
 test('Uses postcss.config.js from project', async () => {
@@ -47,7 +60,15 @@ test('Uses postcss.config.js from project', async () => {
     }
   );
 
+  const [hash] = extractHashes(result, 'mockHash');
+
   expect(result).toMatchSnapshot();
+
+  if (os.platform() === 'win32') {
+    expect(hash).toBe('85e0de080544f7c03f6fa022840ccdaa');
+  } else {
+    expect(hash).toBe('e1c061eef28e0cce2b1ff22fb7f6e12c');
+  }
 });
 
 test('Resolves postcss @import', async () => {
@@ -74,5 +95,38 @@ test('Resolves postcss @import', async () => {
     ]
   });
 
+  const [hash] = extractHashes(result, 'mockHash');
+
   expect(result).toMatchSnapshot();
+
+  if (os.platform() === 'win32') {
+    expect(hash).toBe('b2fa5e79e89879036728c19a038eafac');
+  } else {
+    expect(hash).toBe('8de170ce8b6d1c1aeb78d959f4faa0cf');
+  }
 });
+
+function extractHashes(
+  result: ExecuteRunner2Result,
+  replacement: string
+): string[] {
+  const { collectedOutput } = result;
+  const md5Regex = /^[a-f0-9]{32}$/i;
+
+  const originalHashes: string[] = [];
+
+  collectedOutput.forEach((output: any) => {
+    if (output.hasOwnProperty('cacheKeys')) {
+      output.cacheKeys = output.cacheKeys.map((cacheKey: string) => {
+        if (md5Regex.test(cacheKey)) {
+          originalHashes.push(cacheKey);
+          return replacement;
+        } else {
+          return cacheKey;
+        }
+      });
+    }
+  });
+
+  return originalHashes;
+}

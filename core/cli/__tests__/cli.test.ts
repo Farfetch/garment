@@ -1,6 +1,7 @@
 import * as Path from 'path';
 import execa = require('execa');
 import stripAnsi from 'strip-ansi';
+import { normalizeContainedPath } from '@garment/fixture-helper';
 
 const cwd = Path.join(__dirname + '/fixtures/basic');
 const garmentPath = Path.relative(cwd, 'core/cli/lib/cli.js');
@@ -48,12 +49,12 @@ test('cli should fail if given incorrect number of commands', async () => {
   const { stderr } = await execaSafe('node', [garmentPath, noCacheArg], {
     cwd: cwd
   });
-  expect(stderr).toMatchSnapshot();
+  expect(normalizeContainedPath(stderr)).toMatchSnapshot();
 });
 
 test('cli should fail if given unexisting command', async () => {
   const { stderr } = await execaSafe('node', [garmentPath, 'dep', noCacheArg], {
     cwd: cwd
   });
-  expect(stderr).toMatchSnapshot();
+  expect(normalizeContainedPath(stderr)).toMatchSnapshot();
 });

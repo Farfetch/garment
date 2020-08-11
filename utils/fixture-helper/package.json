@@ -14,5 +14,9 @@
     "globby": "10.0.1",
     "strip-ansi": "^5.2.0",
     "tempy": "0.3.0"
+  },
+  "devDependencies": {
+    "is-valid-path": "^0.1.1",
+    "normalize-path": "^3.0.0"
   }
 }

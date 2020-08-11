@@ -30,6 +30,10 @@ export interface CommonOptions {
   files?: ((fileFactory: typeof file) => File[]) | File[];
 }
 
+type UnPromise<T extends Promise<any>> = T extends Promise<infer U> ? U : never;
+
+export type ExecuteRunner2Result = UnPromise<ReturnType<typeof executeRunner2>>;
+
 const cacheProviderMock: CacheProvider = {
   has: () => false,
   get: () => {},

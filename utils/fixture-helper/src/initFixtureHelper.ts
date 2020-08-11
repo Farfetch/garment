@@ -2,7 +2,8 @@ import fs = require('fs-extra');
 import path = require('path');
 import tempy = require('tempy');
 
-const getId = ((id = 0) => () => id++)();
+const getId = ((id = 0) => (staticId?: number) =>
+  staticId !== undefined ? staticId : id++)();
 
 export function initFixtureHelper(
   mdl: NodeModule,
@@ -22,11 +23,15 @@ export function initFixtureHelper(
     initOptions: {
       files?: { [path: string]: string | object };
       copy?: { [fromPath: string]: string };
+      staticId?: number;
     } = {}
   ) => {
-    const { copy, files } = initOptions;
+    const { copy, files, staticId } = initOptions;
     const tempDir = userTempDir
-      ? path.resolve(userTempDir, `${testName}-${fixtureName}-${getId()}`)
+      ? path.resolve(
+          userTempDir,
+          `${testName}-${fixtureName}-${getId(staticId)}`
+        )
       : tempy.directory();
 
     const fixtureDir = path.resolve(testDir, 'fixtures', fixtureName);
