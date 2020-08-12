@@ -21,6 +21,7 @@
   },
   "files": [
     "lib",
+    "src",
     "typings"
   ],
   "devDependencies": {

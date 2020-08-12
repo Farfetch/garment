@@ -13,6 +13,7 @@
   },
   "files": [
     "lib",
+    "src",
     "templates",
     "collection.json"
   ]

@@ -4,6 +4,7 @@
   "main": "lib/index.js",
   "license": "MIT",
   "files": [
-    "lib"
+    "lib",
+    "src"
   ]
 }

@@ -4,6 +4,7 @@
   "version": "0.13.8",
   "files": [
     "lib",
+    "src",
     "runners.json"
   ],
   "scripts": {

@@ -8,7 +8,8 @@
     "gr": "lib/cli.js"
   },
   "files": [
-    "lib"
+    "lib",
+    "src"
   ],
   "dependencies": {
     "@garment/garment": "^0.13.9",

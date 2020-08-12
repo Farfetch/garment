@@ -5,7 +5,8 @@
   "main": "lib/index.js",
   "files": [
     "input-provider.js",
-    "lib"
+    "lib",
+    "src"
   ],
   "peerDependencies": {
     "@garment/runner": "^0.13.2",
