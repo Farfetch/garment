@@ -167,7 +167,7 @@ export default defineRunner(tsRunnerOptions, async ctx => {
     const outputs = [];
 
     for (const file of filesToProcess) {
-      const { absolutePath, baseDir, path, data } = file;
+      const { absolutePath, baseDir, path } = file;
       const fileName = absolutePath ?? path;
 
       const sourceFile = host.getSourceFile(
@@ -182,7 +182,7 @@ export default defineRunner(tsRunnerOptions, async ctx => {
 
       const outputContainer = ctx.createOutputContainer(
         file,
-        [...cacheKeys, ...allDepsContent],
+        [path, ...cacheKeys, ...allDepsContent],
         directDepsRealPaths
       );
 

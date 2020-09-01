@@ -5,6 +5,7 @@ Object {
   "collectedOutput": Array [
     Object {
       "cacheKeys": Array [
+        "index.ts",
         "3.8.3",
         "{\\"target\\":\\"es5\\",\\"module\\":\\"commonjs\\",\\"moduleResolution\\":\\"node\\",\\"declaration\\":true,\\"sourceMap\\":true,\\"noEmitOnError\\":true,\\"skipLibCheck\\":true}",
         "export const foo: number = 420;",
@@ -57,6 +58,7 @@ Object {
   "collectedOutput": Array [
     Object {
       "cacheKeys": Array [
+        "index.ts",
         "3.8.3",
         "{\\"declaration\\":true,\\"sourceMap\\":true,\\"noEmitOnError\\":true,\\"skipLibCheck\\":true,\\"target\\":\\"es5\\",\\"module\\":\\"esnext\\",\\"moduleResolution\\":\\"node\\"}",
         "export const greet = (str: string) => \`Hello, \${str}\`",
@@ -109,6 +111,7 @@ Object {
   "collectedOutput": Array [
     Object {
       "cacheKeys": Array [
+        "index.ts",
         "3.8.3",
         "{\\"declaration\\":true,\\"sourceMap\\":true,\\"noEmitOnError\\":true,\\"skipLibCheck\\":true,\\"target\\":\\"es5\\",\\"module\\":\\"esnext\\",\\"moduleResolution\\":\\"node\\"}",
         "export const greet = (str: string) => \`Hello, \${str}\`",
@@ -161,6 +164,7 @@ Object {
   "collectedOutput": Array [
     Object {
       "cacheKeys": Array [
+        "nested/index.ts",
         "3.8.3",
         "{\\"target\\":\\"es5\\",\\"module\\":\\"commonjs\\",\\"moduleResolution\\":\\"node\\",\\"declaration\\":true,\\"sourceMap\\":true,\\"noEmitOnError\\":true,\\"skipLibCheck\\":true}",
         "export const foo: number = 420;",
@@ -191,6 +195,7 @@ exports.foo = 420;
     },
     Object {
       "cacheKeys": Array [
+        "main/index.ts",
         "3.8.3",
         "{\\"target\\":\\"es5\\",\\"module\\":\\"commonjs\\",\\"moduleResolution\\":\\"node\\",\\"declaration\\":true,\\"sourceMap\\":true,\\"noEmitOnError\\":true,\\"skipLibCheck\\":true}",
         "import { foo } from \\"../nested\\"; console.log(foo);",
