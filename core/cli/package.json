@@ -1,7 +1,7 @@
 {
   "name": "@garment/cli",
   "license": "MIT",
-  "version": "0.13.9",
+  "version": "0.13.10",
   "main": "lib/index.js",
   "bin": {
     "garment": "lib/cli.js",
@@ -11,7 +11,7 @@
     "lib"
   ],
   "dependencies": {
-    "@garment/garment": "^0.13.9",
+    "@garment/garment": "^0.13.10",
     "@garment/logger": "^0.13.8",
     "@garment/perf": "^0.13.8",
     "@garment/print-tree": "^0.13.8",
@@ -29,12 +29,12 @@
     "yargs": "15.0.2"
   },
   "devDependencies": {
+    "@garment/fixture-helper": "^0.13.10",
     "@types/cosmiconfig": "^5.0.3",
     "@types/is-ci": "^2.0.0",
     "@types/update-notifier": "^2.5.0",
     "@types/yargs": "13.0.3",
     "execa": "^4.0.0",
-    "strip-ansi": "^5.2.0",
-    "@garment/fixture-helper": "^0.13.8"
+    "strip-ansi": "^5.2.0"
   }
 }

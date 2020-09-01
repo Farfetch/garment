@@ -1,7 +1,7 @@
 {
   "name": "@garment/plugin-runner-serve",
   "license": "MIT",
-  "version": "0.13.8",
+  "version": "0.13.10",
   "main": "lib/index.js",
   "files": [
     "lib"
@@ -13,7 +13,7 @@
     "@garment/runner": "^0.13.2"
   },
   "devDependencies": {
-    "@garment/fixture-helper": "^0.13.8",
+    "@garment/fixture-helper": "^0.13.10",
     "@types/serve-handler": "^6.1.0",
     "wait-port": "^0.2.7"
   }
