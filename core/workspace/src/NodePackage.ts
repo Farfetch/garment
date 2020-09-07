@@ -4,11 +4,13 @@ export class NodePackage {
   private: boolean;
   dependencies: Map<string, string>;
   devDependencies: Map<string, string>;
+  peerDependencies: Map<string, string>;
 
   get allDependencies() {
     return new Map([
       ...this.dependencies.entries(),
-      ...this.devDependencies.entries()
+      ...this.devDependencies.entries(),
+      ...this.peerDependencies.entries()
     ]);
   }
 
@@ -19,6 +21,7 @@ export class NodePackage {
       private: boolean;
       dependencies: { [name: string]: string };
       devDependencies: { [name: string]: string };
+      peerDependencies: { [name: string]: string };
     }
   ) {
     this.name = packageJson.name;
@@ -27,6 +30,9 @@ export class NodePackage {
     this.dependencies = new Map(Object.entries(packageJson.dependencies || {}));
     this.devDependencies = new Map(
       Object.entries(packageJson.devDependencies || {})
+    );
+    this.peerDependencies = new Map(
+      Object.entries(packageJson.peerDependencies || {})
     );
   }
 }
