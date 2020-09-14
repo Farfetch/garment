@@ -1,19 +1,21 @@
+/// <reference path="./types/parcel-watcher.d.ts" />
+
 import { Graph } from '@garment/dependency-graph';
 import { Level, Logger } from '@garment/logger';
 import {
   CacheProvider,
   File,
+  file,
   getHandler,
   getRunnerContext,
+  getSchema,
   getWatcher,
+  InputFn,
   InputFnCallBack,
   OutputContainer,
+  renderOptions,
   RunnerMeta,
-  validateOptions,
-  file,
-  InputFn,
-  getSchema,
-  renderOptions
+  validateOptions
 } from '@garment/runner';
 import {
   Action,
@@ -25,6 +27,7 @@ import {
 } from '@garment/scheduler';
 import { Config, Project, Workspace } from '@garment/workspace';
 import * as parcelWatcher from '@parcel/watcher';
+import { createHash } from 'crypto';
 import * as fs from 'fs';
 import { Volume } from 'memfs';
 import * as multimatch from 'multimatch';
@@ -35,7 +38,6 @@ import { dependencyGraphFromWorkspace } from './dependencyGraphFromWorkspace';
 import { FileCache } from './FileCache';
 import { getProjectsByName } from './getProjectsByName';
 import globby = require('globby');
-import { createHash } from 'crypto';
 
 export type Cache =
   | {
@@ -1018,7 +1020,7 @@ async function garmentFromWorkspace(
           dependencies: [],
           extendsSet: new Set()
         }),
-        options,
+        options: options,
         input: ((async () => {
           return [[] as File[], () => {}] as const;
         }) as any) as InputFn,

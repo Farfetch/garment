@@ -8,7 +8,6 @@
     "schemas"
   ],
   "dependencies": {
-    "@garment/logger": "^0.13.8",
     "@garment/schema-validator": "^0.13.8",
     "dependency-graph": "^0.8.0",
     "fs-extra": "8.1.0",

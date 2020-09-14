@@ -4,6 +4,7 @@
 
 # dependencies
 /node_modules
+/local_garment/node_modules
 /core/*/node_modules
 /plugins/*/node_modules
 /schematics/*/node_modules
