@@ -97,6 +97,7 @@ type Subscription =
     }
   | {
       type: 'file';
+      baseDir: string;
       path: string;
       targetPath: string;
       level: SubscriptionLevel;
@@ -356,7 +357,7 @@ async function garmentFromWorkspace(
               const rootDir =
                 subscription.type === 'glob'
                   ? subscription.input.rootDir
-                  : project.fullPath;
+                  : subscription.baseDir
 
               const files = Object.keys(changes)
                 .map(changedFilePath =>
@@ -416,6 +417,7 @@ async function garmentFromWorkspace(
                           type: 'file',
                           level: 'input',
                           path: dependency,
+                          baseDir: output.targetBaseDir,
                           targetPath: output.target
                         });
                       }
@@ -567,6 +569,7 @@ async function garmentFromWorkspace(
                   type: 'file',
                   level: 'runner',
                   path,
+                  baseDir: Path.dirname(path),
                   targetPath: path
                 });
               }
@@ -615,6 +618,7 @@ async function garmentFromWorkspace(
                       type: 'file',
                       level: 'input',
                       path: dependency,
+                      baseDir: output.targetBaseDir,
                       targetPath: output.target
                     });
                   }
@@ -634,6 +638,7 @@ async function garmentFromWorkspace(
                     type: 'file',
                     level: handlerOutput.target ? 'input' : 'runner',
                     path: dependency,
+                    baseDir: handlerOutput.targetBaseDir,
                     targetPath: handlerOutput.target ?? dependency
                   });
                 }
