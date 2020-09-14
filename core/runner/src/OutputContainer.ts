@@ -1,6 +1,7 @@
 import { Level, Logger } from '@garment/logger';
 import { File } from './types';
 import { createHash } from 'crypto';
+import * as Path from 'path';
 
 export interface CacheProvider<T = any> {
   has(id: string): Promise<boolean> | boolean;
@@ -27,6 +28,8 @@ export class OutputContainer {
   readonly hash: string;
   readonly target: string;
 
+  targetBaseDir: string;
+
   constructor(
     public readonly cacheProvider: CacheProvider,
     target: string | File,
@@ -39,8 +42,14 @@ export class OutputContainer {
     }
     this.hash = hash.digest('hex');
 
-    this.target =
-      typeof target === 'string' ? target : target.absolutePath ?? target.path;
+    if (typeof target === 'string') {
+      this.target = target;
+      this.targetBaseDir = Path.dirname(target);
+    } else {
+      this.target = target.absolutePath ?? target.path;
+      this.targetBaseDir = target.baseDir ?? Path.dirname(this.target);
+    }
+
     this.dependencies = dependencies.map(dep =>
       typeof dep === 'string' ? dep : dep.absolutePath ?? dep.path
     );
