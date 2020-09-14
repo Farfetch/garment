@@ -1,7 +1,7 @@
 {
   "name": "@garment/cli",
   "license": "MIT",
-  "version": "0.13.10",
+  "version": "0.13.11",
   "main": "lib/index.js",
   "bin": {
     "garment": "lib/cli.js",
@@ -11,15 +11,15 @@
     "lib"
   ],
   "dependencies": {
-    "@garment/garment": "^0.13.10",
+    "@garment/garment": "^0.13.11",
     "@garment/logger": "^0.13.8",
     "@garment/perf": "^0.13.8",
     "@garment/print-tree": "^0.13.8",
-    "@garment/scheduler": "^0.13.8",
+    "@garment/scheduler": "^0.13.11",
     "@garment/schematics-client": "^0.13.8",
     "@garment/schematics-init": "^0.13.8",
     "@garment/visualize-graph": "^0.13.8",
-    "@garment/workspace": "^0.13.8",
+    "@garment/workspace": "^0.13.11",
     "@garment/yeoman-client": "^0.13.8",
     "chalk": "^2.4.2",
     "cosmiconfig": "^5.2.1",
@@ -29,7 +29,7 @@
     "yargs": "15.0.2"
   },
   "devDependencies": {
-    "@garment/fixture-helper": "^0.13.10",
+    "@garment/fixture-helper": "^0.13.11",
     "@types/cosmiconfig": "^5.0.3",
     "@types/is-ci": "^2.0.0",
     "@types/update-notifier": "^2.5.0",

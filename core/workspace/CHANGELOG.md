@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.11](https://github.com/Farfetch/garment/compare/v0.13.10...v0.13.11) (2020-09-14)
+
+
+### Bug Fixes
+
+* Process peer dependencies ([#18](https://github.com/Farfetch/garment/issues/18)) ([7ed61fd](https://github.com/Farfetch/garment/commit/7ed61fdc0b9a7050251992f26b5f20695c4f5c57))
+
+
+
+
+
 ## 0.13.8 (2020-07-15)
 
 **Note:** Version bump only for package @garment/workspace
