@@ -1,11 +1,5 @@
 import { Graph } from '@garment/dependency-graph';
-import {
-  getRunnerMeta,
-  getSchema,
-  renderOptions,
-  requireQuery,
-  RunnerMeta
-} from '@garment/runner';
+import { getRunnerMeta, requireQuery, RunnerMeta } from '@garment/runner';
 import {
   Project,
   ResolvedTaskConfig,
@@ -14,9 +8,9 @@ import {
   Workspace
 } from '@garment/workspace';
 import * as multimatch from 'multimatch';
+import * as objectHash from 'object-hash';
 import * as Path from 'path';
 import { Action, Input, RunnerAction } from './Action';
-import * as objectHash from 'object-hash';
 
 import globParent = require('glob-parent');
 
@@ -141,20 +135,6 @@ export function getActionGraph(opts: GetActionGraphOptions) {
             restRunners[runner]
           );
 
-          let transformedOptions = normalizedOptions;
-          let runnerProject = workspace.projects.getByPath(
-            runnerMeta.handlerPath
-          );
-          if (!(runnerProject && runnerProject.tasks['build'])) {
-            const schema = getSchema(runnerMeta);
-            transformedOptions = renderOptions({
-              options: normalizedOptions,
-              workspace,
-              project,
-              schema
-            });
-          }
-
           let resolvedInput: Input | undefined;
 
           if (typeof input === 'string') {
@@ -237,7 +217,7 @@ export function getActionGraph(opts: GetActionGraphOptions) {
             watch: skipWatch ? false : watch,
             lifecycle,
             project,
-            options: { ...normalizedOptions, ...transformedOptions },
+            options: normalizedOptions,
             output: output
               ? arrayfy(output).map(_ => project.resolvePathTemplate(_))
               : undefined,
@@ -285,7 +265,7 @@ export function getActionGraph(opts: GetActionGraphOptions) {
             const runnerProject = workspace.projects.getByPath(
               addedAction.runner.handlerPath
             );
-            if (runnerProject) {
+            if (runnerProject && buildDependencies !== false) {
               // We need to first build the runner
               const runnerActionGraph = getActionGraphByTask(
                 'build',

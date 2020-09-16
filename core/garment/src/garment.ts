@@ -11,7 +11,9 @@ import {
   RunnerMeta,
   validateOptions,
   file,
-  InputFn
+  InputFn,
+  getSchema,
+  renderOptions
 } from '@garment/runner';
 import {
   Action,
@@ -357,7 +359,7 @@ async function garmentFromWorkspace(
               const rootDir =
                 subscription.type === 'glob'
                   ? subscription.input.rootDir
-                  : subscription.baseDir
+                  : subscription.baseDir;
 
               const files = Object.keys(changes)
                 .map(changedFilePath =>
@@ -556,7 +558,12 @@ async function garmentFromWorkspace(
           const context = getRunnerContext({
             workspace,
             project,
-            options,
+            options: renderOptions({
+              options,
+              workspace,
+              project,
+              schema: getSchema(runner)
+            }),
             outputDir: tempOutputDir,
             cacheProvider,
             defaultCacheKeys: [runner.name, runner.version],
@@ -968,9 +975,15 @@ async function garmentFromWorkspace(
         });
       }
       const { batch } = batchesByRunner.get(action.runner.handlerPath)!;
+
       batch.push({
         project: action.project,
-        options: action.options
+        options: renderOptions({
+          options: action.options,
+          workspace,
+          project: action.project,
+          schema: getSchema(action.runner)
+        })
       });
     }
     for (const { runner, batch } of batchesByRunner.values()) {

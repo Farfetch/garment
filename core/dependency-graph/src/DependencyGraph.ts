@@ -273,10 +273,16 @@ export class Graph<T = string> {
         this.addNode(node);
       }
       for (const [key, nodes] of graph.inEdges) {
-        this.inEdges.set(key, new Set(nodes));
+        this.inEdges.set(
+          key,
+          new Set([...(this.inEdges.get(key) ?? []), ...nodes])
+        );
       }
       for (const [key, nodes] of graph.outEdges) {
-        this.outEdges.set(key, new Set(nodes));
+        this.outEdges.set(
+          key,
+          new Set([...(this.outEdges.get(key) ?? []), ...nodes])
+        );
       }
     }
   }
