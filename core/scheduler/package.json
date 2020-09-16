@@ -1,13 +1,13 @@
 {
   "name": "@garment/scheduler",
   "license": "MIT",
-  "version": "0.13.11",
+  "version": "0.13.12",
   "main": "lib/index.js",
   "files": [
     "lib"
   ],
   "dependencies": {
-    "@garment/dependency-graph": "^0.13.8",
+    "@garment/dependency-graph": "^0.13.12",
     "@garment/logger": "^0.13.8",
     "@garment/runner": "^0.13.11",
     "@garment/watcher": "^0.13.8",
