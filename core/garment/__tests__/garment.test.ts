@@ -63,4 +63,21 @@ describe('createFileInput', () => {
 
     expect(filesCount).toBe(2);
   });
+
+  test('should throw with a clear error message when rootDir does not exist', async () => {
+    const testDir = await initFixture('basic');
+
+    const nonExistingDirectory = Path.join(testDir, 'nonExistingDirectory');
+    const generator = createFileInput({
+      rootDir: nonExistingDirectory
+    });
+
+    const createFileInputForNonExistingRootDirectory = () => {
+      generator.next();
+    };
+
+    expect(createFileInputForNonExistingRootDirectory).toThrow(
+      /nonExistingDirectory/
+    );
+  });
 });
