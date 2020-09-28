@@ -330,6 +330,15 @@ export default defineRunner(tsRunnerOptions, async ctx => {
         )
         .filter(Boolean);
 
+      resolvedModuleFileNames.push(
+        ...sourceFile.referencedFiles.map(referencedFile =>
+          Path.resolve(
+            Path.dirname(sourceFile.fileName),
+            referencedFile.fileName
+          )
+        )
+      );
+
       for (const resolvedModuleFileName of resolvedModuleFileNames) {
         if (level === 0) {
           directDepsRealPaths.push(resolvedModuleFileName);

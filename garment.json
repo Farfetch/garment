@@ -52,6 +52,7 @@
         },
         "test": {
           "runner": "jest",
+          "buildDependencies": true,
           "options": {
             "configFile": "jest.config.js"
           }
@@ -67,11 +68,12 @@
             "delay": 10
           }
         },
-        "build-ts": {
+        "prebuild": ":clean",
+        "build": {
           "runner": "ts",
           "input": "{{projectDir}}/src/**/*.ts?(x)",
-          "output": ["{{projectDir}}/lib/out-ts"],
-          "buildDependencies": "build-ts",
+          "output": ["{{projectDir}}/lib"],
+          "buildDependencies": true,
           "options": {
             "configFile": "tsconfig.base.json"
           }
@@ -87,7 +89,8 @@
             "rootDir": "{{projectDir}}/src",
             "exclude": ["**/*.ts", "**/*.tsx", "**/*.js"]
           }
-        }
+        },
+        "postbuild": ":copy"
       }
     },
     "generate-schema": {
@@ -99,6 +102,10 @@
           "options": {
             "pattern": "*Options"
           }
+        },
+        "build": {
+          "ref": "tspackage:build",
+          "next": ":generate-schema"
         }
       }
     }
@@ -106,7 +113,13 @@
   "projects": {
     "cli": {
       "path": "core/cli",
-      "extends": ["tspackage"]
+      "extends": ["tspackage"],
+      "tasks": {
+        "test": {
+          "ref": "tspackage:build",
+          "next": "tspackage:test"
+        }
+      }
     },
     "dependency-graph": {
       "path": "core/dependency-graph",
@@ -260,5 +273,6 @@
       "extends": ["tspackage"]
     }
   },
-  "schematics": ["@garment/schematics", "@garment/schematics-typescript"]
+  "schematics": ["@garment/schematics", "@garment/schematics-typescript"],
+  "experimentalCacheSubscriptions": false
 }
