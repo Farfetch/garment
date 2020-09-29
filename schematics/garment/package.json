@@ -1,6 +1,6 @@
 {
   "name": "@garment/schematics",
-  "version": "0.13.12",
+  "version": "0.13.13",
   "private": true,
   "main": "lib/index.js",
   "schematics": "./collection.json",
@@ -8,9 +8,9 @@
   "dependencies": {
     "@angular-devkit/core": "^7.3.1",
     "@angular-devkit/schematics": "^7.3.1",
-    "@garment/garment": "^0.13.12",
-    "@garment/schematics-utils": "^0.13.11",
-    "@garment/workspace": "^0.13.11"
+    "@garment/garment": "^0.13.13",
+    "@garment/schematics-utils": "^0.13.13",
+    "@garment/workspace": "^0.13.13"
   },
   "files": [
     "lib",

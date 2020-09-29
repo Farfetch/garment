@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.13](https://github.com/Farfetch/garment/compare/v0.13.12...v0.13.13) (2020-09-29)
+
+
+### Bug Fixes
+
+* Clarify error message when non-magical part of input glob does not exist ([#21](https://github.com/Farfetch/garment/issues/21)) ([2b92c62](https://github.com/Farfetch/garment/commit/2b92c62bbb67c87309a0ff265294d3bd1b6ecc64))
+
+
+
+
+
 ## [0.13.12](https://github.com/Farfetch/garment/compare/v0.13.11...v0.13.12) (2020-09-16)
 
 
