@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "gr": "node local_garment/node_modules/.bin/garment",
+    "gr": "node local_garment/node_modules/@garment/cli/lib/cli.js",
     "gr:local": "node core/cli/lib/cli.js",
     "build": "yarn gr build",
     "build:ci": "yarn gr build --ts.configFile tsconfig.ci.json",

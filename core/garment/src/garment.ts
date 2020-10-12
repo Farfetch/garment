@@ -753,13 +753,14 @@ async function garmentFromWorkspace(
         const outputPaths = output ? [...arrayfy(output)] : [];
         if (
           currentActionGraph.getDirectDependantsOf(action).length &&
-          !outputPaths.length
+          !outputPaths.length &&
+          filesToWrite.length
         ) {
           // if there was no "output" option provided but the action is in the chain and has a next action
-          // we create a temporary path for output to the memfs
+          // and the current action has output, we create a temporary path for output to the memfs
           outputPaths.push(actionToOutputPath(action));
         }
-        if (meta) {
+        if (meta && outputPaths.length) {
           meta.outputPath = outputPaths[0]; // Next actions can use this output path to create an input
         }
 
