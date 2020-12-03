@@ -38,6 +38,7 @@ import { dependencyGraphFromWorkspace } from './dependencyGraphFromWorkspace';
 import { FileCache } from './FileCache';
 import { getProjectsByName } from './getProjectsByName';
 import globby = require('globby');
+import normalizePath = require('normalize-path');
 
 export type Cache =
   | {
@@ -919,7 +920,7 @@ async function garmentFromWorkspace(
 
         if (
           subscription.type === 'glob' &&
-          event.path.startsWith(subscription.input.rootDir)
+          normalizePath(event.path).startsWith(subscription.input.rootDir)
         ) {
           const matched = multimatch(
             event.path,
@@ -928,7 +929,7 @@ async function garmentFromWorkspace(
             )
           );
           if (matched.length) {
-            changesBySubscription[event.path] = event.type;
+            changesBySubscription[normalizePath(event.path)] = event.type;
             changesBySubscriptionMap.set(subscription, changesBySubscription);
           }
         } else if (

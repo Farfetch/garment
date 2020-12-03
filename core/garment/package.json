@@ -17,7 +17,8 @@
     "memfs": "^3.1.2",
     "multimatch": "^4.0.0",
     "tempy": "0.3.0",
-    "unionfs": "^4.4.0"
+    "unionfs": "^4.4.0",
+    "normalize-path": "^3.0.0"
   },
   "files": [
     "lib",
