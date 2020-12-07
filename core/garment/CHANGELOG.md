@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.14](https://github.com/Farfetch/garment/compare/v0.13.13...v0.13.14) (2020-12-07)
+
+
+### Bug Fixes
+
+* Error for non-existant rootDir should not throw for virtual fs ([#23](https://github.com/Farfetch/garment/issues/23)) ([dc9cc65](https://github.com/Farfetch/garment/commit/dc9cc651eb270a0272cd786a28c1d303664f5c60))
+* Watch mode not working on Windows ([#26](https://github.com/Farfetch/garment/issues/26)) ([1967429](https://github.com/Farfetch/garment/commit/196742931dba8d607cbce7f7446bee0b14c912c7))
+
+
+
+
+
 ## [0.13.13](https://github.com/Farfetch/garment/compare/v0.13.12...v0.13.13) (2020-09-29)
 
 

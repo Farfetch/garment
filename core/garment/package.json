@@ -1,6 +1,6 @@
 {
   "name": "@garment/garment",
-  "version": "0.13.13",
+  "version": "0.13.14",
   "main": "lib/index.js",
   "license": "MIT",
   "dependencies": {
@@ -16,9 +16,9 @@
     "matcher": "^2.1.0",
     "memfs": "^3.1.2",
     "multimatch": "^4.0.0",
+    "normalize-path": "^3.0.0",
     "tempy": "0.3.0",
-    "unionfs": "^4.4.0",
-    "normalize-path": "^3.0.0"
+    "unionfs": "^4.4.0"
   },
   "files": [
     "lib",
