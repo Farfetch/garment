@@ -46,9 +46,7 @@
       "tasks": {
         "clean": {
           "runner": "clean",
-          "input": {
-            "include": ["tsconfig.tsbuildinfo", "lib"]
-          }
+          "input": "{{projectDir}}/lib/**/*"
         },
         "test": {
           "runner": "jest",
@@ -68,7 +66,6 @@
             "delay": 10
           }
         },
-        "prebuild": ":clean",
         "build": {
           "runner": "ts",
           "input": "{{projectDir}}/src/**/*.ts?(x)",
@@ -274,5 +271,5 @@
     }
   },
   "schematics": ["@garment/schematics", "@garment/schematics-typescript"],
-  "experimentalCacheSubscriptions": false
+  "experimentalCacheSubscriptions": true
 }
