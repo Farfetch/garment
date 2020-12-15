@@ -106,6 +106,7 @@ type Subscription =
       path: string;
       targetPath: string;
       level: SubscriptionLevel;
+      forced?: boolean;
     };
 
 async function garment(
@@ -149,6 +150,8 @@ async function garmentFromWorkspace(
     cache
   } = options;
 
+  const { experimentalCacheSubscriptions } = workspace.config;
+
   const { dependencyGraph = dependencyGraphFromWorkspace(workspace) } = options;
 
   /**
@@ -185,57 +188,6 @@ async function garmentFromWorkspace(
 
   const getSnapshotId = (hash: string) => `action-${hash}`;
 
-  const subscriptionsSnapshot = {} as Record<string, Subscription[]>;
-
-  if (workspace.config.experimentalCacheSubscriptions) {
-    for (const action of actionGraph) {
-      const actionSnaphotId = getSnapshotId(action.hash);
-      if (await cacheProvider.has(actionSnaphotId)) {
-        const cacheEntry = await cacheProvider.get(actionSnaphotId);
-
-        if (cacheEntry && cacheEntry.output.length) {
-          const savedSubscriptions = cacheEntry.output[0]
-            .data as Subscription[];
-          const result = [] as Subscription[];
-          for (const subscriptionWithHash of savedSubscriptions) {
-            const changes = {} as Record<string, string>;
-
-            const {
-              hash = {},
-              ...subscription
-            } = subscriptionWithHash as Subscription & {
-              hash: Record<string, string>;
-            };
-
-            const newHash = getHashForSubscriptions(subscription)!;
-
-            for (const [fileName, fileHash] of Object.entries(hash)) {
-              if (newHash[fileName]) {
-                if (newHash[fileName] !== fileHash) {
-                  changes[fileName] = 'change';
-                }
-                delete newHash[fileName];
-              }
-            }
-
-            for (const fileName of Object.keys(newHash)) {
-              changes[fileName] = 'change';
-            }
-
-            if (Object.keys(changes).length) {
-              changesBySubscriptionMap.set(subscription, changes);
-            }
-
-            result.push(subscription);
-          }
-          subscriptionsSnapshot[action.hash] = result;
-        }
-      }
-    }
-  }
-
-  let allSubscriptionsCached: Subscription[] = [];
-
   // The map to store an information related to each action, so it can be reused between action executions
   const metaByAction = new Map<
     Action,
@@ -248,6 +200,8 @@ async function garmentFromWorkspace(
       outputPath?: string;
     }
   >();
+
+  let allSubscriptionsCached: Subscription[] = [];
 
   // Collecting batch actions during graph execution
   let batchActions: Action[] = [];
@@ -277,19 +231,86 @@ async function garmentFromWorkspace(
         project,
         workspace,
         options,
-        output,
+        output: outputPath,
         outputMode = 'after-each',
         runner,
         pipe,
         watch
       } = action;
 
+      let subscriptionsSnapshot: Subscription[] | undefined;
+
+      if (experimentalCacheSubscriptions && !watcherStarted) {
+        const actionSnaphotId = getSnapshotId(action.hash);
+        if (await cacheProvider.has(actionSnaphotId)) {
+          const cacheEntry = await cacheProvider.get(actionSnaphotId);
+
+          if (cacheEntry && cacheEntry.output.length) {
+            const savedSubscriptions = cacheEntry.output[0]
+              .data as Subscription[];
+            const result = [] as Subscription[];
+            for (const subscriptionWithHash of savedSubscriptions) {
+              const changes = {} as Record<string, string>;
+
+              const {
+                hash = {},
+                ...subscription
+              } = subscriptionWithHash as Subscription & {
+                hash: Record<string, string>;
+              }; //
+
+              if (subscription.type === 'file' && subscription.forced) {
+                changes[subscription.targetPath] = 'change';
+              } else {
+                const newHash = getHashForSubscriptions(subscription)!;
+
+                if (newHash) {
+                  for (const [fileName, fileHash] of Object.entries(hash)) {
+                    if (newHash[fileName]) {
+                      if (newHash[fileName] !== fileHash) {
+                        changes[
+                          subscription.type === 'glob'
+                            ? fileName
+                            : subscription.targetPath
+                        ] = 'change';
+                      }
+                      delete newHash[fileName];
+                    }
+                  }
+
+                  for (const fileName of Object.keys(newHash)) {
+                    changes[
+                      subscription.type === 'glob'
+                        ? fileName
+                        : subscription.targetPath
+                    ] = 'change';
+                  }
+                } else {
+                  changes[
+                    subscription.type === 'glob'
+                      ? 'deleted'
+                      : subscription.targetPath
+                  ] = 'delete';
+                }
+              }
+
+              if (Object.keys(changes).length) {
+                changesBySubscriptionMap.set(subscription, changes);
+              }
+
+              result.push(subscription);
+            }
+            subscriptionsSnapshot = result;
+          }
+        }
+      }
+
       // if meta for the current action doesn't exist - create one
       let meta = metaByAction.get(action);
       if (!meta) {
         meta = {
           isWatchActive: watch,
-          subscriptions: new Set(subscriptionsSnapshot[hash] ?? []),
+          subscriptions: new Set(subscriptionsSnapshot ?? []),
           logs: []
         };
         metaByAction.set(action, meta);
@@ -448,7 +469,7 @@ async function garmentFromWorkspace(
         }
       }
 
-      if ((watcherStarted || subscriptionsSnapshot[hash]) && noChangesFound) {
+      if ((watcherStarted || subscriptionsSnapshot) && noChangesFound) {
         onUpdate({
           type: 'action-skip',
           action
@@ -473,7 +494,7 @@ async function garmentFromWorkspace(
           // Temp directory is created for runners which for some reason have to output files directly to the FS.
           // This way we can then read them from that temp dir and transfrom as if runner used ctx.file or OutputContainer
           const tempOutputDir =
-            output ||
+            outputPath ||
             currentActionGraph.getDirectDependantsOf(action).length > 0
               ? tempy.directory()
               : undefined;
@@ -615,45 +636,49 @@ async function garmentFromWorkspace(
               });
             }
 
-            // Run .input() for each file, read output's dependencies and add input-level subscription for each one
-            const outputs = await executeInputHandler(
-              inputFnCallback,
-              joinedInput
-            );
-            if (outputs) {
-              for (const output of outputs) {
-                if (OutputContainer.isOutputContainer(output)) {
-                  for (const dependency of output.dependencies) {
-                    subscriptions.add({
-                      type: 'file',
-                      level: 'input',
-                      path: dependency,
-                      baseDir: output.targetBaseDir,
-                      targetPath: output.target
-                    });
+            try {
+              // Run .input() for each file, read output's dependencies and add input-level subscription for each one
+              const outputs = await executeInputHandler(
+                inputFnCallback,
+                joinedInput
+              );
+              if (outputs) {
+                for (const output of outputs) {
+                  if (OutputContainer.isOutputContainer(output)) {
+                    for (const dependency of output.dependencies) {
+                      subscriptions.add({
+                        type: 'file',
+                        level: 'input',
+                        path: dependency,
+                        baseDir: output.targetBaseDir,
+                        targetPath: output.target
+                      });
+                    }
                   }
+                  collectedOutput.push(output);
                 }
-                collectedOutput.push(output);
               }
+            } catch (err) {
+              logger.error(err.stack ?? err);
             }
           }
 
           // If a runner returned output, process it almost like in .input() case but
           // all the files' dependencies are added as runner-level subscriptions
-          for (const handlerOutput of handlerOutputs) {
-            if (handlerOutput) {
-              if (OutputContainer.isOutputContainer(handlerOutput)) {
-                for (const dependency of handlerOutput.dependencies) {
+          for (const output of handlerOutputs) {
+            if (output) {
+              if (OutputContainer.isOutputContainer(output)) {
+                for (const dependency of output.dependencies) {
                   subscriptions.add({
                     type: 'file',
-                    level: handlerOutput.target ? 'input' : 'runner',
+                    level: output.target ? 'input' : 'runner',
                     path: dependency,
-                    baseDir: handlerOutput.targetBaseDir,
-                    targetPath: handlerOutput.target ?? dependency
+                    baseDir: output.targetBaseDir,
+                    targetPath: output.target ?? dependency
                   });
                 }
               }
-              collectedOutput.push(handlerOutput);
+              collectedOutput.push(output);
             }
           }
 
@@ -732,18 +757,19 @@ async function garmentFromWorkspace(
 
         for (const outputItem of fileOutput) {
           if (OutputContainer.isOutputContainer(outputItem)) {
-            if (await cacheProvider.has(outputItem.hash)) {
-              const cacheEntry = await cacheProvider.get(outputItem.hash);
-              if (cacheEntry) {
-                filesToWrite.push(...cacheEntry.output);
-                logs.push(...cacheEntry.logs);
-              }
-            } else {
-              filesToWrite.push(...outputItem.files);
-              logs.push(...outputItem.logs);
-              await cacheProvider.set(outputItem.hash, {
-                logs: outputItem.logs,
-                output: outputItem.files
+            await outputItem.syncWithCache();
+
+            filesToWrite.push(...outputItem.files);
+            logs.push(...outputItem.logs);
+
+            if (outputItem.hasErrorsOrWarnings()) {
+              subscriptions.add({
+                type: 'file',
+                level: 'input',
+                path: outputItem.target,
+                targetPath: outputItem.target,
+                baseDir: outputItem.targetBaseDir,
+                forced: true
               });
             }
           } else {
@@ -751,7 +777,7 @@ async function garmentFromWorkspace(
           }
         }
 
-        const outputPaths = output ? [...arrayfy(output)] : [];
+        const outputPaths = outputPath ? [...arrayfy(outputPath)] : [];
         if (
           currentActionGraph.getDirectDependantsOf(action).length &&
           !outputPaths.length &&
@@ -778,8 +804,18 @@ async function garmentFromWorkspace(
               const filePath = Path.resolve(outputPath, file.path);
               const fileDir = Path.dirname(filePath);
 
+              if (experimentalCacheSubscriptions) {
+                subscriptions.add({
+                  type: 'file',
+                  level: 'runner',
+                  baseDir: outputPath,
+                  path: filePath,
+                  targetPath: ''
+                });
+              }
+
               const fsToUse =
-                output && output.length && outputMode === 'after-each'
+                outputPath && outputPath.length && outputMode === 'after-each'
                   ? fs
                   : memFsVolume;
               if (!fsToUse.existsSync(fileDir)) {
@@ -789,7 +825,7 @@ async function garmentFromWorkspace(
 
               if (
                 outputMode === 'in-memory' ||
-                !(output && output.length) ||
+                !(outputPath && outputPath.length) ||
                 fsToUse === fs
               ) {
                 skipFlushFileSet.add(filePath);
@@ -797,6 +833,22 @@ async function garmentFromWorkspace(
 
               events.push({ path: filePath, type: 'update' });
             }
+          }
+        }
+
+        if (experimentalCacheSubscriptions) {
+          // Cache action subscriptions
+          if (subscriptions.size) {
+            const hashedSubscriptions = Array.from(subscriptions).map(
+              subscription => ({
+                ...subscription,
+                hash: getHashForSubscriptions(subscription)
+              })
+            );
+            await cacheProvider.set(getSnapshotId(action.hash), {
+              output: [file.json('subscriptions', hashedSubscriptions)],
+              logs: []
+            });
           }
         }
 
@@ -830,7 +882,7 @@ async function garmentFromWorkspace(
 
   populateAllSubscriptions();
 
-  if (allSubscriptionsCached.length) {
+  if ([...metaByAction.values()].some(_ => _.isWatchActive)) {
     watcherStarted = true;
 
     await startWatcher();
@@ -880,24 +932,6 @@ async function garmentFromWorkspace(
       flushMemFs();
       changesBySubscriptionMap.clear();
 
-      if (workspace.config.experimentalCacheSubscriptions) {
-        // Cache action subscriptions
-        for (const [action, { subscriptions }] of metaByAction) {
-          if (subscriptions.size) {
-            const hashedSubscriptions = Array.from(subscriptions).map(
-              subscription => ({
-                ...subscription,
-                hash: getHashForSubscriptions(subscription)
-              })
-            );
-            await cacheProvider.set(getSnapshotId(action.hash), {
-              output: [file.json('subscriptions', hashedSubscriptions)],
-              logs: []
-            });
-          }
-        }
-      }
-
       console.log('');
       onUpdate({ type: 'reset' });
     } catch (error) {
@@ -909,8 +943,8 @@ async function garmentFromWorkspace(
     if (!allSubscriptionsCached.length) {
       populateAllSubscriptions();
     }
-    for (const event of events) {
-      for (const subscription of allSubscriptionsCached) {
+    for (const subscription of allSubscriptionsCached) {
+      for (const event of events) {
         if (event.type === 'delete') {
           continue;
         }
@@ -940,15 +974,19 @@ async function garmentFromWorkspace(
           changesBySubscriptionMap.set(subscription, changesBySubscription);
         }
       }
+
+      if (subscription.type === 'file' && subscription.forced) {
+        changesBySubscriptionMap.set(subscription, {
+          [subscription.targetPath]: 'change'
+        });
+      }
     }
   }
 
   function populateAllSubscriptions() {
     allSubscriptionsCached = [];
-    for (const [, { isWatchActive, subscriptions }] of metaByAction.entries()) {
-      if (isWatchActive) {
-        allSubscriptionsCached.push(...subscriptions);
-      }
+    for (const { subscriptions } of metaByAction.values()) {
+      allSubscriptionsCached.push(...subscriptions);
     }
   }
 
@@ -1072,9 +1110,11 @@ async function garmentFromWorkspace(
       subscription.type === 'file' &&
       fs.existsSync(subscription.path)
     ) {
-      const hash = createHash('md5')
-        .update(fs.readFileSync(subscription.path))
-        .digest('hex');
+      const hash = subscription.forced
+        ? ''
+        : createHash('md5')
+            .update(fs.readFileSync(subscription.path))
+            .digest('hex');
       return { [subscription.path]: hash };
     }
   }

@@ -21,12 +21,12 @@ export class OutputContainer {
 
   private readonly isOutputContainer = true;
 
-  readonly logger: Logger;
-  readonly logs: LogEntry[] = [];
-  readonly dependencies: string[];
-  readonly files: File[] = [];
-  readonly hash: string;
-  readonly target: string;
+  logger: Logger;
+  logs: LogEntry[] = [];
+  dependencies: string[];
+  files: File[] = [];
+  hash: string;
+  target: string;
 
   targetBaseDir: string;
 
@@ -73,6 +73,21 @@ export class OutputContainer {
     return !this.cacheProvider.has(this.hash);
   }
 
+  async syncWithCache() {
+    if (await this.cacheProvider.has(this.hash)) {
+      const cacheEntry = await this.cacheProvider.get(this.hash);
+      if (cacheEntry) {
+        this.files = cacheEntry.output;
+        this.logs = cacheEntry.logs;
+      }
+    } else {
+      await this.cacheProvider.set(this.hash, {
+        logs: this.logs,
+        output: this.files
+      });
+    }
+  }
+
   toJSON() {
     const { cacheKeys, dependencies, logs, files } = this;
     return {
@@ -81,5 +96,11 @@ export class OutputContainer {
       logs,
       files
     };
+  }
+
+  hasErrorsOrWarnings() {
+    return this.logs.some(
+      entry => entry.level === 'error' || entry.level === 'warn'
+    );
   }
 }
