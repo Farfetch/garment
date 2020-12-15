@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.14.0](https://github.com/Farfetch/garment/compare/v0.13.14...v0.14.0) (2020-12-15)
+
+
+### Features
+
+* Improve cache subscriptions ([#27](https://github.com/Farfetch/garment/issues/27)) ([77bb25a](https://github.com/Farfetch/garment/commit/77bb25acf000319efb05d6e76417aad256042fb6))
+
+
+
+
+
 ## [0.13.14](https://github.com/Farfetch/garment/compare/v0.13.13...v0.13.14) (2020-12-07)
 
 

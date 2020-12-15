@@ -1,7 +1,7 @@
 {
   "name": "@garment/plugin-runner-eslint",
   "license": "MIT",
-  "version": "0.13.13",
+  "version": "0.14.0",
   "main": "lib/index.js",
   "files": [
     "lib",
@@ -12,7 +12,7 @@
     "eslint": "^5.15.3"
   },
   "devDependencies": {
-    "@garment/fixture-helper": "^0.13.13",
+    "@garment/fixture-helper": "^0.14.0",
     "@types/eslint": "^4.16.6",
     "eslint": "^5.15.3"
   }

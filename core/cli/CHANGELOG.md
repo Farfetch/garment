@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.14.0](https://github.com/Farfetch/garment/compare/v0.13.14...v0.14.0) (2020-12-15)
+
+**Note:** Version bump only for package @garment/cli
+
+
+
+
+
 ## [0.13.14](https://github.com/Farfetch/garment/compare/v0.13.13...v0.13.14) (2020-12-07)
 
 **Note:** Version bump only for package @garment/cli
