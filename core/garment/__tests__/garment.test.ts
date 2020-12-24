@@ -64,20 +64,19 @@ describe('createFileInput', () => {
     expect(filesCount).toBe(2);
   });
 
-  test('should throw with a clear error message when rootDir does not exist', async () => {
+  test('should NOT throw when rootDir does not exist, allowing for input globs in garment.json whose rootDir may or may not exist', async () => {
     const testDir = await initFixture('basic');
 
     const nonExistingDirectory = Path.join(testDir, 'nonExistingDirectory');
     const generator = createFileInput({
-      rootDir: nonExistingDirectory
+      rootDir: nonExistingDirectory,
+      include: ['*']
     });
 
     const createFileInputForNonExistingRootDirectory = () => {
       generator.next();
     };
 
-    expect(createFileInputForNonExistingRootDirectory).toThrow(
-      /nonExistingDirectory/
-    );
+    expect(createFileInputForNonExistingRootDirectory).not.toThrow();
   });
 });
