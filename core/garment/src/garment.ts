@@ -896,6 +896,12 @@ async function garmentFromWorkspace(
       watch: true,
       runnerOptions
     });
+  } else {
+    if (!watcherStarted) {
+      for (const meta of metaByAction.values()) {
+        meta?.onDestroyHandler?.();
+      }
+    }
   }
 
   async function startWatcher() {
