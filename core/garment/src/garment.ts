@@ -1127,19 +1127,16 @@ export function* createFileInput(
   { rootDir, files = [], include, exclude = [] }: Input,
   fsInstance = fs
 ) {
-  if (!fsInstance.existsSync(rootDir)) {
-    throw new Error(`The path ${rootDir} does not exist, please check the input property
-     of your tasks in your garment.json file and verify that the "non-magical" part of your glob
-     is a path to an already existing directory`);
-  }
-  const filesFromGlob = include
-    ? globby.sync(include, {
-        cwd: rootDir,
-        absolute: true,
-        ignore: exclude,
-        dot: true
-      })
-    : [];
+  const filesFromGlob =
+    fsInstance === fs && include && fsInstance.existsSync(rootDir)
+      ? globby.sync(include, {
+          cwd: rootDir,
+          absolute: true,
+          ignore: exclude,
+          dot: true
+        })
+      : [];
+
   const uniqueFiles = new Set([...files, ...filesFromGlob]);
   for (const absolutePath of uniqueFiles) {
     const content = fsInstance.readFileSync(absolutePath);
