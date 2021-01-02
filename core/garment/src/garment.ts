@@ -39,6 +39,8 @@ import { FileCache } from './FileCache';
 import { getProjectsByName } from './getProjectsByName';
 import globby = require('globby');
 import normalizePath = require('normalize-path');
+import { relative } from 'path';
+import { isSubPath } from '@garment/workspace/src/isSubpath';
 
 export type Cache =
   | {
@@ -954,7 +956,7 @@ async function garmentFromWorkspace(
 
         if (
           subscription.type === 'glob' &&
-          normalizePath(event.path).startsWith(subscription.input.rootDir)
+          isSubPath(subscription.input.rootDir, normalizePath(event.path))
         ) {
           const matched = multimatch(
             event.path,
