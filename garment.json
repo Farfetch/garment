@@ -268,6 +268,10 @@
     "visualize-graph": {
       "path": "utils/visualize-graph",
       "extends": ["tspackage"]
+    },
+    "utils": {
+      "path": "core/utils",
+      "extends": ["tspackage"]
     }
   },
   "schematics": ["@garment/schematics", "@garment/schematics-typescript"],

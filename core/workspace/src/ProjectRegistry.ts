@@ -1,7 +1,7 @@
 import { Project } from './Project';
 
 import normalizePath = require('normalize-path');
-import { isSubPath } from './isSubpath';
+import { isSubPath } from '@garment/utils';
 
 export class ProjectRegistry {
   [Symbol.iterator]() {

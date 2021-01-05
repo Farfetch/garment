@@ -39,8 +39,7 @@ import { FileCache } from './FileCache';
 import { getProjectsByName } from './getProjectsByName';
 import globby = require('globby');
 import normalizePath = require('normalize-path');
-import { relative } from 'path';
-import { isSubPath } from '@garment/workspace/src/isSubpath';
+import { isSubPath } from '@garment/utils';
 
 export type Cache =
   | {
