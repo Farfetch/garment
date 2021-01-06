@@ -1,6 +1,7 @@
 import { Project } from './Project';
 
 import normalizePath = require('normalize-path');
+import { isSubPath } from '@garment/utils';
 
 export class ProjectRegistry {
   [Symbol.iterator]() {
@@ -32,13 +33,13 @@ export class ProjectRegistry {
   getByPaths(...paths: string[]) {
     paths = paths.map(path => normalizePath(path));
     return this.list().filter(project =>
-      paths.some(path => path.indexOf(project.fullPath) === 0)
+      paths.some(path => isSubPath(project.fullPath, path))
     );
   }
 
   getByPath(path: string) {
     path = normalizePath(path);
-    return this.list().find(project => path.indexOf(project.fullPath) === 0);
+    return this.list().find(project => isSubPath(project.fullPath, path));
   }
 
   getByPathExact(path: string) {
