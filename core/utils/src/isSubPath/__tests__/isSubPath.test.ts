@@ -1,5 +1,5 @@
 import { isSubPath } from '..';
-import path = require('path');
+import * as Path from 'path';
 
 describe('utils | isSubPath', () => {
   it('should return true if path is a subpath', () => {
@@ -29,11 +29,11 @@ describe('utils | isSubPath [win32]', () => {
 
   beforeEach(() => {
     relativeSpy = jest
-      .spyOn(path, 'relative')
-      .mockImplementationOnce(path.win32.relative);
+      .spyOn(Path, 'relative')
+      .mockImplementationOnce(Path.win32.relative);
     isAbsoluteSpy = jest
-      .spyOn(path, 'isAbsolute')
-      .mockImplementationOnce(path.win32.isAbsolute);
+      .spyOn(Path, 'isAbsolute')
+      .mockImplementationOnce(Path.win32.isAbsolute);
   });
 
   afterEach(() => {
