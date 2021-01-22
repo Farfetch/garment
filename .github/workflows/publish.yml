@@ -34,6 +34,6 @@ jobs:
         run: yarn build:ci
 
       - name: Publish
-        run: yarn gr publish --npmrc $NPM_CONFIG_USERCONFIG
+        run: yarn gr publish --npmrc $NPM_CONFIG_USERCONFIG --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
