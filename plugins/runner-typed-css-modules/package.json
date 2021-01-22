@@ -1,7 +1,7 @@
 {
   "name": "@garment/plugin-runner-typed-css-modules",
   "license": "MIT",
-  "version": "0.14.0",
+  "version": "0.14.1",
   "main": "lib/index.js",
   "files": [
     "lib",
@@ -14,6 +14,6 @@
     "@garment/runner": "^0.13.2"
   },
   "devDependencies": {
-    "@garment/fixture-helper": "^0.14.0"
+    "@garment/fixture-helper": "^0.14.1"
   }
 }
