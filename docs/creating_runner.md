@@ -1,6 +1,19 @@
 # Creating a Runner
 
 A Runner is an abstraction to connect external tooling to Garment in order to perform common tasks such as lint, build and test.
+# Table of Contents
+
+1. [Project structure](#project-structure)   
+2. [Example](#example)  
+3. [Caching](#caching)  
+4. [The runner Context](#context)  
+    4.1 [Garment](#garment)  
+    4.2 [Tooling Box](#tooling-box)
+5. [Long Running and Cleanup](#long-running-and-cleanup)
+6. [Creating a Batch Runner](#creating-a-batch-runner)  
+    6.1 [Motivation](#motivation)  
+    6.2 [Instructions](#instructions)  
+    6.3 [Caveats](#caveats)
 
 ## **Project Structure**
 
@@ -206,3 +219,121 @@ defineRunner(async ctx => {
   const data = ctx.fs.readFileSync('/path/to/file.js', 'utf8');
 });
 ```
+
+## **Long Running and Cleanup**
+
+Long running is a feature for chained tasks (ie, tasks which use next or pre, post, etc).  Some sub-tasks in a chained task 
+may be long running and need to clean up resources when the entire task is exited.  `ctx.longRunning` allows you to do this.
+In the following example, runner-web-server will be run, then runner-docker-compose will be run, both of which are long running.
+When runner-wdio finishes executing all of our E2E tests, the `ctx.longRunning` callback in both `runner-docker-compose` and `runner-web-server` will be invoked.
+
+Example chained task from garment.json:
+```json
+"test-e2e": {
+  "runner": "runner-web-server",
+  "options": {
+    "port": 4000,
+  },
+  "next": {
+    "runner": "runner-docker-compose",
+    "options": {
+      "file": "docker-compose-selenium.yml",
+    },
+    "next": {
+      "runner": "runner-wdio",
+      "options": {
+        "configFile": "./wdio.conf.js",
+      }
+    }
+  }
+}
+```
+Example snippet from runner-docker-compose:
+```ts
+logger.success(`Docker Compose has been started, press CTRL + C to exit`);
+    const cleanup = () => {
+        logger.info(`Stopping Docker Compose...`);
+        dockerComposeDown(file);
+        logger.success(`Docker Compose has been successfully stopped`);
+    };
+
+    context.longRunning(cleanup);
+```
+
+Your longRunning callback will **NOT** be invoked if garment is terminated in other ways (ie, Ctrl + C).  If you need to 
+cleanup on Ctrl + C as well for example, such cleanup logic must be done manually.  Here's an example using [exit-hook](https://www.npmjs.com/package/exit-hook):
+
+...
+```ts
+logger.success(`Docker Compose has been started, press CTRL + C to exit`);
+    const cleanup = () => {
+        logger.info(`Stopping Docker Compose...`);
+        dockerComposeDown(file);
+        logger.success(`Docker Compose has been successfully stopped`);
+    };
+
+    context.longRunning(cleanup);
+    exitHook(cleanup);
+```
+
+## **Creating a Batch Runner**
+
+### **Motivation**
+
+Garment can run the same task on multiple projects simultaneously by using the `--projects` flag [see CLI docs](./CLI.md).
+In this case, by default, the runner will be executed once for each project.  This can cause issues in several circumstances - if a 
+runner uses the same port for multiple projects, later invocations may try to connect to the same (now occupied) port, running 20 jest instances may be 
+very heavy on resources, etc.  By using batch mode, you can have your runner invoked only one time for multiple projects.
+
+### **Instructions**
+
+The first step to creating a batch runner is to create a runners.json file in the root, next to your package.json.
+For the handler that will run in batch mode, we set the batch property to true:
+
+```json
+{
+  "runners": {
+    "default": {
+      "handler": "./lib/default",
+      "description": "Runs wdio in batch mode",
+      "batch": true
+    },
+    "single": {
+      "handler": "./lib/default#singleRunner",
+      "description": "Runs wdio"
+    }
+  }
+}
+```
+Let's say our package is called `runner-wdio`.  In our garment.json file, to use the batch runner, all we do is use 
+`runner-wdio` for our runner property of our task.  To use the singleRunner, we use `runner-wdio:single`.  This 
+runners.json file must be included when we publish our package.
+
+By marking our handler with batch true, we now can proceed to the second step, using `ctx.batch()`.
+The result of invoking `ctx.batch()` is an iterable in which each item contains a project property, and 
+an options property which are the options for that specific project:
+
+```ts
+export default defineRunner(
+  defineOptionsFromJSONSchema<WdioRunnerOptions>(require('./schema.json')),
+  async ctx => {
+    for (const item of ctx.batch()) {
+      const { configFile } = item.options;
+      console.log('options: ', item.options);
+      console.log('project: ', item.project);
+
+      const wdioLauncher = new Launcher(configFile, {
+        specs: [testSpecsPath]
+      });
+
+      await wdioLauncher.run();
+    }
+  }
+);
+```
+
+In this case, we create a new Launcher for each project, but we could have just as easily use a single Launcher for all projects.
+
+### **Caveats**
+
+Some features are not currently supported in batch mode, most notably, `ctx.input()`.  Design suggestions and use cases are welcome so please feel free to open an issue.

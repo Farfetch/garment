@@ -1,5 +1,19 @@
 # Garment Configuration
 
+# Table of Contents
+
+1. [Basic Structure](#basic-structure)
+2. [Project Definition](#projectdefinition)   
+    2.1 [Example](#example)  
+    2.2 [Options](#options)
+3. [Task Definition](#taskdefinition)  
+    3.1 [Example Plain Task](#example-plain-task)  
+    3.2 [Example Tasks Sequence](#example-tasks-sequence)
+    3.3 [Example Parallel Tasks](#example-parallel-tasks)
+    3.4 [Example Referencing other Tasks](#example-referencing-other-tasks)
+    3.5 [Options](#options)
+    3.6 [Additional Information](#additional-information)
+4. [Cache Definition](#cachedefinition)  
 ## Basic structure
 
 ```json
