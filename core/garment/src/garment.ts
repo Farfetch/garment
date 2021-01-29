@@ -1037,8 +1037,6 @@ async function garmentFromWorkspace(
         ...restRunners[runner.name]
       };
 
-      validateOptions(runner, options);
-
       const logs: LogEntry[] = [];
 
       const logger = new Logger('', 'batch', 'info');
