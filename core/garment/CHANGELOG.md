@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.14.3](https://github.com/Farfetch/garment/compare/v0.14.2...v0.14.3) (2021-02-12)
+
+
+### Bug Fixes
+
+* Invoke destroy handler in batch mode ([#32](https://github.com/Farfetch/garment/issues/32)) ([132c6fc](https://github.com/Farfetch/garment/commit/132c6fce87248efe1f1a9492f4afa897e6d0e0cc))
+
+
+
+
+
 ## [0.14.2](https://github.com/Farfetch/garment/compare/v0.14.1...v0.14.2) (2021-02-04)
 
 **Note:** Version bump only for package @garment/garment
