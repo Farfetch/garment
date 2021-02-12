@@ -68,6 +68,19 @@ export interface CacheEntry {
   output: File[];
 }
 
+interface ActionMeta {
+  isWatchActive: boolean;
+  subscriptions: Set<Subscription>;
+  logs: LogEntry[];
+  inputHandler?: MetaInputHandler;
+  onDestroyHandler?: () => void;
+  outputPath?: string;
+}
+
+interface BatchActionMeta {
+  onDestroyHandler?: () => void;
+}
+
 export type MetaInputHandler =
   | { type: 'single'; fn: InputFnCallBack }
   | { type: 'multi'; fn: InputFnCallBack<File[]> };
@@ -190,17 +203,7 @@ async function garmentFromWorkspace(
   const getSnapshotId = (hash: string) => `action-${hash}`;
 
   // The map to store an information related to each action, so it can be reused between action executions
-  const metaByAction = new Map<
-    Action,
-    {
-      isWatchActive: boolean;
-      subscriptions: Set<Subscription>;
-      logs: LogEntry[];
-      inputHandler?: MetaInputHandler;
-      onDestroyHandler?: () => void;
-      outputPath?: string;
-    }
-  >();
+  const metaByAction = new Map<Action, ActionMeta>();
 
   let allSubscriptionsCached: Subscription[] = [];
 
@@ -875,6 +878,7 @@ async function garmentFromWorkspace(
     _ => _.watch
   );
 
+  const batchMetaByAction = new Map<Action, BatchActionMeta>();
   if (batchActionsToExecute.length) {
     await runActionsInBatch(batchActionsToExecute, {
       runnerOptions
@@ -896,6 +900,12 @@ async function garmentFromWorkspace(
       watch: true,
       runnerOptions
     });
+  } else {
+    if (!watcherStarted) {
+      for (const meta of batchMetaByAction.values()) {
+        meta?.onDestroyHandler?.();
+      }
+    }
   }
 
   async function startWatcher() {
@@ -1008,13 +1018,19 @@ async function garmentFromWorkspace(
       {
         runner: RunnerMeta;
         batch: { project: Project; options: any }[];
+        batchMeta?: BatchActionMeta;
       }
     >();
     for (const action of actions) {
       if (!batchesByRunner.has(action.runner.handlerPath)) {
+        /**We don't want more than one meta per runner, since longRunning should be invoked once for all projects.
+         * In the future we may want a meta for each action.
+         */
+        batchMetaByAction.set(action, {});
         batchesByRunner.set(action.runner.handlerPath, {
           runner: action.runner,
-          batch: []
+          batch: [],
+          batchMeta: batchMetaByAction.get(action)
         });
       }
       const { batch } = batchesByRunner.get(action.runner.handlerPath)!;
@@ -1029,7 +1045,7 @@ async function garmentFromWorkspace(
         })
       });
     }
-    for (const { runner, batch } of batchesByRunner.values()) {
+    for (const { runner, batch, batchMeta } of batchesByRunner.values()) {
       onUpdate({ type: 'before-batch', runner, batch });
 
       const options = {
@@ -1066,7 +1082,12 @@ async function garmentFromWorkspace(
         dependsOnFile() {},
         cacheProvider,
         batch,
-        logger
+        logger,
+        longRunning(onDestroy) {
+          if (batchMeta) {
+            batchMeta.onDestroyHandler = onDestroy;
+          }
+        }
       });
 
       const handler = watch ? getWatcher(runner) : getHandler(runner);
