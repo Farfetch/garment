@@ -162,7 +162,7 @@ async function handler(argv: CommonOptions) {
   const dependencyGraph = dependencyGraphFromWorkspace(workspace);
 
   const projects = ((all || !projectName) && !projectNamesArg && !files
-    ? [...workspace.projects]
+    ? [...workspace.projects].map(project => ({ project, files: [] }))
     : getProjectsByName(workspace, files || projectNames, Boolean(files))
   ).filter(
     item =>

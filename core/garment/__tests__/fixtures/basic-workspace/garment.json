@@ -1,0 +1,13 @@
+{
+    "projects": {
+        "proj-a": {
+            "path": "project-a"
+        },
+        "proj-b": {
+            "path": "project-b"
+        },
+        "proj-c": {
+            "path": "project-c"
+        }
+    }
+}

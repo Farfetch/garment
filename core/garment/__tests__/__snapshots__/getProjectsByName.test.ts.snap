@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getProjectsByName returns projects if files flag is unspecified 1`] = `
+Array [
+  "project-a",
+  "project-c",
+]
+`;
+
+exports[`getProjectsByName returns projects matching glob pattern 1`] = `
+Array [
+  "project-a",
+  "project-b",
+  "project-c",
+]
+`;
+
+exports[`getProjectsByName returns projects with files if files flag is specified 1`] = `
+Array [
+  Object {
+    "files": Array [
+      "/test_path/project-a/a1.txt",
+      "/test_path/project-a/a2.txt",
+    ],
+    "projectPath": "project-a",
+  },
+  Object {
+    "files": Array [
+      "/test_path/project-c/c2.txt",
+    ],
+    "projectPath": "project-c",
+  },
+]
+`;
+
+exports[`getProjectsByName throws if no projects are matching glob pattern 1`] = `"Projects matching \\"project-*\\" were not found"`;
+
+exports[`getProjectsByName throws if the project name is not found 1`] = `"Project with path \\"proj-d\\" was not found"`;
+
+exports[`getProjectsByName throws in the project containing file is not found 1`] = `"Project containing file \\"/project-X/non-existing-file.txt\\" was not found"`;

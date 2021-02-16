@@ -18,7 +18,7 @@ const getNextId = (id => () => id++)(0);
 
 export interface ActionGraphTask {
   name: string;
-  projects: (Project | { project: Project; files: string[] })[];
+  projects: { project: Project; files: string[] }[];
   watch?: boolean;
 }
 
@@ -55,13 +55,8 @@ export function getActionGraph(opts: GetActionGraphOptions) {
 
   const { global = {}, ...restRunners } = runnerOptions;
 
-  for (const projectItem of projects) {
-    const [projectToProcess, files] =
-      projectItem instanceof Project
-        ? [projectItem, undefined]
-        : [projectItem.project, projectItem.files];
-
-    getActionGraphByTask(name, projectToProcess, watch);
+  for (const { project, files } of projects) {
+    getActionGraphByTask(name, project, watch);
 
     function getActionGraphByTask(
       task: string,

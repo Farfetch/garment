@@ -27,7 +27,10 @@ export async function run(options: ActionGraphCommandOptions) {
   const actionGraph = getActionGraph({
     workspace,
     dependencyGraph,
-    task: { name: task, projects },
+    task: {
+      name: task,
+      projects: projects.map(project => ({ project, files: [] }))
+    },
     lifecycle: true
   });
 
