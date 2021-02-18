@@ -1,7 +1,7 @@
 {
   "name": "@garment/scheduler",
   "license": "MIT",
-  "version": "0.14.1",
+  "version": "0.14.4",
   "main": "lib/index.js",
   "files": [
     "lib"

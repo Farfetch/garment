@@ -1,7 +1,7 @@
 {
   "name": "@garment/cli",
   "license": "MIT",
-  "version": "0.14.3",
+  "version": "0.14.4",
   "main": "lib/index.js",
   "bin": {
     "garment": "lib/cli.js",
@@ -11,11 +11,11 @@
     "lib"
   ],
   "dependencies": {
-    "@garment/garment": "^0.14.3",
+    "@garment/garment": "^0.14.4",
     "@garment/logger": "^0.14.0",
     "@garment/perf": "^0.14.0",
     "@garment/print-tree": "^0.14.0",
-    "@garment/scheduler": "^0.14.1",
+    "@garment/scheduler": "^0.14.4",
     "@garment/schematics-client": "^0.14.0",
     "@garment/schematics-init": "^0.14.0",
     "@garment/visualize-graph": "^0.14.0",

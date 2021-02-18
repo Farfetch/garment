@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.14.4](https://github.com/Farfetch/garment/compare/v0.14.3...v0.14.4) (2021-02-18)
+
+
+### Bug Fixes
+
+* Files flag [#37](https://github.com/Farfetch/garment/issues/37) ([#38](https://github.com/Farfetch/garment/issues/38)) ([95b4db8](https://github.com/Farfetch/garment/commit/95b4db83cbfae4688712d29796a2759695d3876b))
+
+
+
+
+
 ## [0.14.3](https://github.com/Farfetch/garment/compare/v0.14.2...v0.14.3) (2021-02-12)
 
 
