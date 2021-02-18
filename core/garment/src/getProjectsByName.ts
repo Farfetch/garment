@@ -9,7 +9,6 @@ export function getProjectsByName(
   files?: boolean
 ) {
   const { projects } = workspace;
-  let result: Project[] = [];
   const filesByProject = new Map<Project, string[]>();
   if (files) {
     projectNames.forEach(path => {
@@ -17,13 +16,10 @@ export function getProjectsByName(
       if (!project) {
         throw new Error(`Project containing file "${path}" was not found`);
       }
-      if (!result.includes(project)) {
-        result.push(project);
-        if (!filesByProject.has(project)) {
-          filesByProject.set(project, []);
-        }
-        filesByProject.get(project)!.push(path);
+      if (!filesByProject.has(project)) {
+        filesByProject.set(project, []);
       }
+      filesByProject.get(project)!.push(path);
     });
   } else {
     const workspaceProjectNames = projects.projectNames;
@@ -31,7 +27,11 @@ export function getProjectsByName(
       if (projectName.search(/[*!]/) !== -1) {
         const matchedProjects = matcher(workspaceProjectNames, [projectName]);
         if (matchedProjects.length) {
-          result.push(...matchedProjects.map(_ => projects.get(_)!));
+          matchedProjects
+            .map(_ => projects.get(_)!)
+            .forEach(project => {
+              filesByProject.set(project, []);
+            });
         } else {
           throw new Error(`Projects matching "${projectName}" were not found`);
         }
@@ -41,16 +41,15 @@ export function getProjectsByName(
           project = projects.getByPathExact(workspace.resolvePath(projectName));
         }
         if (project) {
-          result.push(project);
+          filesByProject.set(project, []);
         } else {
           throw new Error(`Project with path "${projectName}" was not found`);
         }
       }
     });
   }
-  return result.map(project =>
-    filesByProject.has(project)
-      ? { project, files: filesByProject.get(project)! }
-      : project
-  );
+  return [...filesByProject.entries()].map(([project, files]) => ({
+    project,
+    files
+  }));
 }

@@ -13,10 +13,7 @@ test.skip(`actionGraph doesn't have circular dependencies`, async () => {
   });
   const dependencyGraph = dependencyGraphFromWorkspace(workspace);
 
-  const [app, utils] = getProjectsByName(workspace, [
-    'app',
-    'utils'
-  ]) as Project[];
+  const [app, utils] = getProjectsByName(workspace, ['app', 'utils']);
 
   const actionGraph = getActionGraph({
     workspace,
@@ -25,10 +22,12 @@ test.skip(`actionGraph doesn't have circular dependencies`, async () => {
       name: 'build',
       projects: [
         {
-          project: utils,
+          project: utils.project,
           files: [__dirname + '/fixtures/basic/packages/utils/foo.txt']
         },
-        ...dependencyGraph.getDependantsOf(utils)
+        ...dependencyGraph
+          .getDependantsOf(utils.project)
+          .map(project => ({ project, files: [] }))
       ]
     }
   });
