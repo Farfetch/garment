@@ -138,7 +138,7 @@ export function getActionGraph(opts: GetActionGraphOptions) {
             const include = [
               resolvedInputPattern.replace(new RegExp(`^${rootDir}\/*`), '')
             ];
-            if (files) {
+            if (files.length) {
               const matchedFiles = multimatch(files, [resolvedInputPattern]);
               if (matchedFiles.length) {
                 resolvedInput = {
@@ -180,7 +180,7 @@ export function getActionGraph(opts: GetActionGraphOptions) {
               };
             }
 
-            if (files) {
+            if (files.length) {
               const matchedFiles = multimatch(
                 files.filter(file => file.startsWith(finalInput.rootDir)),
                 [
