@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.14.5](https://github.com/Farfetch/garment/compare/v0.14.4...v0.14.5) (2021-03-03)
+
+
+### Bug Fixes
+
+* Critical getActionGraph bug ([9e2e54b](https://github.com/Farfetch/garment/commit/9e2e54bbcd41b1518bcdbf62e4ef1bbd17400ae3))
+
+
+
+
+
 ## [0.14.4](https://github.com/Farfetch/garment/compare/v0.14.3...v0.14.4) (2021-02-18)
 
 
