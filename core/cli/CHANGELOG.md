@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.14.6](https://github.com/Farfetch/garment/compare/v0.14.5...v0.14.6) (2021-03-08)
+
+
+### Bug Fixes
+
+* [#40](https://github.com/Farfetch/garment/issues/40) batch error should result in exitcode 1 ([#41](https://github.com/Farfetch/garment/issues/41)) ([8ff81d8](https://github.com/Farfetch/garment/commit/8ff81d8c1c8f9d81825e2f68a1f2cc1cb6a9f5fe))
+
+
+
+
+
 ## [0.14.5](https://github.com/Farfetch/garment/compare/v0.14.4...v0.14.5) (2021-03-03)
 
 **Note:** Version bump only for package @garment/cli
