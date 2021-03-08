@@ -13,6 +13,7 @@ export class Status {
       logs: string[];
     }
   >();
+  private hasBatchErrors = false;
 
   private timeStartedByProject = new Map<string, number>();
 
@@ -30,7 +31,7 @@ export class Status {
   get hasErrors() {
     return Array.from(this.actionsByProjectName.values()).some(stat =>
       Boolean(stat.hasErrors)
-    );
+    ) || this.hasBatchErrors;
   }
 
   setActions(...actions: Action[]) {
@@ -188,6 +189,9 @@ export class Status {
             ...entry.content
           ).join(' ')
         );
+      }
+      if (entry.level === 'error') {
+        this.hasBatchErrors = true;
       }
     });
     this.onChange({ done, dynamic: [], height: 0 });
