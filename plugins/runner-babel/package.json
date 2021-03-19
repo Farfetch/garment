@@ -1,7 +1,7 @@
 {
   "name": "@garment/plugin-runner-babel",
   "license": "MIT",
-  "version": "0.14.1",
+  "version": "0.15.0",
   "main": "./lib/index.js",
   "files": [
     "lib",
@@ -17,6 +17,6 @@
   "devDependencies": {
     "@babel/core": "^7.3.4",
     "@babel/preset-typescript": "^7.3.3",
-    "@garment/fixture-helper": "^0.14.1"
+    "@garment/fixture-helper": "^0.15.0"
   }
 }

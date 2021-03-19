@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.15.0](https://github.com/Farfetch/garment/compare/v0.14.6...v0.15.0) (2021-03-19)
+
+
+### Features
+
+* Add workspaceDir to runner-bin ([#43](https://github.com/Farfetch/garment/issues/43)) ([8690473](https://github.com/Farfetch/garment/commit/8690473d3b4d2b4251ec45e02f6ffd71a12e54dc))
+
+
+
+
+
 ## [0.14.6](https://github.com/Farfetch/garment/compare/v0.14.5...v0.14.6) (2021-03-08)
 
 

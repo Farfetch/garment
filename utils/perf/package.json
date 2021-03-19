@@ -1,9 +1,9 @@
 {
   "name": "@garment/perf",
-  "version": "0.14.0",
+  "version": "0.15.0",
   "main": "lib/index.js",
   "license": "MIT",
   "dependencies": {
-    "@garment/logger": "^0.14.0"
+    "@garment/logger": "^0.15.0"
   }
 }
