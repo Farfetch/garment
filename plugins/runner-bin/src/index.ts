@@ -45,7 +45,10 @@ export default defineRunner(
     const { logger, options, project, workspace, renderTemplate } = ctx;
     const { stream, env, longRunning = false } = options;
     const [binOption, ...args] = parseOptions(options).map(arg =>
-      renderTemplate(arg, { projectDir: project.fullPath })
+      renderTemplate(arg, {
+        projectDir: project.fullPath,
+        workspaceDir: workspace.cwd
+      })
     );
 
     const bin = await resolveBin(binOption, workspace.cwd);
