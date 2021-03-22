@@ -7,5 +7,5 @@ module.exports = {
       tsConfig: 'tsconfig.test.json'
     }
   },
-  resolver: './utils/fixture-helper/lib/resolver'
+  resolver: './packages/fixture-helper/lib/resolver'
 };

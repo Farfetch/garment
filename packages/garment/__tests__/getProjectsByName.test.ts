@@ -77,11 +77,10 @@ describe('getProjectsByName', () => {
     }
   });
 
-
   test('throws if no projects are matching glob pattern', async () => {
     const workspace = await initFixtureWorkspace();
     expect(() =>
-    getProjectsByName(workspace, ['project-*'])
+      getProjectsByName(workspace, ['project-*'])
     ).toThrowErrorMatchingSnapshot();
   });
 });

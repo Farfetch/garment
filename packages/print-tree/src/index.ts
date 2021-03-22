@@ -9,13 +9,10 @@ type Tree =
 
 function transformTree(tree: Tree, depth = 0) {
   if (Array.isArray(tree)) {
-    return (tree as string[]).reduce(
-      (obj, item) => {
-        obj[item] = transformTree(item, depth + 1);
-        return obj;
-      },
-      {} as { [key: string]: any }
-    );
+    return (tree as string[]).reduce((obj, item) => {
+      obj[item] = transformTree(item, depth + 1);
+      return obj;
+    }, {} as { [key: string]: any });
   } else if (typeof tree === 'object') {
     const result: { [key: string]: any } = {};
     for (const [key, value] of Object.entries(tree)) {

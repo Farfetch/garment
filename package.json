@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "gr": "node local_garment/node_modules/@garment/cli/lib/cli.js",
-    "gr:local": "node core/cli/lib/cli.js",
+    "gr:local": "node packages/cli/lib/cli.js",
     "build": "yarn gr build",
     "build:ci": "yarn gr build --ts.configFile tsconfig.ci.json",
     "watch": "yarn gr build --watch",
@@ -55,11 +55,7 @@
   },
   "workspaces": {
     "packages": [
-      "core/*",
-      "plugins/*",
-      "schematics/*",
-      "utils/*",
-      "private/*"
+      "packages/*"
     ]
   }
 }

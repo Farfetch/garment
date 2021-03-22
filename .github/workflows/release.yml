@@ -1,4 +1,4 @@
-name: Publish
+name: Release
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
@@ -7,8 +7,9 @@ name: Publish
 #     types: [created]
 on:
   push:
+    # Sequence of patterns matched against refs/tags
     tags:
-    - '*'
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -22,10 +23,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1.4.4
-        with:
-          registry-url: 'https://registry.npmjs.org'
-          scope: '@garment'
-
+      
       - name: Install dependencies
         run: yarn
 
@@ -37,3 +35,14 @@ jobs:
         run: yarn gr publish --npmrc $NPM_CONFIG_USERCONFIG --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
