@@ -29,9 +29,11 @@ export class Status {
   ) {}
 
   get hasErrors() {
-    return Array.from(this.actionsByProjectName.values()).some(stat =>
-      Boolean(stat.hasErrors)
-    ) || this.hasBatchErrors;
+    return (
+      Array.from(this.actionsByProjectName.values()).some(stat =>
+        Boolean(stat.hasErrors)
+      ) || this.hasBatchErrors
+    );
   }
 
   setActions(...actions: Action[]) {

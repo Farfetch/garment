@@ -5,10 +5,7 @@
 # dependencies
 /node_modules
 /local_garment/node_modules
-/core/*/node_modules
-/plugins/*/node_modules
-/schematics/*/node_modules
-/utils/*/node_modules
+/packages/*/node_modules
 /test-manual
 
 # IDEs and editors

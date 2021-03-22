@@ -1,5 +1,5 @@
 {
-  "$schema": "./core/workspace/schemas/config.schema.json",
+  "$schema": "./packages/workspace/schemas/config.schema.json",
   "presets": {
     "publishable": {
       "tasks": {
@@ -29,7 +29,7 @@
           "runner": "@garment/runner-docs",
           "output": "{{projectDir}}",
           "options": {
-            "template": "private/runner-docs/template.md"
+            "template": "packages/runner-docs/template.md"
           }
         },
         "docs-local": {
@@ -69,7 +69,9 @@
         "build": {
           "runner": "ts",
           "input": "{{projectDir}}/src/**/*.ts?(x)",
-          "output": ["{{projectDir}}/lib"],
+          "output": [
+            "{{projectDir}}/lib"
+          ],
           "buildDependencies": true,
           "options": {
             "configFile": "tsconfig.base.json"
@@ -84,7 +86,11 @@
           "output": "{{projectDir}}/lib",
           "input": {
             "rootDir": "{{projectDir}}/src",
-            "exclude": ["**/*.ts", "**/*.tsx", "**/*.js"]
+            "exclude": [
+              "**/*.ts",
+              "**/*.tsx",
+              "**/*.js"
+            ]
           }
         },
         "postbuild": ":copy"
@@ -95,7 +101,10 @@
         "generate-schema": {
           "runner": "typescript-json-schema",
           "input": "{{projectDir}}/src/**/index.ts",
-          "output": ["{{projectDir}}/lib", "{{projectDir}}/src"],
+          "output": [
+            "{{projectDir}}/lib",
+            "{{projectDir}}/src"
+          ],
           "options": {
             "pattern": "*Options"
           }
@@ -109,8 +118,10 @@
   },
   "projects": {
     "cli": {
-      "path": "core/cli",
-      "extends": ["tspackage"],
+      "path": "packages/cli",
+      "extends": [
+        "tspackage"
+      ],
       "tasks": {
         "test": {
           "ref": "tspackage:build",
@@ -119,161 +130,278 @@
       }
     },
     "dependency-graph": {
-      "path": "core/dependency-graph",
-      "extends": ["tspackage"]
+      "path": "packages/dependency-graph",
+      "extends": [
+        "tspackage"
+      ]
     },
     "garment": {
-      "path": "core/garment",
-      "extends": ["tspackage"]
+      "path": "packages/garment",
+      "extends": [
+        "tspackage"
+      ]
     },
     "logger": {
-      "path": "core/logger",
-      "extends": ["tspackage"]
+      "path": "packages/logger",
+      "extends": [
+        "tspackage"
+      ]
     },
     "runner": {
-      "path": "core/runner",
-      "extends": ["tspackage"]
+      "path": "packages/runner",
+      "extends": [
+        "tspackage"
+      ]
     },
     "scheduler": {
-      "path": "core/scheduler",
-      "extends": ["tspackage"]
+      "path": "packages/scheduler",
+      "extends": [
+        "tspackage"
+      ]
     },
     "schematics-client": {
-      "path": "core/schematics-client",
-      "extends": ["tspackage"]
+      "path": "packages/schematics-client",
+      "extends": [
+        "tspackage"
+      ]
     },
     "watcher": {
-      "path": "core/watcher",
-      "extends": ["tspackage"]
+      "path": "packages/watcher",
+      "extends": [
+        "tspackage"
+      ]
     },
     "workspace": {
-      "path": "core/workspace",
-      "extends": ["tspackage"]
+      "path": "packages/workspace",
+      "extends": [
+        "tspackage"
+      ]
     },
     "yeoman-client": {
-      "path": "core/yeoman-client",
-      "extends": ["tspackage"]
+      "path": "packages/yeoman-client",
+      "extends": [
+        "tspackage"
+      ]
     },
     "runner-babel": {
-      "path": "plugins/runner-babel",
-      "extends": ["tspackage", "runner-preset", "generate-schema"]
+      "path": "packages/plugin-runner-babel",
+      "extends": [
+        "tspackage",
+        "runner-preset",
+        "generate-schema"
+      ]
     },
     "runner-bin": {
-      "path": "plugins/runner-bin",
-      "extends": ["tspackage", "runner-preset", "generate-schema"]
+      "path": "packages/plugin-runner-bin",
+      "extends": [
+        "tspackage",
+        "runner-preset",
+        "generate-schema"
+      ]
     },
     "runner-clean": {
-      "path": "plugins/runner-clean",
-      "extends": ["tspackage", "runner-preset"]
+      "path": "packages/plugin-runner-clean",
+      "extends": [
+        "tspackage",
+        "runner-preset"
+      ]
     },
     "runner-copy": {
-      "path": "plugins/runner-copy",
-      "extends": ["tspackage", "runner-preset"]
+      "path": "packages/plugin-runner-copy",
+      "extends": [
+        "tspackage",
+        "runner-preset"
+      ]
     },
     "runner-eslint": {
-      "path": "plugins/runner-eslint",
-      "extends": ["tspackage", "runner-preset", "generate-schema"]
+      "path": "packages/plugin-runner-eslint",
+      "extends": [
+        "tspackage",
+        "runner-preset",
+        "generate-schema"
+      ]
     },
     "runner-jest": {
-      "path": "plugins/runner-jest",
-      "extends": ["tspackage", "runner-preset", "generate-schema"]
+      "path": "packages/plugin-runner-jest",
+      "extends": [
+        "tspackage",
+        "runner-preset",
+        "generate-schema"
+      ]
     },
     "runner-lighthouse": {
-      "path": "plugins/runner-lighthouse",
-      "extends": ["tspackage", "runner-preset", "generate-schema"]
+      "path": "packages/plugin-runner-lighthouse",
+      "extends": [
+        "tspackage",
+        "runner-preset",
+        "generate-schema"
+      ]
     },
     "runner-next": {
-      "path": "plugins/runner-next",
-      "extends": ["tspackage", "runner-preset", "generate-schema"]
+      "path": "packages/plugin-runner-next",
+      "extends": [
+        "tspackage",
+        "runner-preset",
+        "generate-schema"
+      ]
     },
     "runner-postcss": {
-      "path": "plugins/runner-postcss",
-      "extends": ["tspackage", "runner-preset", "generate-schema"]
+      "path": "packages/plugin-runner-postcss",
+      "extends": [
+        "tspackage",
+        "runner-preset",
+        "generate-schema"
+      ]
     },
     "runner-publish": {
-      "path": "plugins/runner-publish",
-      "extends": ["tspackage", "runner-preset", "generate-schema"]
+      "path": "packages/plugin-runner-publish",
+      "extends": [
+        "tspackage",
+        "runner-preset",
+        "generate-schema"
+      ]
     },
     "runner-serve": {
-      "path": "plugins/runner-serve",
-      "extends": ["tspackage", "runner-preset", "generate-schema"]
+      "path": "packages/plugin-runner-serve",
+      "extends": [
+        "tspackage",
+        "runner-preset",
+        "generate-schema"
+      ]
     },
     "runner-storybook": {
-      "path": "plugins/runner-storybook",
-      "extends": ["tspackage", "runner-preset", "generate-schema"],
-      "tasks": { "docs": "runner-preset:docs-local" }
+      "path": "packages/plugin-runner-storybook",
+      "extends": [
+        "tspackage",
+        "runner-preset",
+        "generate-schema"
+      ],
+      "tasks": {
+        "docs": "runner-preset:docs-local"
+      }
     },
     "runner-stylelint": {
-      "path": "plugins/runner-stylelint",
-      "extends": ["tspackage", "runner-preset", "generate-schema"]
+      "path": "packages/plugin-runner-stylelint",
+      "extends": [
+        "tspackage",
+        "runner-preset",
+        "generate-schema"
+      ]
     },
     "runner-ts": {
-      "path": "plugins/runner-ts",
-      "extends": ["tspackage", "runner-preset", "generate-schema"]
+      "path": "packages/plugin-runner-ts",
+      "extends": [
+        "tspackage",
+        "runner-preset",
+        "generate-schema"
+      ]
     },
     "runner-typed-css-modules": {
-      "path": "plugins/runner-typed-css-modules",
-      "extends": ["tspackage", "runner-preset"],
-      "tasks": { "docs": "runner-preset:docs-local" }
+      "path": "packages/plugin-runner-typed-css-modules",
+      "extends": [
+        "tspackage",
+        "runner-preset"
+      ],
+      "tasks": {
+        "docs": "runner-preset:docs-local"
+      }
     },
     "runner-typescript-json-schema": {
-      "path": "plugins/runner-typescript-json-schema",
-      "extends": ["tspackage", "runner"],
-      "tasks": { "docs": "runner-preset:docs-local" }
+      "path": "packages/plugin-runner-typescript-json-schema",
+      "extends": [
+        "tspackage",
+        "runner"
+      ],
+      "tasks": {
+        "docs": "runner-preset:docs-local"
+      }
     },
     "runner-void": {
-      "path": "plugins/runner-void",
-      "extends": ["tspackage", "generate-schema"]
+      "path": "packages/plugin-runner-void",
+      "extends": [
+        "tspackage",
+        "generate-schema"
+      ]
     },
     "runner-wdio": {
-      "path": "plugins/runner-wdio",
-      "extends": ["tspackage", "generate-schema"]
+      "path": "packages/plugin-runner-wdio",
+      "extends": [
+        "tspackage",
+        "generate-schema"
+      ]
     },
     "runner-docs": {
-      "path": "private/runner-docs",
-      "extends": ["tspackage"]
+      "path": "packages/plugin-runner-docs",
+      "extends": [
+        "tspackage"
+      ]
     },
-    "garment-schematics": {
-      "path": "schematics/garment",
-      "extends": ["tspackage", "copy-other-files"]
+    "schematics": {
+      "path": "packages/schematics",
+      "extends": [
+        "tspackage",
+        "copy-other-files"
+      ]
     },
     "schematics-init": {
-      "path": "schematics/schematics-init",
-      "extends": ["tspackage"]
+      "path": "packages/schematics-init",
+      "extends": [
+        "tspackage"
+      ]
     },
     "schematics-typescript": {
-      "path": "schematics/typescript",
-      "extends": ["tspackage", "copy-other-files"]
+      "path": "packages/schematics-typescript",
+      "extends": [
+        "tspackage",
+        "copy-other-files"
+      ]
     },
     "schematics-utils": {
-      "path": "schematics/utils",
-      "extends": ["tspackage"]
+      "path": "packages/schematics-utils",
+      "extends": [
+        "tspackage"
+      ]
     },
     "fixture-helper": {
-      "path": "utils/fixture-helper",
-      "extends": ["tspackage"]
+      "path": "packages/fixture-helper",
+      "extends": [
+        "tspackage"
+      ]
     },
     "perf": {
-      "path": "utils/perf",
-      "extends": ["tspackage"]
+      "path": "packages/perf",
+      "extends": [
+        "tspackage"
+      ]
     },
     "print-tree": {
-      "path": "utils/print-tree",
-      "extends": ["tspackage"]
+      "path": "packages/print-tree",
+      "extends": [
+        "tspackage"
+      ]
     },
     "schema-validator": {
-      "path": "utils/schema-validator",
-      "extends": ["tspackage"]
+      "path": "packages/schema-validator",
+      "extends": [
+        "tspackage"
+      ]
     },
     "visualize-graph": {
-      "path": "utils/visualize-graph",
-      "extends": ["tspackage"]
+      "path": "packages/visualize-graph",
+      "extends": [
+        "tspackage"
+      ]
     },
     "utils": {
-      "path": "core/utils",
-      "extends": ["tspackage"]
+      "path": "packages/utils",
+      "extends": [
+        "tspackage"
+      ]
     }
   },
-  "schematics": ["@garment/schematics", "@garment/schematics-typescript"],
+  "schematics": [
+    "@garment/schematics",
+    "@garment/schematics-typescript"
+  ],
   "experimentalCacheSubscriptions": true
 }

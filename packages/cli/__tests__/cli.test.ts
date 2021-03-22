@@ -4,7 +4,7 @@ import stripAnsi from 'strip-ansi';
 import { normalizeContainedPath } from '@garment/fixture-helper';
 
 const cwd = Path.join(__dirname + '/fixtures/basic');
-const garmentPath = Path.relative(cwd, 'core/cli/lib/cli.js');
+const garmentPath = Path.relative(cwd, 'packages/cli/lib/cli.js');
 const versionRegex = /v[0-9]+\.[0-9]+\.[0-9]+(.*)?/;
 const noCacheArg = '--no-cache';
 
