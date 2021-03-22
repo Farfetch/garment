@@ -1,6 +1,6 @@
 {
   "name": "@garment/watcher",
-  "version": "0.15.3",
+  "version": "0.15.4",
   "main": "lib/index.js",
   "license": "MIT",
   "dependencies": {

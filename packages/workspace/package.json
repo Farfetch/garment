@@ -1,15 +1,15 @@
 {
   "name": "@garment/workspace",
   "license": "MIT",
-  "version": "0.15.3",
+  "version": "0.15.4",
   "main": "lib/index.js",
   "files": [
     "lib",
     "schemas"
   ],
   "dependencies": {
-    "@garment/schema-validator": "^0.15.3",
-    "@garment/utils": "^0.15.3",
+    "@garment/schema-validator": "^0.15.4",
+    "@garment/utils": "^0.15.4",
     "dependency-graph": "^0.8.0",
     "fs-extra": "8.1.0",
     "mustache": "^3.0.1",

@@ -1,11 +1,11 @@
 {
   "name": "@garment/schematics-utils",
-  "version": "0.15.3",
+  "version": "0.15.4",
   "main": "lib/index.js",
   "license": "MIT",
   "dependencies": {
     "@angular-devkit/schematics": "^7.3.1",
-    "@garment/workspace": "^0.15.3"
+    "@garment/workspace": "^0.15.4"
   },
   "devDependencies": {
     "@types/prettier": "^1.16.1"

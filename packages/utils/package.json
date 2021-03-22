@@ -1,6 +1,6 @@
 {
   "name": "@garment/utils",
-  "version": "0.15.3",
+  "version": "0.15.4",
   "main": "lib/index.js",
   "license": "MIT",
   "files": [
