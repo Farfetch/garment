@@ -26,7 +26,8 @@ jobs:
         with:
           node-version: '12.x'
           registry-url: 'https://registry.npmjs.org'
-
+          scope: '@garment'
+          
       - name: Install dependencies
         run: yarn
 
