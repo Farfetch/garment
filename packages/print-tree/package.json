@@ -1,6 +1,6 @@
 {
   "name": "@garment/print-tree",
-  "version": "0.15.0",
+  "version": "0.15.3",
   "main": "lib/index.js",
   "license": "MIT",
   "dependencies": {

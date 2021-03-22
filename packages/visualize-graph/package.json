@@ -1,13 +1,13 @@
 {
   "name": "@garment/visualize-graph",
   "license": "MIT",
-  "version": "0.15.0",
+  "version": "0.15.3",
   "main": "lib/index.js",
   "files": [
     "lib"
   ],
   "dependencies": {
-    "@garment/dependency-graph": "^0.15.0",
+    "@garment/dependency-graph": "^0.15.3",
     "fs-extra": "8.1.0",
     "graphviz": "^0.0.8",
     "opn": "^5.4.0",

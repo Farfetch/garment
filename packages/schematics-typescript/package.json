@@ -1,15 +1,15 @@
 {
   "name": "@garment/schematics-typescript",
-  "version": "0.15.0",
+  "version": "0.15.3",
   "main": "lib/index.js",
   "schematics": "./collection.json",
   "license": "MIT",
   "dependencies": {
     "@angular-devkit/core": "^7.3.1",
     "@angular-devkit/schematics": "^7.3.1",
-    "@garment/garment": "^0.15.0",
-    "@garment/schematics-utils": "^0.15.0",
-    "@garment/workspace": "^0.15.0"
+    "@garment/garment": "^0.15.3",
+    "@garment/schematics-utils": "^0.15.3",
+    "@garment/workspace": "^0.15.3"
   },
   "files": [
     "lib",

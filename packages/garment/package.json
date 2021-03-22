@@ -1,16 +1,16 @@
 {
   "name": "@garment/garment",
-  "version": "0.15.0",
+  "version": "0.15.3",
   "main": "lib/index.js",
   "license": "MIT",
   "dependencies": {
-    "@garment/dependency-graph": "^0.15.0",
-    "@garment/logger": "^0.15.0",
-    "@garment/runner": "^0.15.0",
-    "@garment/scheduler": "^0.15.0",
-    "@garment/schema-validator": "^0.15.0",
-    "@garment/utils": "^0.15.0",
-    "@garment/workspace": "^0.15.0",
+    "@garment/dependency-graph": "^0.15.3",
+    "@garment/logger": "^0.15.3",
+    "@garment/runner": "^0.15.3",
+    "@garment/scheduler": "^0.15.3",
+    "@garment/schema-validator": "^0.15.3",
+    "@garment/utils": "^0.15.3",
+    "@garment/workspace": "^0.15.3",
     "@parcel/watcher": "^2.0.0-alpha.9",
     "fs-extra": "8.1.0",
     "globby": "10.0.1",
@@ -27,7 +27,7 @@
     "typings"
   ],
   "devDependencies": {
-    "@garment/fixture-helper": "^0.15.0",
+    "@garment/fixture-helper": "^0.15.3",
     "@types/is-valid-path": "^0.1.0",
     "@types/tempy": "^0.2.0"
   }
