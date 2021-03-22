@@ -1,9 +1,6 @@
 {
   "packages": [
-    "core/*",
-    "plugins/*",
-    "schematics/*",
-    "utils/*"
+    "packages/*"
   ],
   "npmClient": "yarn",
   "version": "0.15.0"
