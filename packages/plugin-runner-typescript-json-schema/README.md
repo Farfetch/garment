@@ -1,7 +1,7 @@
-# @garment/plugin-runner-ts
+# @garment/plugin-runner-typescript-json-schema
 
 <!-- description src/index.ts firstInterface -->
-Generates schema.json form an interface
+Generates schema.json from an interface
 
 
 ## Installation
@@ -12,3 +12,25 @@ Generates schema.json form an interface
 or
 
 `yarn add @garment/plugin-runner-typescript-json-schema`
+
+## Example usage
+
+<!-- example src/index.ts firstInterface -->
+```json
+{
+    "runner": "typescript-json-schema",
+    "input": "{{projectDir}}/src/**/index.ts",
+    "output": [ "{{projectDir}}/lib", "{{projectDir}}/src"],
+    "options": {
+        "pattern": "*Options"
+    }
+}
+```
+
+## API
+
+<!-- api src/index.ts firstInterface  -->
+`pattern: string`
+
+Pattern for interface name
+
