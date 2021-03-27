@@ -343,6 +343,14 @@
         "tspackage"
       ]
     },
+    "runner-prettier": {
+        "path": "packages/plugin-runner-prettier",
+        "extends": [
+          "tspackage",
+          "runner-preset",
+          "generate-schema"
+        ]
+    },
     "schematics": {
       "path": "packages/schematics",
       "extends": [

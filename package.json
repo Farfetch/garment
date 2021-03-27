@@ -38,7 +38,7 @@
     "lerna": "^3.7.1",
     "lerna-update-wizard": "^0.16.0",
     "lint-staged": "^8.1.0",
-    "prettier": "^1.19.1",
+    "prettier": "^2.2.1",
     "ts-jest": "^24.0.2",
     "ts-node": "^8.0.1",
     "typescript": "^3.8.3"
