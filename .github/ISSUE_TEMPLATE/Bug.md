@@ -1,3 +1,12 @@
+---
+name: Bug
+about: Bug report template.
+title: ''
+labels: bug
+assignees: ''
+
+---
+
 ## Bug Report
 
 **Current Behavior**
