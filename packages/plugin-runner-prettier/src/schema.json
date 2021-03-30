@@ -1,0 +1,1 @@
+{"type":"object","properties":{"configFile":{"description":"The config file to load Prettier's configuration from.","format":"path","type":"string"},"fix":{"description":"Fix automatically linting errors.","type":"boolean"}},"$schema":"http://json-schema.org/draft-07/schema#"}
