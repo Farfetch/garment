@@ -47,7 +47,8 @@ export default defineRunner(
     const [binOption, ...args] = parseOptions(options).map(arg =>
       renderTemplate(arg, {
         projectDir: project.fullPath,
-        workspaceDir: workspace.cwd
+        workspaceDir: workspace.cwd,
+        projectName: project.name
       })
     );
 
