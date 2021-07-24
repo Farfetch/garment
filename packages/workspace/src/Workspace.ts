@@ -8,7 +8,7 @@ import {
   ResolvedTaskConfig,
   ResolvedTaskDefinition,
   TaskConfig,
-  TaskDefinition
+  TaskDefinition,
 } from './Config';
 import { NodePackage } from './NodePackage';
 import { Project } from './Project';
@@ -49,7 +49,9 @@ export class Workspace {
   get taskNames() {
     const taskNameSet = new Set<string>();
     for (const project of this.projects) {
-      Object.keys(project.tasks).forEach(taskName => taskNameSet.add(taskName));
+      Object.keys(project.tasks).forEach((taskName) =>
+        taskNameSet.add(taskName)
+      );
     }
     return Array.from(taskNameSet);
   }
@@ -78,7 +80,7 @@ export class Workspace {
       fullPath,
       tasks: tasks,
       dependencies,
-      extendsSet
+      extendsSet,
     });
 
     const packageJsonPath = project.resolvePath('./package.json');
@@ -137,7 +139,7 @@ export function getProjectsTasks(config: Config, projectName: string) {
     }
     if (Array.isArray(taskConfig)) {
       return {
-        parallel: taskConfig.map(config => {
+        parallel: taskConfig.map((config) => {
           const resolved = resolveTaskConfig(
             config,
             projectName,
@@ -145,12 +147,12 @@ export function getProjectsTasks(config: Config, projectName: string) {
           );
           if (Array.isArray(resolved)) {
             return {
-              parallel: resolved
+              parallel: resolved,
             } as ResolvedTaskDefinition;
           } else {
             return resolved;
           }
-        })
+        }),
       } as ResolvedTaskDefinition;
     } else if (taskConfig.ref) {
       return {
@@ -165,7 +167,7 @@ export function getProjectsTasks(config: Config, projectName: string) {
             taskConfig.next,
             projectName,
             currentIdAccumulator + '>'
-          )
+          ),
       } as ResolvedTaskDefinition;
     } else if (taskConfig.next) {
       return {
@@ -174,12 +176,12 @@ export function getProjectsTasks(config: Config, projectName: string) {
           taskConfig.next,
           projectName,
           currentIdAccumulator + '>'
-        )
+        ),
       } as ResolvedTaskDefinition;
     }
     return {
       ...taskConfig,
-      id: currentIdAccumulator + objectHash(taskConfig)
+      id: currentIdAccumulator + objectHash(taskConfig),
     } as ResolvedTaskDefinition;
   }
 
@@ -211,7 +213,7 @@ export function getProjectsTasks(config: Config, projectName: string) {
       ? projectNamesRaw
       : [projectNamesRaw];
 
-    projectNames.forEach(name => {
+    projectNames.forEach((name) => {
       const parentProject = presets[name] || projects[name];
       if (!parentProject) {
         throw new Error(`There is no project or preset called "${name}"`);

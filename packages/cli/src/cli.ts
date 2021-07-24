@@ -40,7 +40,7 @@ defaults(yargs)
   .command(tasksCommand)
   .command(projectsCommand)
   .scriptName('garment')
-  .middleware(argv => {
+  .middleware((argv) => {
     const { perf, loglevel } = argv;
 
     if (perf) {
@@ -48,17 +48,18 @@ defaults(yargs)
         print: true,
         filter:
           typeof perf === 'string'
-            ? measure => measure.name.toLowerCase().includes(perf.toLowerCase())
+            ? (measure) =>
+                measure.name.toLowerCase().includes(perf.toLowerCase())
             : typeof perf === 'number'
-            ? measure => measure.duration >= perf
-            : () => true
+            ? (measure) => measure.duration >= perf
+            : () => true,
       });
     }
     if (typeof loglevel === 'string' && loglevel) {
       log.setLevel(loglevel as any);
     }
   })
-  .fail(function(msg, error) {
+  .fail(function (msg, error) {
     /**
      * @types/yargs does not support the callback 3rd argument,
      * so we need to get it like arguments[2]

@@ -19,7 +19,7 @@ export function addProjectToGarmentJson(options: {
     );
 
     const project: { path: string; extends?: string[] } = {
-      path
+      path,
     };
     if (extendProjects) {
       project.extends = extendProjects;
@@ -27,7 +27,7 @@ export function addProjectToGarmentJson(options: {
 
     garmentJson.projects = {
       ...garmentJson.projects,
-      [name]: project
+      [name]: project,
     };
 
     const sortedProjects: { [key: string]: ProjectConfig } = {};
@@ -44,7 +44,7 @@ export function addProjectToGarmentJson(options: {
     tree.overwrite(
       garmentJsonPath,
       prettier.format(JSON.stringify(garmentJson, null, 2), {
-        parser: 'json'
+        parser: 'json',
       })
     );
   };

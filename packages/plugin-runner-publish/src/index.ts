@@ -44,7 +44,7 @@ export interface PublishRunnerOptions {
 
 export default defineRunner(
   defineOptionsFromJSONSchema<PublishRunnerOptions>(require('./schema.json')),
-  async function(ctx) {
+  async function (ctx) {
     const { project, logger } = ctx;
     const { npmrc, errorIfPublished, tag = 'latest', access } = ctx.options;
 
@@ -87,7 +87,7 @@ export default defineRunner(
 
     try {
       await execa('npm', args, {
-        cwd: project.fullPath
+        cwd: project.fullPath,
       });
       logger.success(
         `Package "${name}" version "${version}" published successfully`

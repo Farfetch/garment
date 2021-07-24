@@ -3,7 +3,7 @@ import {
   defineRunner,
   defineWatch,
   Batch,
-  defineOptionsFromJSONSchema
+  defineOptionsFromJSONSchema,
 } from '@garment/runner';
 import * as fs from 'fs-extra';
 import * as Path from 'path';
@@ -41,7 +41,7 @@ export interface JestRunnerOptions extends BaseJestRunnerOpts {
 
 export default defineRunner(
   defineOptionsFromJSONSchema<JestRunnerOptions>(require('./schema.json')),
-  async ctx => {
+  async (ctx) => {
     process.env.NODE_ENV = 'test';
     return jestCLI.run(await getJestArgs(ctx));
   }
@@ -49,7 +49,7 @@ export default defineRunner(
 
 export const watch = defineWatch(
   defineOptionsFromJSONSchema<JestRunnerOptions>(require('./schema.json')),
-  async ctx => {
+  async (ctx) => {
     process.env.NODE_ENV = 'test';
     return jestCLI.run([...(await getJestArgs(ctx)), '--watch']);
   }
@@ -100,7 +100,7 @@ export async function getConfig(ctx: Context<JestRunnerOptions>) {
     [key: string]: Batch<JestRunnerOptions>[];
   } = {};
 
-  batch.forEach(item => {
+  batch.forEach((item) => {
     const { configFile } = item.options;
 
     if (!projsByConfig[configFile]) {
@@ -113,7 +113,7 @@ export async function getConfig(ctx: Context<JestRunnerOptions>) {
   const isMultipleConfigs = projsKeys.length > 1;
   const jestConfig: Partial<Config.DefaultOptions> = {
     rootDir: ctx.workspace.cwd,
-    projects: []
+    projects: [],
   };
 
   const configEntries = Object.entries(projsByConfig).map(
@@ -123,7 +123,7 @@ export async function getConfig(ctx: Context<JestRunnerOptions>) {
         require(configPath) as Partial<
           Config.DefaultOptions & Config.ProjectConfig
         >,
-        items
+        items,
       ] as const
   );
 
@@ -134,7 +134,7 @@ export async function getConfig(ctx: Context<JestRunnerOptions>) {
   for (const [configPath, projectConfig, items] of configEntries) {
     const rootDir = projectConfig.rootDir || Path.dirname(configPath);
     const roots = items.map(
-      item => '<rootDir>/' + Path.relative(rootDir, item.project.fullPath)
+      (item) => '<rootDir>/' + Path.relative(rootDir, item.project.fullPath)
     );
     projectConfig.rootDir = rootDir;
     projectConfig.roots = roots;

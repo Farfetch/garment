@@ -1,7 +1,7 @@
 import {
   defineOptionsFromJSONSchema,
   defineRunner,
-  File
+  File,
 } from '@garment/runner';
 import { CLIEngine } from 'eslint';
 
@@ -30,12 +30,12 @@ interface EslintRunnerOptions {
 
 enum SeverityLevel {
   Warning = 1,
-  Error = 2
+  Error = 2,
 }
 
 export default defineRunner(
   defineOptionsFromJSONSchema<EslintRunnerOptions>(require('./schema.json')),
-  async function(ctx) {
+  async function (ctx) {
     const { logger, options, input, workspace } = ctx;
     const { configFile, outputDir, fix: fixFlag } = options;
     const fix = Boolean(outputDir) && fixFlag;
@@ -51,10 +51,10 @@ export default defineRunner(
 
     const cli = new CLIEngine(cliEngineOpts);
 
-    ctx.input(files => {
+    ctx.input((files) => {
       const fixes: File[] = [];
 
-      files.forEach(file => {
+      files.forEach((file) => {
         const { results } = cli.executeOnText(
           file.data.toString('utf8'),
           file.absolutePath
@@ -107,9 +107,9 @@ function filterResultsBySeverity(
     return severity === sevLevel ? messagesSum : 0;
   };
 
-  results.forEach(result => {
+  results.forEach((result) => {
     const filteredMessages = result.messages.filter(
-      mess => mess.severity === severity
+      (mess) => mess.severity === severity
     );
 
     if (filteredMessages.length > 0) {
@@ -119,7 +119,7 @@ function filterResultsBySeverity(
         errorCount: count(SeverityLevel.Error, filteredMessages.length),
         warningCount: count(SeverityLevel.Warning, filteredMessages.length),
         fixableErrorCount: result.fixableErrorCount,
-        fixableWarningCount: 0
+        fixableWarningCount: 0,
       });
     }
   });

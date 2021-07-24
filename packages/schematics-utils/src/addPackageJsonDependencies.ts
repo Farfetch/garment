@@ -8,7 +8,7 @@ export function addPackageJsonDependencies(
   return (tree: Tree) => {
     const dependenciesMap: { [key: string]: string } = {};
 
-    fromPackageJsonPaths.forEach(path => {
+    fromPackageJsonPaths.forEach((path) => {
       const depPackageJsonContent = tree.read(path);
       if (!depPackageJsonContent) {
         throw new Error(`Couldn't find ${path}`);
@@ -31,7 +31,7 @@ export function addPackageJsonDependencies(
 
     pluginPackageJson.dependencies = sortObject({
       ...pluginPackageJson.dependencies,
-      ...dependenciesMap
+      ...dependenciesMap,
     });
 
     tree.overwrite(

@@ -27,9 +27,9 @@ globby
   .sync([`**/__tests__/module-resolution.json`], {
     cwd: process.cwd(),
     absolute: true,
-    ignore: ['node_modules', '.yarn', '.github', 'docs', 'private']
+    ignore: ['node_modules', '.yarn', '.github', 'docs', 'private'],
   })
-  .forEach(file => {
+  .forEach((file) => {
     const testDir = testDirFromResolutionPath(file);
     mapping[testDir] = require(file);
   });

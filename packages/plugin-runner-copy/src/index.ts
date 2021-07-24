@@ -5,8 +5,8 @@ import { defineRunner } from '@garment/runner';
  */
 export interface CopyRunnerOptions {}
 
-export default defineRunner(async ctx => {
+export default defineRunner(async (ctx) => {
   ctx.logger.info(`Copy files`);
 
-  ctx.input(file => file);
+  ctx.input((file) => file);
 });

@@ -15,15 +15,15 @@ export interface RunnerOptions {
 
 export default defineRunner(
   defineOptions({ pattern: ['string?', '', '*'] }),
-  async ctx => {
+  async (ctx) => {
     const { pattern } = ctx.options;
 
-    ctx.input(async files => {
-      const filePaths = files.map(_ => _.absolutePath!).filter(Boolean);
+    ctx.input(async (files) => {
+      const filePaths = files.map((_) => _.absolutePath!).filter(Boolean);
 
       const program = TJS.getProgramFromFiles(filePaths, {});
 
-      return files.map(file => {
+      return files.map((file) => {
         const generator = TJS.buildGenerator(
           program,
           { ignoreErrors: true, required: true },
@@ -36,7 +36,7 @@ export default defineRunner(
         }
 
         const symbols = generator.getMainFileSymbols(program, [
-          file.absolutePath!
+          file.absolutePath!,
         ]);
 
         const [firstSymbol] = matcher(symbols, [pattern]);

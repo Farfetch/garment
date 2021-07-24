@@ -1,7 +1,7 @@
 import {
   dependencyGraphFromWorkspace,
   garmentFromWorkspace,
-  getProjectsByName
+  getProjectsByName,
 } from '@garment/garment';
 import log from '@garment/logger';
 import { Project } from '@garment/workspace';
@@ -31,38 +31,38 @@ const options: {
 } = {
   watch: {
     type: 'boolean',
-    description: 'Activate watch mode'
+    description: 'Activate watch mode',
   },
   skipLifecycle: {
     type: 'boolean',
-    description: 'Prevent running pre- and post- lifecycle tasks'
+    description: 'Prevent running pre- and post- lifecycle tasks',
   },
   all: {
     type: 'boolean',
-    description: 'Run for all projects if none is provided'
+    description: 'Run for all projects if none is provided',
   },
   projects: {
     type: 'array',
-    description: 'Provide list of projects'
+    description: 'Provide list of projects',
   },
   files: {
     type: 'array',
-    description: 'Provide list of files'
+    description: 'Provide list of files',
   },
   stdin: {
     type: 'boolean',
     hidden: true, // TODO remove after action graph refactor
-    description: 'Read project names from stdin'
+    description: 'Read project names from stdin',
   },
   exclude: {
     type: 'array',
-    description: 'Projects to exclude from run'
+    description: 'Projects to exclude from run',
   },
   cache: {
     type: 'boolean',
     description: 'Activate cache (--no-cache do deactivate)',
-    default: true
-  }
+    default: true,
+  },
 };
 
 const garmentOwnKeysSet = new Set([
@@ -73,7 +73,7 @@ const garmentOwnKeysSet = new Set([
   'arg',
   'loglevel',
   'perf',
-  '$0'
+  '$0',
 ]);
 
 async function handler(argv: CommonOptions) {
@@ -87,7 +87,7 @@ async function handler(argv: CommonOptions) {
     project: projectNameArg,
     projects: projectNamesArg,
     stdin: stdinArg,
-    cache: shouldCache
+    cache: shouldCache,
   } = argv;
 
   if (
@@ -102,7 +102,7 @@ async function handler(argv: CommonOptions) {
 
   const {
     currentProject,
-    config: { cache }
+    config: { cache },
   } = workspace;
 
   const projectName = projectNameArg || currentProject?.name;
@@ -116,7 +116,7 @@ async function handler(argv: CommonOptions) {
   const multiProjectFlags = [
     ['all', all],
     ['files', files],
-    ['projects', projectNamesArg]
+    ['projects', projectNamesArg],
   ].filter(([, _]) => Boolean(_));
 
   if (multiProjectFlags.length > 1) {
@@ -151,10 +151,7 @@ async function handler(argv: CommonOptions) {
   if (stdinArg) {
     log.debug('Got project names from STDIN');
     const stdin = await readStdin();
-    projectNames = stdin
-      .trim()
-      .split(/\s+/)
-      .filter(Boolean);
+    projectNames = stdin.trim().split(/\s+/).filter(Boolean);
   }
 
   const runnerOptions = extractRunnerOptions(argv);
@@ -162,17 +159,17 @@ async function handler(argv: CommonOptions) {
   const dependencyGraph = dependencyGraphFromWorkspace(workspace);
 
   const projects = ((all || !projectName) && !projectNamesArg && !files
-    ? [...workspace.projects].map(project => ({ project, files: [] }))
+    ? [...workspace.projects].map((project) => ({ project, files: [] }))
     : getProjectsByName(workspace, files || projectNames, Boolean(files))
   ).filter(
-    item =>
+    (item) =>
       !exclude.includes(item instanceof Project ? item.name : item.project.name)
   );
 
   const task = {
     name: cmd,
     projects,
-    watch
+    watch,
   };
 
   function clearLine(stream = process.stdout) {
@@ -195,9 +192,9 @@ async function handler(argv: CommonOptions) {
       }
       lastHeight = height;
     }
-    done.forEach(line => console.log(line));
+    done.forEach((line) => console.log(line));
     if (isInteractive) {
-      dynamic.forEach(line => console.log(line));
+      dynamic.forEach((line) => console.log(line));
     }
   });
 
@@ -232,7 +229,7 @@ async function handler(argv: CommonOptions) {
       } else if (event.type === 'batch-done') {
         status.batchFinished(event.result);
       }
-    }
+    },
   });
 
   if (status.hasErrors && !watch) {
@@ -264,8 +261,8 @@ async function readStdin() {
   process.stdin.resume();
   process.stdin.setEncoding('utf8');
   let data = '';
-  return new Promise<string>(resolve => {
-    process.stdin.on('data', chunk => {
+  return new Promise<string>((resolve) => {
+    process.stdin.on('data', (chunk) => {
       data += chunk;
     });
     process.stdin.on('end', () => resolve(data));
@@ -274,15 +271,15 @@ async function readStdin() {
 
 function extractRunnerOptions(argv: any) {
   const filteredFlags = Object.keys(argv).filter(
-    key => !garmentOwnKeysSet.has(key)
+    (key) => !garmentOwnKeysSet.has(key)
   );
   return filteredFlags.reduce(
     (obj, flag) => {
       const value = argv[flag];
       if (typeof value === 'object' && !Array.isArray(value)) {
         Object.keys(value)
-          .filter(key => key !== '--' && key.includes('-'))
-          .forEach(key => {
+          .filter((key) => key !== '--' && key.includes('-'))
+          .forEach((key) => {
             delete value[key];
           });
         obj[flag] = value;

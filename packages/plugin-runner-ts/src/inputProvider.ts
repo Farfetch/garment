@@ -11,7 +11,7 @@ export default (project: Project, options: TSRunnerOptions) => {
     include = [],
     exclude = [],
     files = [],
-    compilerOptions: { rootDir = '', allowJs = false } = {}
+    compilerOptions: { rootDir = '', allowJs = false } = {},
   } = JSON.parse(fs.readFileSync(configFile, 'utf8')) as {
     include?: string[];
     exclude?: string[];
@@ -29,31 +29,33 @@ export default (project: Project, options: TSRunnerOptions) => {
     for (const pattern of include) {
       if (pattern.includes('*')) {
         if (pattern.endsWith('**')) {
-          resultInclude.push(...defaultInclude.map(_ => Path.join(pattern, _)));
+          resultInclude.push(
+            ...defaultInclude.map((_) => Path.join(pattern, _))
+          );
         } else if (pattern.endsWith('.*')) {
           resultInclude.push(
             ...defaultInclude.map(([, _]) => pattern.replace(/\.\*$/, _))
           );
         } else if (pattern.endsWith('*')) {
           resultInclude.push(
-            ...defaultInclude.map(_ => pattern.replace(/\*$/, _))
+            ...defaultInclude.map((_) => pattern.replace(/\*$/, _))
           );
         } else {
           resultInclude.push(pattern);
         }
       } else {
-        resultInclude.push(...defaultInclude.map(_ => Path.join(pattern, _)));
+        resultInclude.push(...defaultInclude.map((_) => Path.join(pattern, _)));
       }
     }
   } else {
-    resultInclude = defaultInclude.map(_ => `**/${_}`);
+    resultInclude = defaultInclude.map((_) => `**/${_}`);
   }
 
   const resultInput = {
     rootDir: Path.resolve(project.fullPath, rootDir),
     include: resultInclude,
     exclude,
-    files: files.map(filePath => Path.resolve(rootDir, filePath))
+    files: files.map((filePath) => Path.resolve(rootDir, filePath)),
   };
 
   return resultInput;

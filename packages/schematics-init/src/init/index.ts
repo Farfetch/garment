@@ -7,20 +7,20 @@ export interface Options {
   withPreset?: string;
 }
 
-export default function(options: Options): Rule {
+export default function (options: Options): Rule {
   return (tree: Tree, _context) => {
     const garmentJson = {
       $schema: './node_modules/@garment/workspace/schemas/config.schema.json',
       presets: {} as { [key: string]: any },
       projects: {} as { [key: string]: any },
-      schematics: []
+      schematics: [],
     };
 
     const cwd = process.cwd();
 
     if (options.withPreset) {
       garmentJson.presets[options.withPreset] = {
-        tasks: {}
+        tasks: {},
       };
     }
 
@@ -33,7 +33,7 @@ export default function(options: Options): Rule {
         const projectName = Path.basename(value.location);
         garmentJson.projects[projectName] = {
           path: value.location,
-          ...(options.withPreset && { extends: [options.withPreset] })
+          ...(options.withPreset && { extends: [options.withPreset] }),
         };
       }
     } else if (options.from === 'lerna') {
@@ -43,7 +43,7 @@ export default function(options: Options): Rule {
         const projectName = Path.basename(path);
         garmentJson.projects[projectName] = {
           path: Path.relative(cwd, path),
-          ...(options.withPreset && { extends: [options.withPreset] })
+          ...(options.withPreset && { extends: [options.withPreset] }),
         };
       }
     }

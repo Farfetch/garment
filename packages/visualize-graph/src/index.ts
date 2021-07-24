@@ -12,7 +12,7 @@ const defaultStyle = {
   fontsize: 10,
   fontcolor: 'black',
   style: 'filled',
-  fillcolor: '#EFEFEF'
+  fillcolor: '#EFEFEF',
 };
 
 export async function vizualizeGraph<T extends object>(
@@ -24,12 +24,12 @@ export async function vizualizeGraph<T extends object>(
 ) {
   const {
     getNodeStyle = () => defaultStyle,
-    getNodeContent = (node: T) => node.toString()
+    getNodeContent = (node: T) => node.toString(),
   } = options;
 
   try {
     const results = await Promise.all(
-      arrayfy(dependencyGraph).map(depGraph => {
+      arrayfy(dependencyGraph).map((depGraph) => {
         let viz = new Viz({ Module, render });
 
         const g = graphviz.digraph('G');
@@ -38,17 +38,17 @@ export async function vizualizeGraph<T extends object>(
           graph: [
             {
               attr: 'splines',
-              value: 'ortho'
+              value: 'ortho',
             },
             {
               attr: 'overlap',
-              value: false
+              value: false,
             },
             {
               attr: 'pad',
-              value: 1
-            }
-          ]
+              value: 1,
+            },
+          ],
         };
 
         graphvizConfig.graph.forEach(({ attr, value }) => g.set(attr, value));
@@ -63,7 +63,7 @@ export async function vizualizeGraph<T extends object>(
             getNodeStyle(node, defaultStyle)
           );
           checklist.add(node);
-          depGraph.getDirectDependenciesOf(node).forEach(dep => {
+          depGraph.getDirectDependenciesOf(node).forEach((dep) => {
             if (node === dep) return;
             const depNode = g.addNode(
               getNodeContent(dep),
@@ -76,7 +76,7 @@ export async function vizualizeGraph<T extends object>(
           });
         };
 
-        nodes.forEach(node => {
+        nodes.forEach((node) => {
           findDependencies(node);
         });
 
@@ -94,7 +94,7 @@ export async function vizualizeGraph<T extends object>(
         <title>Graph</title>
     </head>
     <body>
-        ${results.map(_ => `<div>${_}</div>`).join('\n')}
+        ${results.map((_) => `<div>${_}</div>`).join('\n')}
     </body>
     </html>
     `;
@@ -102,7 +102,7 @@ export async function vizualizeGraph<T extends object>(
     const tmpFilename = `${tmpNameSync()}.html`;
     fs.writeFileSync(tmpFilename, htmlContent);
     opn(tmpFilename, {
-      wait: false
+      wait: false,
     });
   } catch (error) {
     throw new Error(error);

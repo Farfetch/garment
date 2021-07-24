@@ -6,13 +6,13 @@ import del from 'del';
  */
 export interface CleanRunnerOptions {}
 
-export default defineRunner(async function(ctx) {
+export default defineRunner(async function (ctx) {
   ctx.logger.info(`Removing files`);
 
   ctx.input.forEach(async ({ path, baseDir }) => {
     if (baseDir) {
       await del(path, {
-        cwd: baseDir
+        cwd: baseDir,
       });
     } else {
       throw new Error(`Unable to delete "${path}". baseDir is empty`);

@@ -9,20 +9,20 @@ import {
   SchematicContext,
   SchematicsException,
   Tree,
-  url
+  url,
 } from '@angular-devkit/schematics';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 import * as Path from 'path';
 import {
   addProjectToGarmentJson,
-  addPackageJsonDependencies
+  addPackageJsonDependencies,
 } from '@garment/schematics-utils';
 
 export interface Options {
   name: string;
 }
 
-export default function(options: Options): Rule {
+export default function (options: Options): Rule {
   return (_tree: Tree, context: SchematicContext) => {
     const { name } = options;
     if (!options.name) {
@@ -41,16 +41,16 @@ export default function(options: Options): Rule {
     context.addTask(
       new NodePackageInstallTask({
         workingDirectory: packagePath,
-        packageManager: 'yarn'
+        packageManager: 'yarn',
       })
     );
 
     let source = apply(url('../../templates/plugin'), [
       applyTemplates({
         name,
-        ...strings
+        ...strings,
       }),
-      move(packagePath)
+      move(packagePath),
     ]);
 
     return chain([
@@ -63,8 +63,8 @@ export default function(options: Options): Rule {
         garmentJsonPath: '/garment.json',
         name: projectName,
         path: packagePath,
-        extendProjects: ['tspackage']
-      })
+        extendProjects: ['tspackage'],
+      }),
     ]);
   };
 }

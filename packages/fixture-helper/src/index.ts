@@ -5,12 +5,12 @@ import normalizePath = require('normalize-path');
 import isValidPath = require('is-valid-path');
 
 const containsValidPath = (value: string): boolean =>
-  value.split(/\s/).some(s => isValidPath(s));
+  value.split(/\s/).some((s) => isValidPath(s));
 
 export const normalizeContainedPath = (value: string): string => {
   return value
     .split(/(\s)/)
-    .map(s => {
+    .map((s) => {
       if (isValidPath(s)) {
         return normalizePath(s);
       } else {

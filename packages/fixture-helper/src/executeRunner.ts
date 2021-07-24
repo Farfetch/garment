@@ -10,7 +10,7 @@ import {
   InputFnCallBack,
   OutputContainer,
   renderOptions,
-  InputFn
+  InputFn,
 } from '@garment/runner';
 import { Project, ProjectConfig, Workspace } from '@garment/workspace';
 import * as fs from 'fs-extra';
@@ -37,7 +37,7 @@ export type ExecuteRunner2Result = UnPromise<ReturnType<typeof executeRunner2>>;
 const cacheProviderMock: CacheProvider = {
   has: () => false,
   get: () => {},
-  set: () => {}
+  set: () => {},
 };
 
 export async function createContext<O>(
@@ -51,7 +51,7 @@ export async function createContext<O>(
     projectRelativePath = 'test',
     outputDir,
     useTempOutputDir,
-    logsStripAnsi = true
+    logsStripAnsi = true,
   } = options;
 
   const projectPath = Path.resolve(cwd, projectRelativePath);
@@ -60,7 +60,7 @@ export async function createContext<O>(
 
   const workspace = Workspace.create(
     {
-      projects: { test: { path: projectRelativePath } }
+      projects: { test: { path: projectRelativePath } },
     },
     { cwd }
   );
@@ -88,11 +88,11 @@ export async function createContext<O>(
       options: runnerOptions,
       workspace,
       project,
-      schema
+      schema,
     }) as any,
     logger,
     outputDir: outputDir || tempOutputDir,
-    cacheProvider: cacheProviderMock
+    cacheProvider: cacheProviderMock,
   });
 
   const filesToAdd = typeof files === 'function' ? files(file) : files;
@@ -100,7 +100,7 @@ export async function createContext<O>(
   inputList.push(
     ...filesToAdd.map(({ absolutePath, ...rest }) => ({
       ...rest,
-      absolutePath: absolutePath || Path.resolve(projectPath, rest.path)
+      absolutePath: absolutePath || Path.resolve(projectPath, rest.path),
     }))
   );
 
@@ -128,12 +128,12 @@ export async function createBatchContext<O>(
 
   const workspace = Workspace.create(
     {
-      projects
+      projects,
     },
     { cwd }
   );
 
-  const batch = Object.keys(batchMap).map(projectName => {
+  const batch = Object.keys(batchMap).map((projectName) => {
     const project = workspace.projects.get(projectName)!;
     return {
       project,
@@ -141,8 +141,8 @@ export async function createBatchContext<O>(
         options: batchMap[projectName],
         workspace,
         project,
-        schema
-      })
+        schema,
+      }),
     };
   });
 
@@ -161,14 +161,14 @@ export async function createBatchContext<O>(
       fullPath: '',
       tasks: {},
       dependencies: [],
-      extendsSet: new Set()
+      extendsSet: new Set(),
     }),
     options: {} as O,
     input: makeInputFn()[0],
     dependsOnFile() {},
     batch,
     logger,
-    cacheProvider: cacheProviderMock
+    cacheProvider: cacheProviderMock,
   });
 
   return { context, logs };
@@ -191,14 +191,14 @@ export async function executeRunner<O>(
     output = Array.from(
       createFileInput({
         rootDir: tempOutputDir,
-        files: globby.sync('**/*', { cwd: tempOutputDir, absolute: true })
+        files: globby.sync('**/*', { cwd: tempOutputDir, absolute: true }),
       })
     );
   }
 
   return {
     logs,
-    output
+    output,
   };
 }
 
@@ -231,7 +231,7 @@ async function toArray<T>(iterable: Iterable<T> | AsyncIterable<T>) {
 
 function* createFileInput({
   rootDir,
-  files
+  files,
 }: {
   rootDir: string;
   files: string[];
@@ -243,7 +243,7 @@ function* createFileInput({
       path: Path.relative(rootDir, absolutePath),
       absolutePath,
       baseDir: rootDir,
-      data: content
+      data: content,
     };
     yield file;
   }
@@ -266,7 +266,7 @@ export async function executeRunner2<O>(
     outputDir,
     useTempOutputDir,
     logsStripAnsi = true,
-    replacePaths = true
+    replacePaths = true,
   } = options;
 
   const projectPath = Path.resolve(cwd, projectRelativePath);
@@ -275,7 +275,7 @@ export async function executeRunner2<O>(
 
   const workspace = Workspace.create(
     {
-      projects: { test: { path: projectRelativePath } }
+      projects: { test: { path: projectRelativePath } },
     },
     { cwd }
   );
@@ -296,7 +296,7 @@ export async function executeRunner2<O>(
   const joinedInput = (typeof files === 'function' ? files(file) : files).map(
     ({ absolutePath, ...rest }) => ({
       ...rest,
-      absolutePath: absolutePath || Path.resolve(projectPath, rest.path)
+      absolutePath: absolutePath || Path.resolve(projectPath, rest.path),
     })
   );
 
@@ -309,7 +309,7 @@ export async function executeRunner2<O>(
       options: runnerOptions,
       workspace,
       project,
-      schema: runner.options?.schema
+      schema: runner.options?.schema,
     }) as any,
     outputDir: outputDir || tempOutputDir,
     cacheProvider: cacheProviderMock,
@@ -326,7 +326,7 @@ export async function executeRunner2<O>(
       isLongRunning = true;
     },
     commitFilesToFS: jest.fn(),
-    logger
+    logger,
   });
 
   const collectedOutput: (File | OutputContainer)[] = [];
@@ -353,8 +353,8 @@ export async function executeRunner2<O>(
         rootDir: tempOutputDir,
         files: globby.sync('**/*', {
           cwd: tempOutputDir,
-          absolute: true
-        })
+          absolute: true,
+        }),
       })
     );
   }
@@ -364,12 +364,12 @@ export async function executeRunner2<O>(
     logs,
     shouldWatchDependencies,
     isLongRunning,
-    dependsOnFile
+    dependsOnFile,
   };
 
   return {
     ...(replacePaths ? replaceTestPath(result, cwd) : result),
-    onDestroyHandler
+    onDestroyHandler,
   };
 }
 
@@ -390,12 +390,12 @@ function makeInputFn() {
     }
     inputFnCallback = {
       type: 'multi',
-      fn
+      fn,
     };
     isInputAlreadyCalled = true;
   }) as InputFn;
 
-  inputFn.forEach = fn => {
+  inputFn.forEach = (fn) => {
     if (isInputAlreadyCalled) {
       throw new Error(
         `context.input() can only be called once during the runner's execution`
@@ -403,7 +403,7 @@ function makeInputFn() {
     }
     inputFnCallback = {
       type: 'single',
-      fn
+      fn,
     };
     isInputAlreadyCalled = true;
   };

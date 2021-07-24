@@ -38,7 +38,7 @@ export default defineRunner(
   defineOptionsFromJSONSchema<StorybookStartRunnerOptions>(
     require('./schema.json')
   ),
-  async ctx => {
+  async (ctx) => {
     const { port, host, configDir } = ctx.options;
 
     process.env.NODE_ENV = process.env.NODE_ENV || 'development';
@@ -49,7 +49,7 @@ export default defineRunner(
       mode: 'dev',
       configDir,
       host,
-      port
+      port,
     });
   }
 );

@@ -1,7 +1,7 @@
 import {
   defineOptionsFromJSONSchema,
   defineRunner,
-  File
+  File,
 } from '@garment/runner';
 import * as Path from 'path';
 import * as ts from 'typescript';
@@ -40,7 +40,7 @@ const sourceFilesCache: {
   [fileName: string]: ts.SourceFile | undefined;
 } = {};
 
-export default defineRunner(tsRunnerOptions, async ctx => {
+export default defineRunner(tsRunnerOptions, async (ctx) => {
   const { configFile } = ctx.options;
 
   const filesCache: {
@@ -66,7 +66,7 @@ export default defineRunner(tsRunnerOptions, async ctx => {
       );
       return {
         ...parentCompilerOptions,
-        ...compilerOptions
+        ...compilerOptions,
       };
     } else {
       return compilerOptions;
@@ -77,14 +77,14 @@ export default defineRunner(tsRunnerOptions, async ctx => {
 
   const cacheKeys = [
     require('typescript/package.json').version,
-    JSON.stringify(compilerOptions)
+    JSON.stringify(compilerOptions),
   ];
 
   const config = ts.parseJsonConfigFileContent(
     {
       compilerOptions: {
-        ...compilerOptions
-      }
+        ...compilerOptions,
+      },
     },
     ts.sys,
     ''
@@ -94,8 +94,8 @@ export default defineRunner(tsRunnerOptions, async ctx => {
   const host: typeof hostBase = {
     ...hostBase,
     getCurrentDirectory: () => process.cwd(),
-    getDefaultLibFileName: options => ts.getDefaultLibFilePath(options),
-    fileExists: fileName => {
+    getDefaultLibFileName: (options) => ts.getDefaultLibFilePath(options),
+    fileExists: (fileName) => {
       if (filesCache[Path.normalize(fileName)]) {
         return true;
       }
@@ -109,7 +109,7 @@ export default defineRunner(tsRunnerOptions, async ctx => {
         if (!file) {
           file = {
             isExternal: true,
-            lastModified: stats.mtimeMs
+            lastModified: stats.mtimeMs,
           };
           filesCache[normalizedFileName] = file;
         }
@@ -127,7 +127,7 @@ export default defineRunner(tsRunnerOptions, async ctx => {
       }
       return sourceFilesCache[normalizedFileName];
     },
-    readFile: fileName => {
+    readFile: (fileName) => {
       const normalizedFileName = Path.normalize(fileName);
       const file = filesCache[normalizedFileName];
       if (!file?.isExternal && file?.content) {
@@ -136,17 +136,17 @@ export default defineRunner(tsRunnerOptions, async ctx => {
       return ctx.fs.readFileSync(normalizedFileName, 'utf8');
     },
     readDirectory: ts.sys.readDirectory,
-    directoryExists: fileName =>
+    directoryExists: (fileName) =>
       Object.keys(filesCache).some(
-        _ => Path.dirname(_).indexOf(Path.normalize(fileName)) === 0
+        (_) => Path.dirname(_).indexOf(Path.normalize(fileName)) === 0
       ) || ts.sys.directoryExists(fileName),
 
-    getDirectories: ts.sys.getDirectories
+    getDirectories: ts.sys.getDirectories,
   };
 
   // let program: ts.Program;
 
-  ctx.input(async files => {
+  ctx.input(async (files) => {
     for (const file of files) {
       registerInputFile(file);
     }
@@ -238,7 +238,7 @@ export default defineRunner(tsRunnerOptions, async ctx => {
     const warnings: string[] = [];
 
     const emitResult = await new Promise<ReturnType<typeof program.emit>>(
-      resolve =>
+      (resolve) =>
         resolve(
           program.emit(sourceFile, (fileName, data) => {
             files.push({ fileName, data });
@@ -252,10 +252,11 @@ export default defineRunner(tsRunnerOptions, async ctx => {
         if (diagnostic.file && diagnostic.start) {
           const {
             line,
-            character
+            character,
           } = diagnostic.file.getLineAndCharacterOfPosition(diagnostic.start);
-          message += `${diagnostic.file.fileName}:${line + 1}:${character +
-            1}\n`;
+          message += `${diagnostic.file.fileName}:${line + 1}:${
+            character + 1
+          }\n`;
         }
         message += [...getAllMessages(diagnostic.messageText)].join('\n');
         if (diagnostic.category === ts.DiagnosticCategory.Warning) {
@@ -281,11 +282,11 @@ export default defineRunner(tsRunnerOptions, async ctx => {
     if (cachedFile) {
       filesCache[fileName] = {
         ...cachedFile,
-        content
+        content,
       };
     } else {
       filesCache[fileName] = {
-        content
+        content,
       };
     }
     return filesCache[fileName];
@@ -309,7 +310,7 @@ export default defineRunner(tsRunnerOptions, async ctx => {
 
       const moduleSpecifiers: string[] = [];
 
-      ts.forEachChild(sourceFile, node => {
+      ts.forEachChild(sourceFile, (node) => {
         if (
           (ts.isImportDeclaration(node) || ts.isExportDeclaration(node)) &&
           node.moduleSpecifier
@@ -320,7 +321,7 @@ export default defineRunner(tsRunnerOptions, async ctx => {
 
       const resolvedModuleFileNames = moduleSpecifiers
         .map(
-          name =>
+          (name) =>
             ts.resolveModuleName(
               name,
               sourceFile.fileName,
@@ -331,7 +332,7 @@ export default defineRunner(tsRunnerOptions, async ctx => {
         .filter(Boolean);
 
       resolvedModuleFileNames.push(
-        ...sourceFile.referencedFiles.map(referencedFile =>
+        ...sourceFile.referencedFiles.map((referencedFile) =>
           Path.resolve(
             Path.dirname(sourceFile.fileName),
             referencedFile.fileName
@@ -362,7 +363,7 @@ export default defineRunner(tsRunnerOptions, async ctx => {
 
     return {
       directDepsRealPaths,
-      allDepsContent
+      allDepsContent,
     };
   }
 });

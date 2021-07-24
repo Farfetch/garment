@@ -15,7 +15,7 @@ import {
   OutputContainer,
   renderOptions,
   RunnerMeta,
-  validateOptions
+  validateOptions,
 } from '@garment/runner';
 import {
   Action,
@@ -23,7 +23,7 @@ import {
   getActionGraph,
   Input,
   onUpdateEvent,
-  Scheduler
+  Scheduler,
 } from '@garment/scheduler';
 import { Config, Project, Workspace } from '@garment/workspace';
 import * as parcelWatcher from '@parcel/watcher';
@@ -142,7 +142,7 @@ async function garment(
   const transformedTask = {
     name: task.name,
     projects: getProjectsByName(workspace, task.projectNames, files),
-    watch: task.watch
+    watch: task.watch,
   };
 
   return garmentFromWorkspace({ ...rest, task: transformedTask, workspace });
@@ -161,7 +161,7 @@ async function garmentFromWorkspace(
     workspace,
     skipLifecycle,
     runnerOptions,
-    cache
+    cache,
   } = options;
 
   const { experimentalCacheSubscriptions } = workspace.config;
@@ -177,7 +177,7 @@ async function garmentFromWorkspace(
     dependencyGraph,
     task,
     runnerOptions,
-    lifecycle: !Boolean(skipLifecycle)
+    lifecycle: !Boolean(skipLifecycle),
   });
 
   // cacheProvider implementing CacheProvider interface. Later we'll make it work with a remote cache as well
@@ -191,7 +191,7 @@ async function garmentFromWorkspace(
       : {
           has: () => false,
           get: () => {},
-          set: () => {}
+          set: () => {},
         };
 
   // The map to store changes related to each subscription
@@ -239,7 +239,7 @@ async function garmentFromWorkspace(
         outputMode = 'after-each',
         runner,
         pipe,
-        watch
+        watch,
       } = action;
 
       let subscriptionsSnapshot: Subscription[] | undefined;
@@ -315,7 +315,7 @@ async function garmentFromWorkspace(
         meta = {
           isWatchActive: watch,
           subscriptions: new Set(subscriptionsSnapshot ?? []),
-          logs: []
+          logs: [],
         };
         metaByAction.set(action, meta);
       }
@@ -327,7 +327,7 @@ async function garmentFromWorkspace(
         logs.push({
           level,
           content: args,
-          scope: runner.queryName || runner.name
+          scope: runner.queryName || runner.name,
         });
         return false; // creating logger instance which doesn't output to the console
       });
@@ -346,7 +346,7 @@ async function garmentFromWorkspace(
         // we restart the whole action and dont need to check input level subscriptions
         let [runnerLevelSubscriptions, inputLevelSubscriptions] = splitArrayBy(
           Array.from(subscriptions),
-          subscription => subscription.level === 'runner'
+          (subscription) => subscription.level === 'runner'
         );
 
         // First iterate through all runner level subscriptions
@@ -390,12 +390,12 @@ async function garmentFromWorkspace(
                   : subscription.baseDir;
 
               const files = Object.keys(changes)
-                .map(changedFilePath =>
+                .map((changedFilePath) =>
                   subscription.type === 'glob'
                     ? changedFilePath
                     : subscription.targetPath
                 )
-                .filter(filePath => !filePathsInInputSet.has(filePath));
+                .filter((filePath) => !filePathsInInputSet.has(filePath));
 
               if (files.length) {
                 for (const file of files) {
@@ -429,7 +429,7 @@ async function garmentFromWorkspace(
             if (inputHandler) {
               onUpdate({
                 type: 'before-action',
-                action
+                action,
               });
 
               try {
@@ -448,7 +448,7 @@ async function garmentFromWorkspace(
                           level: 'input',
                           path: dependency,
                           baseDir: output.targetBaseDir,
-                          targetPath: output.target
+                          targetPath: output.target,
                         });
                       }
                     }
@@ -464,7 +464,7 @@ async function garmentFromWorkspace(
               onUpdate({
                 type: 'action-done',
                 action,
-                result: { logs, output: undefined, error: undefined }
+                result: { logs, output: undefined, error: undefined },
               });
 
               return; // Stop rebuilder so it doesn't fallback to the full restart
@@ -476,7 +476,7 @@ async function garmentFromWorkspace(
       if ((watcherStarted || subscriptionsSnapshot) && noChangesFound) {
         onUpdate({
           type: 'action-skip',
-          action
+          action,
         });
         return; // We are in a watch mode and there's no changes -> skip runner execution
       }
@@ -485,7 +485,7 @@ async function garmentFromWorkspace(
 
       onUpdate({
         type: 'before-action',
-        action
+        action,
       });
 
       try {
@@ -516,14 +516,14 @@ async function garmentFromWorkspace(
               // Or if a runner expects previous action's output to be passed as an input
               // Collecting all the previous action's outputs from the same project
               const sameProjectActionsDependenciesOutputPaths = getSameProjectDirectDependenciesMeta()
-                .map(meta => meta.outputPath!)
+                .map((meta) => meta.outputPath!)
                 .filter(Boolean);
 
               const internalInputs = sameProjectActionsDependenciesOutputPaths.map(
-                path => ({
+                (path) => ({
                   rootDir: path,
                   include: [pipe],
-                  virtual: true
+                  virtual: true,
                 })
               );
               inputs.push(...internalInputs);
@@ -543,7 +543,7 @@ async function garmentFromWorkspace(
                     ...createFileInput(
                       { rootDir: path, files: matchedFiles },
                       memFsVolume as any
-                    )
+                    ),
                   ];
                   joinedInput.push(...files);
                 }
@@ -565,12 +565,12 @@ async function garmentFromWorkspace(
             }
             inputFnCallback = {
               type: 'multi',
-              fn
+              fn,
             };
             isInputAlreadyCalled = true;
           }) as InputFn;
 
-          inputFn.forEach = fn => {
+          inputFn.forEach = (fn) => {
             if (isInputAlreadyCalled) {
               throw new Error(
                 `context.input() can only be called once during the runner's execution`
@@ -578,7 +578,7 @@ async function garmentFromWorkspace(
             }
             inputFnCallback = {
               type: 'single',
-              fn
+              fn,
             };
             isInputAlreadyCalled = true;
           };
@@ -590,7 +590,7 @@ async function garmentFromWorkspace(
               options,
               workspace,
               project,
-              schema: getSchema(runner)
+              schema: getSchema(runner),
             }),
             outputDir: tempOutputDir,
             cacheProvider,
@@ -605,7 +605,7 @@ async function garmentFromWorkspace(
                   level: 'runner',
                   path,
                   baseDir: Path.dirname(path),
-                  targetPath: path
+                  targetPath: path,
                 });
               }
             },
@@ -619,7 +619,7 @@ async function garmentFromWorkspace(
             async commitFilesToFS() {
               flushMemFs();
             },
-            logger
+            logger,
           });
 
           const handler = getHandler(runner);
@@ -636,7 +636,7 @@ async function garmentFromWorkspace(
               subscriptions.add({
                 type: 'glob',
                 level: 'input',
-                input
+                input,
               });
             }
 
@@ -655,7 +655,7 @@ async function garmentFromWorkspace(
                         level: 'input',
                         path: dependency,
                         baseDir: output.targetBaseDir,
-                        targetPath: output.target
+                        targetPath: output.target,
                       });
                     }
                   }
@@ -678,7 +678,7 @@ async function garmentFromWorkspace(
                     level: output.target ? 'input' : 'runner',
                     path: dependency,
                     baseDir: output.targetBaseDir,
-                    targetPath: output.target ?? dependency
+                    targetPath: output.target ?? dependency,
                   });
                 }
               }
@@ -704,7 +704,7 @@ async function garmentFromWorkspace(
             // Set all dependencies' subscriptions to active
             const dependencyMetas = currentActionGraph
               .getDependenciesOf(action)
-              .map(depAction => metaByAction.get(depAction)!);
+              .map((depAction) => metaByAction.get(depAction)!);
             for (const dependencyActionMeta of dependencyMetas) {
               dependencyActionMeta.isWatchActive = true;
             }
@@ -716,7 +716,7 @@ async function garmentFromWorkspace(
             collectedOutput.push(
               ...createFileInput({
                 rootDir: tempOutputDir,
-                include: ['**/*']
+                include: ['**/*'],
               })
             );
           }
@@ -730,10 +730,10 @@ async function garmentFromWorkspace(
       onUpdate({
         type: 'action-done',
         action,
-        result: { logs, output: undefined, error: undefined }
+        result: { logs, output: undefined, error: undefined },
       });
 
-      if (logs.some(log => log.level === 'error')) {
+      if (logs.some((log) => log.level === 'error')) {
         throw new Error('log has error');
       }
 
@@ -773,7 +773,7 @@ async function garmentFromWorkspace(
                 path: outputItem.target,
                 targetPath: outputItem.target,
                 baseDir: outputItem.targetBaseDir,
-                forced: true
+                forced: true,
               });
             }
           } else {
@@ -814,7 +814,7 @@ async function garmentFromWorkspace(
                   level: 'runner',
                   baseDir: outputPath,
                   path: filePath,
-                  targetPath: ''
+                  targetPath: '',
                 });
               }
 
@@ -844,14 +844,14 @@ async function garmentFromWorkspace(
           // Cache action subscriptions
           if (subscriptions.size) {
             const hashedSubscriptions = Array.from(subscriptions).map(
-              subscription => ({
+              (subscription) => ({
                 ...subscription,
-                hash: getHashForSubscriptions(subscription)
+                hash: getHashForSubscriptions(subscription),
               })
             );
             await cacheProvider.set(getSnapshotId(action.hash), {
               output: [file.json('subscriptions', hashedSubscriptions)],
-              logs: []
+              logs: [],
             });
           }
         }
@@ -863,31 +863,31 @@ async function garmentFromWorkspace(
         return currentActionGraph
           .getDirectDependenciesOf(action)
           .filter(
-            dependencyAction => dependencyAction.project === action.project
+            (dependencyAction) => dependencyAction.project === action.project
           )
-          .map(action => metaByAction.get(action)!)
+          .map((action) => metaByAction.get(action)!)
           .filter(Boolean);
       }
-    }
+    },
   });
 
   await executeActionGraph();
 
   const [batchActionsToWatch, batchActionsToExecute] = splitArrayBy(
     batchActions,
-    _ => _.watch
+    (_) => _.watch
   );
 
   const batchMetaByAction = new Map<Action, BatchActionMeta>();
   if (batchActionsToExecute.length) {
     await runActionsInBatch(batchActionsToExecute, {
-      runnerOptions
+      runnerOptions,
     });
   }
 
   populateAllSubscriptions();
 
-  if ([...metaByAction.values()].some(_ => _.isWatchActive)) {
+  if ([...metaByAction.values()].some((_) => _.isWatchActive)) {
     watcherStarted = true;
 
     await startWatcher();
@@ -898,7 +898,7 @@ async function garmentFromWorkspace(
   if (batchActionsToWatch.length) {
     await runActionsInBatch(batchActionsToWatch, {
       watch: true,
-      runnerOptions
+      runnerOptions,
     });
   } else {
     if (!watcherStarted) {
@@ -928,7 +928,11 @@ async function garmentFromWorkspace(
           await startWatcher();
         }
       },
-      { ignore: ['.git', 'node_modules'].map(_ => Path.join(workspace.cwd, _)) }
+      {
+        ignore: ['.git', 'node_modules'].map((_) =>
+          Path.join(workspace.cwd, _)
+        ),
+      }
     );
   }
 
@@ -936,7 +940,7 @@ async function garmentFromWorkspace(
     try {
       onUpdate({
         type: 'all-actions',
-        actions: [...actionGraph]
+        actions: [...actionGraph],
       });
       batchActions = [];
       await scheduler.execute(actionGraph);
@@ -969,7 +973,7 @@ async function garmentFromWorkspace(
         ) {
           const matched = multimatch(
             event.path,
-            (subscription.input.include ?? []).map(pattern =>
+            (subscription.input.include ?? []).map((pattern) =>
               Path.join(subscription.input.rootDir, pattern)
             )
           );
@@ -988,7 +992,7 @@ async function garmentFromWorkspace(
 
       if (subscription.type === 'file' && subscription.forced) {
         changesBySubscriptionMap.set(subscription, {
-          [subscription.targetPath]: 'change'
+          [subscription.targetPath]: 'change',
         });
       }
     }
@@ -1030,7 +1034,7 @@ async function garmentFromWorkspace(
         batchesByRunner.set(action.runner.handlerPath, {
           runner: action.runner,
           batch: [],
-          batchMeta: batchMetaByAction.get(action)
+          batchMeta: batchMetaByAction.get(action),
         });
       }
       const { batch } = batchesByRunner.get(action.runner.handlerPath)!;
@@ -1041,8 +1045,8 @@ async function garmentFromWorkspace(
           options: action.options,
           workspace,
           project: action.project,
-          schema: getSchema(action.runner)
-        })
+          schema: getSchema(action.runner),
+        }),
       });
     }
     for (const { runner, batch, batchMeta } of batchesByRunner.values()) {
@@ -1050,7 +1054,7 @@ async function garmentFromWorkspace(
 
       const options = {
         ...global,
-        ...restRunners[runner.name]
+        ...restRunners[runner.name],
       };
 
       const logs: LogEntry[] = [];
@@ -1060,7 +1064,7 @@ async function garmentFromWorkspace(
         logs.push({
           level,
           content: args,
-          scope: runner.queryName || runner.name
+          scope: runner.queryName || runner.name,
         });
         return false;
       });
@@ -1073,7 +1077,7 @@ async function garmentFromWorkspace(
           fullPath: '',
           tasks: {},
           dependencies: [],
-          extendsSet: new Set()
+          extendsSet: new Set(),
         }),
         options: options,
         input: ((async () => {
@@ -1087,7 +1091,7 @@ async function garmentFromWorkspace(
           if (batchMeta) {
             batchMeta.onDestroyHandler = onDestroy;
           }
-        }
+        },
       });
 
       const handler = watch ? getWatcher(runner) : getHandler(runner);
@@ -1097,7 +1101,7 @@ async function garmentFromWorkspace(
         type: 'batch-done',
         runner,
         batch,
-        result: { output, logs, error: null }
+        result: { output, logs, error: null },
       });
     }
   }
@@ -1153,7 +1157,7 @@ export function* createFileInput(
           cwd: rootDir,
           absolute: true,
           ignore: exclude,
-          dot: true
+          dot: true,
         })
       : [];
 
@@ -1166,7 +1170,7 @@ export function* createFileInput(
       path: Path.relative(finalRootDir, absolutePath),
       absolutePath,
       baseDir: finalRootDir,
-      data: content
+      data: content,
     };
     yield file;
   }

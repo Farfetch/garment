@@ -49,6 +49,11 @@
                 "runner": "eslint",
                 "input": "{{projectDir}}/src/**/*.+(t|j)s?(x)",
                 "output": "{{projectDir}}/src"
+            },
+            {
+                "runner": "prettier",
+                "input": "{{projectDir}}/src/super.json",
+                "output": "{{projectDir}}/src"
             }
         ],
         "clean": {

@@ -6,11 +6,11 @@ export function dependencyGraphFromWorkspace(workspace: Workspace) {
 
   workspace.projects
     .list()
-    .forEach(project => dependencyGraph.addNode(project));
+    .forEach((project) => dependencyGraph.addNode(project));
 
   // From garment.json
-  workspace.projects.list().forEach(project => {
-    project.dependecies.forEach(depName => {
+  workspace.projects.list().forEach((project) => {
+    project.dependecies.forEach((depName) => {
       const depProject = workspace.projects.get(depName);
       if (depProject) {
         dependencyGraph.addDependency(project, depProject);
@@ -26,12 +26,12 @@ export function dependencyGraphFromWorkspace(workspace: Workspace) {
   const packageToProjectMap = new Map<string, Project>();
   const nodeProjects = workspace.projects
     .list()
-    .filter(project => project.nodePackage)
-    .map(project => {
+    .filter((project) => project.nodePackage)
+    .map((project) => {
       return {
         name: project.name,
         project,
-        nodePackage: project.nodePackage!
+        nodePackage: project.nodePackage!,
       };
     });
 

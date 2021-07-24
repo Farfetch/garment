@@ -5,7 +5,7 @@ const pkg = require('../../package.json');
 const { update } = updateNotifier({
   pkg,
   shouldNotifyInNpmScript: true,
-  updateCheckInterval: 30 * 60 * 1000
+  updateCheckInterval: 30 * 60 * 1000,
 });
 
 export default () => {

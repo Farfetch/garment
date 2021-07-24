@@ -8,7 +8,7 @@ export async function createWorkspace() {
     'package.json',
     `${moduleName}.json`,
     `${moduleName}.yaml`,
-    `${moduleName}.config.js`
+    `${moduleName}.config.js`,
   ];
   const explorer = cosmiconfig(moduleName, { searchPlaces });
   const result = await explorer.search();

@@ -37,15 +37,15 @@ function syncTsConfigs(
         compilerOptions: {
           rootDir: 'src',
           outDir: 'lib',
-          composite: true
+          composite: true,
         },
         exclude: ['node_modules', 'lib', '__tests__'],
         references: Array.from(dependencies)
           .filter(checkProject)
-          .map(depProject => ({
-            path: Path.relative(project.fullPath, depProject.fullPath)
-          }))
-      }
+          .map((depProject) => ({
+            path: Path.relative(project.fullPath, depProject.fullPath),
+          })),
+      },
     };
 
     tsConfigs.push(tsConfig);
@@ -57,8 +57,8 @@ function syncTsConfigs(
       files: [],
       references: Array.from(projects)
         .filter(checkProject)
-        .map(_ => ({ path: _.path }))
-    }
+        .map((_) => ({ path: _.path })),
+    },
   });
 
   return (tree: Tree) => {
@@ -74,7 +74,7 @@ function syncTsConfigs(
   };
 }
 
-export default function(options: Options): Rule {
+export default function (options: Options): Rule {
   return () => {
     if (!options.getWorkspace) {
       throw new Error('getWorkspace option is missing');

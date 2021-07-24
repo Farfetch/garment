@@ -78,11 +78,13 @@ export class Graph<T = string> {
         this.nodes.delete(node);
         this.inEdges.delete(node);
         this.outEdges.delete(node);
-        [...this.inEdges.values(), ...this.outEdges.values()].forEach(edges => {
-          if (edges.has(node)) {
-            edges.delete(node);
+        [...this.inEdges.values(), ...this.outEdges.values()].forEach(
+          (edges) => {
+            if (edges.has(node)) {
+              edges.delete(node);
+            }
           }
-        });
+        );
       }
     }
   }
@@ -182,7 +184,7 @@ export class Graph<T = string> {
   sort(nodes: T[]) {
     const walk = createGraphWalker(this.outEdges, { includeInitialNode: true });
     return Array.from(walk(...nodes))
-      .filter(node => nodes.includes(node))
+      .filter((node) => nodes.includes(node))
       .reverse();
   }
 
@@ -193,22 +195,22 @@ export class Graph<T = string> {
     const mapNode = (node: T) => nodeMapping.get(node)!;
     const setify = <P>(arr: P[][]) =>
       arr.reduce(
-        (result, item) => (item.forEach(i => result.add(i)), result),
+        (result, item) => (item.forEach((i) => result.add(i)), result),
         new Set<P>()
       );
 
     for (const node of this.nodes) {
       const mapped = arrayfy(fn(node));
       nodeMapping.set(node, mapped);
-      mapped.forEach(node => graph.nodes.add(node));
+      mapped.forEach((node) => graph.nodes.add(node));
     }
     for (const [key, nodeSet] of this.inEdges) {
-      mapNode(key).forEach(keyNode => {
+      mapNode(key).forEach((keyNode) => {
         graph.inEdges.set(keyNode, setify([...nodeSet].map(mapNode)));
       });
     }
     for (const [key, nodeSet] of this.outEdges) {
-      mapNode(key).forEach(keyNode => {
+      mapNode(key).forEach((keyNode) => {
         graph.outEdges.set(keyNode, setify([...nodeSet].map(mapNode)));
       });
     }
@@ -233,7 +235,7 @@ export class Graph<T = string> {
         graph.inEdges.set(
           key,
           new Set(
-            Array.from(inNodes).filter(inNode => shouldInclude.has(inNode))
+            Array.from(inNodes).filter((inNode) => shouldInclude.has(inNode))
           )
         );
       }
@@ -244,7 +246,7 @@ export class Graph<T = string> {
         graph.outEdges.set(
           key,
           new Set(
-            Array.from(outNodes).filter(outNode => shouldInclude.has(outNode))
+            Array.from(outNodes).filter((outNode) => shouldInclude.has(outNode))
           )
         );
       }
@@ -296,8 +298,8 @@ export class Graph<T = string> {
       if (sets.length) {
         let addedToExisting = false;
         for (const nodeSet of sets) {
-          if (deps.some(node => nodeSet.has(node))) {
-            deps.forEach(node => nodeSet.add(node));
+          if (deps.some((node) => nodeSet.has(node))) {
+            deps.forEach((node) => nodeSet.add(node));
             addedToExisting = true;
             break;
           }
@@ -309,7 +311,7 @@ export class Graph<T = string> {
         sets.push(new Set(deps));
       }
     }
-    return sets.map(nodeSet => this.filter(node => nodeSet.has(node)));
+    return sets.map((nodeSet) => this.filter((node) => nodeSet.has(node)));
   }
 
   async traverseParallel(
@@ -327,10 +329,10 @@ export class Graph<T = string> {
           return shouldStop ? reject() : resolve();
         }
         const nodesToExecute = [...leafNodes]
-          .filter(node => !inProgress.has(node))
+          .filter((node) => !inProgress.has(node))
           .slice(0, limit - inProgress.size);
         if (nodesToExecute.length) {
-          nodesToExecute.forEach(async node => {
+          nodesToExecute.forEach(async (node) => {
             inProgress.add(node);
 
             try {
@@ -355,9 +357,9 @@ export class Graph<T = string> {
     for (const node of this) {
       const directDependencies = new Set(this.getDirectDependenciesOf(node));
       if (directDependencies.size) {
-        directDependencies.forEach(directDependency => {
+        directDependencies.forEach((directDependency) => {
           const indirectDependencies = this.getDependenciesOf(directDependency);
-          indirectDependencies.forEach(indirectDepNode => {
+          indirectDependencies.forEach((indirectDepNode) => {
             if (directDependencies.has(indirectDepNode)) {
               this.removeDependency(node, indirectDepNode);
               directDependencies.delete(indirectDepNode);

@@ -8,12 +8,12 @@ const builder = (yargs: yargs.Argv) => {
   return yargs.options({
     from: {
       description: 'Get projects from Yarn or Lerna',
-      choices: ['yarn', 'lerna']
+      choices: ['yarn', 'lerna'],
     },
     'with-preset': {
       description: 'Make each project extend given preset',
-      type: 'string'
-    }
+      type: 'string',
+    },
   });
 };
 

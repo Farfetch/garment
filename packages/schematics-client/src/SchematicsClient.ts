@@ -15,17 +15,17 @@ import {
   schema,
   tags,
   terminal,
-  virtualFs
+  virtualFs,
 } from '@angular-devkit/core';
 import { createConsoleLogger, NodeJsSyncHost } from '@angular-devkit/core/node';
 import {
   DryRunEvent,
   SchematicEngine,
-  UnsuccessfulWorkflowExecution
+  UnsuccessfulWorkflowExecution,
 } from '@angular-devkit/schematics';
 import {
   NodeModulesEngineHost,
-  NodeWorkflow
+  NodeWorkflow,
 } from '@angular-devkit/schematics/tools';
 import * as inquirer from 'inquirer';
 import 'symbol-observable';
@@ -67,7 +67,7 @@ export class SchematicsClient {
       force,
       allowPrivate,
       argv = [],
-      options: passedOptions = {}
+      options: passedOptions = {},
     } = options;
 
     /** Create the DevKit Logger used through the CLI. */
@@ -142,11 +142,11 @@ export class SchematicsClient {
     /**
      * Listen to lifecycle events of the workflow to flush the logs between each phases.
      */
-    workflow.lifeCycle.subscribe(event => {
+    workflow.lifeCycle.subscribe((event) => {
       if (event.kind == 'workflow-end' || event.kind == 'post-tasks-start') {
         if (!error) {
           // Flush the log queue and clean the error state.
-          loggingQueue.forEach(log => logger.info(log));
+          loggingQueue.forEach((log) => logger.info(log));
         }
 
         loggingQueue = [];
@@ -183,7 +183,7 @@ export class SchematicsClient {
           options: passedOptions,
           allowPrivate: allowPrivate,
           debug: debug,
-          logger: logger
+          logger: logger,
         })
         .toPromise();
 
@@ -208,12 +208,12 @@ export class SchematicsClient {
 
   private createPromptProvider(): schema.PromptProvider {
     return (definitions: Array<schema.PromptDefinition>) => {
-      const questions = definitions.map(definition => {
+      const questions = definitions.map((definition) => {
         const question: inquirer.Question = {
           type: 'input',
           name: definition.id,
           message: definition.message,
-          default: definition.default as any
+          default: definition.default as any,
         };
 
         const validator = definition.validator;
@@ -230,16 +230,16 @@ export class SchematicsClient {
               type: !!definition.multiselect ? 'checkbox' : 'list',
               choices:
                 definition.items &&
-                definition.items.map(item => {
+                definition.items.map((item) => {
                   if (typeof item == 'string') {
                     return item;
                   } else {
                     return {
                       name: item.label,
-                      value: item.value
+                      value: item.value,
                     };
                   }
-                })
+                }),
             };
           default:
             return { ...question, type: definition.type };

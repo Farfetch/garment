@@ -31,19 +31,19 @@ export class ProjectRegistry {
   }
 
   getByPaths(...paths: string[]) {
-    paths = paths.map(path => normalizePath(path));
-    return this.list().filter(project =>
-      paths.some(path => isSubPath(project.fullPath, path))
+    paths = paths.map((path) => normalizePath(path));
+    return this.list().filter((project) =>
+      paths.some((path) => isSubPath(project.fullPath, path))
     );
   }
 
   getByPath(path: string) {
     path = normalizePath(path);
-    return this.list().find(project => isSubPath(project.fullPath, path));
+    return this.list().find((project) => isSubPath(project.fullPath, path));
   }
 
   getByPathExact(path: string) {
     path = normalizePath(path);
-    return this.list().find(project => path === project.fullPath);
+    return this.list().find((project) => path === project.fullPath);
   }
 }

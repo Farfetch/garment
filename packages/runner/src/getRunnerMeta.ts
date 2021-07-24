@@ -25,7 +25,7 @@ export function getRunnerMeta(runnerName: string, cwd: string) {
       version: 'internal',
       handlerPath: Path.resolve(cwd, runnerName),
       description: 'no description',
-      batch: false
+      batch: false,
     };
   }
 
@@ -81,7 +81,7 @@ export function getRunnerMeta(runnerName: string, cwd: string) {
           batch: runnerConfig.batch || false,
           cacheKeysPath: runnerConfig.cacheKeys
             ? resolveFromPackage(runnerConfig.cacheKeys)
-            : undefined
+            : undefined,
         };
       } catch (e) {
         if (e.code !== 'MODULE_NOT_FOUND') {
@@ -98,7 +98,7 @@ export function getRunnerMeta(runnerName: string, cwd: string) {
         version: runnersPackageJson.version,
         handlerPath: resolveFromPackage(runnerHandlerPath),
         description: 'no description',
-        batch: false
+        batch: false,
       };
     } catch (e) {
       if (e.code !== 'MODULE_NOT_FOUND') {

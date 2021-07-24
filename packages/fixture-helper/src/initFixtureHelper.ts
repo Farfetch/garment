@@ -15,7 +15,7 @@ export function initFixtureHelper(
   const testName = path.basename(mdl.filename, '.test.ts');
 
   const clean = () => {
-    return Promise.all(dirs.map(dir => fs.remove(dir)));
+    return Promise.all(dirs.map((dir) => fs.remove(dir)));
   };
 
   const initFixture = async (
@@ -50,7 +50,7 @@ export function initFixtureHelper(
 
     if (copy && typeof copy === 'object') {
       await Promise.all(
-        Object.keys(copy).map(fromPath => {
+        Object.keys(copy).map((fromPath) => {
           const resolvedFromPath = path.resolve(testDir, fromPath);
           const resolvedToPath = path.resolve(tempDir, copy[fromPath]);
           return fs.copy(resolvedFromPath, resolvedToPath);
@@ -60,7 +60,7 @@ export function initFixtureHelper(
 
     if (files && typeof files === 'object') {
       await Promise.all(
-        Object.keys(files).map(filePath => {
+        Object.keys(files).map((filePath) => {
           const content = files[filePath];
           const resolvedPath = path.resolve(tempDir, filePath);
           if (typeof content === 'string') {

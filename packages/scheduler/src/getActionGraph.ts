@@ -5,7 +5,7 @@ import {
   ResolvedTaskConfig,
   RunnerTaskDefinition,
   WithId,
-  Workspace
+  Workspace,
 } from '@garment/workspace';
 import * as multimatch from 'multimatch';
 import * as objectHash from 'object-hash';
@@ -14,7 +14,7 @@ import { Action, Input, RunnerAction } from './Action';
 
 import globParent = require('glob-parent');
 
-const getNextId = (id => () => id++)(0);
+const getNextId = ((id) => () => id++)(0);
 
 export interface ActionGraphTask {
   name: string;
@@ -40,7 +40,7 @@ export function getActionGraph(opts: GetActionGraphOptions) {
     dependencyGraph,
     task,
     lifecycle = true,
-    runnerOptions = {}
+    runnerOptions = {},
   } = opts;
   /**
    * Map for cached runner executors
@@ -66,7 +66,8 @@ export function getActionGraph(opts: GetActionGraphOptions) {
       return filterFalsy(
         [lifecycle && `pre${task}`, task, lifecycle && `post${task}`]
           .map(
-            taskName => [taskName, taskName && project.tasks[taskName]] as const
+            (taskName) =>
+              [taskName, taskName && project.tasks[taskName]] as const
           )
           .map(([taskName, taskConfig]) => {
             if (taskName && taskConfig) {
@@ -113,7 +114,7 @@ export function getActionGraph(opts: GetActionGraphOptions) {
             outputMode,
             skipWatch,
             input,
-            pipe
+            pipe,
           } = config;
 
           if (!runners.has(runner)) {
@@ -136,14 +137,14 @@ export function getActionGraph(opts: GetActionGraphOptions) {
             const resolvedInputPattern = project.resolvePathTemplate(input);
             const rootDir = globParent(resolvedInputPattern);
             const include = [
-              resolvedInputPattern.replace(new RegExp(`^${rootDir}\/*`), '')
+              resolvedInputPattern.replace(new RegExp(`^${rootDir}\/*`), ''),
             ];
             if (files.length) {
               const matchedFiles = multimatch(files, [resolvedInputPattern]);
               if (matchedFiles.length) {
                 resolvedInput = {
                   files: matchedFiles,
-                  rootDir
+                  rootDir,
                 };
               } else {
                 return;
@@ -151,7 +152,7 @@ export function getActionGraph(opts: GetActionGraphOptions) {
             } else {
               resolvedInput = {
                 rootDir,
-                include
+                include,
               };
             }
             resolvedInput.rootDir = rootDir;
@@ -176,23 +177,23 @@ export function getActionGraph(opts: GetActionGraphOptions) {
               finalInput = {
                 rootDir,
                 include,
-                exclude
+                exclude,
               };
             }
 
             if (files.length) {
               const matchedFiles = multimatch(
-                files.filter(file => file.startsWith(finalInput.rootDir)),
+                files.filter((file) => file.startsWith(finalInput.rootDir)),
                 [
                   ...(finalInput.files ?? []),
                   ...(finalInput.include ?? []),
-                  ...(finalInput.exclude?.map(_ => `!${_}`) ?? [])
+                  ...(finalInput.exclude?.map((_) => `!${_}`) ?? []),
                 ]
               );
               if (matchedFiles.length) {
                 resolvedInput = {
                   files: matchedFiles,
-                  rootDir: finalInput.rootDir
+                  rootDir: finalInput.rootDir,
                 };
               } else {
                 return;
@@ -214,11 +215,11 @@ export function getActionGraph(opts: GetActionGraphOptions) {
             project,
             options: normalizedOptions,
             output: output
-              ? arrayfy(output).map(_ => project.resolvePathTemplate(_))
+              ? arrayfy(output).map((_) => project.resolvePathTemplate(_))
               : undefined,
             outputMode,
             input: resolvedInput,
-            pipe: typeof pipe === 'string' ? pipe : '**/*'
+            pipe: typeof pipe === 'string' ? pipe : '**/*',
           };
           action.hash = objectHash({
             runnerMeta,
@@ -226,7 +227,7 @@ export function getActionGraph(opts: GetActionGraphOptions) {
             options: action.options,
             outputMode,
             input: action.input,
-            pipe: action.pipe
+            pipe: action.pipe,
           });
 
           return action;
@@ -285,7 +286,7 @@ export function getActionGraph(opts: GetActionGraphOptions) {
                 const {
                   task,
                   watch: watchOpt = watch,
-                  onlyDirect = false
+                  onlyDirect = false,
                 } = buildDependencies;
                 depTask = task;
                 depWatch = watchOpt;

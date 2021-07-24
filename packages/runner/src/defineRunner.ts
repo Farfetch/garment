@@ -75,7 +75,7 @@ export function defineOptions<T extends OptionsArg>(
       };
     },
     required: [] as string[],
-    additionalProperties: false
+    additionalProperties: false,
   };
   Object.entries(opts).forEach(([key, value]) => {
     const [typeWithModifier, description, defaultValue] = Array.isArray(value)
@@ -90,14 +90,14 @@ export function defineOptions<T extends OptionsArg>(
             type,
             description,
             default: defaultValue,
-            ...(type === 'path' && { type: 'string', format: 'path' })
-          }
+            ...(type === 'path' && { type: 'string', format: 'path' }),
+          },
         }
       : {
           type,
           description,
           default: defaultValue,
-          ...(type === 'path' && { type: 'string', format: 'path' })
+          ...(type === 'path' && { type: 'string', format: 'path' }),
         };
     if (!isOptional) {
       schema.required.push(key);
@@ -105,14 +105,14 @@ export function defineOptions<T extends OptionsArg>(
   });
   return {
     schema,
-    type: {} as RunnerOptions<T>
+    type: {} as RunnerOptions<T>,
   };
 }
 
 export function defineOptionsFromJSONSchema<T>(schema: any): OptionsSchema<T> {
   return {
     schema,
-    type: {} as T
+    type: {} as T,
   };
 }
 

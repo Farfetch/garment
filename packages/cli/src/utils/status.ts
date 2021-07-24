@@ -30,7 +30,7 @@ export class Status {
 
   get hasErrors() {
     return (
-      Array.from(this.actionsByProjectName.values()).some(stat =>
+      Array.from(this.actionsByProjectName.values()).some((stat) =>
         Boolean(stat.hasErrors)
       ) || this.hasBatchErrors
     );
@@ -43,7 +43,7 @@ export class Status {
         this.actionsByProjectName.set(name, {
           total: 0,
           done: 0,
-          logs: []
+          logs: [],
         });
       }
       const stats = this.actionsByProjectName.get(name)!;
@@ -71,7 +71,7 @@ export class Status {
   actionFinished(action: Action, result: ActionResult) {
     const stats = this.actionsByProjectName.get(action.project.name);
     if (stats) {
-      result.logs.forEach(entry => {
+      result.logs.forEach((entry) => {
         if (shouldPrint(entry.level, log.level)) {
           stats.logs.push(
             Logger.print(
@@ -162,10 +162,10 @@ export class Status {
     } else if (tasksDone >= tasksTotal) {
       const totals = {
         [chalk.bold('Projects')]: this.actionsByProjectName.size,
-        [chalk.bold('Tasks')]: this.tasksTotal
+        [chalk.bold('Tasks')]: this.tasksTotal,
       };
       const maxStatName =
-        Math.max(...Object.keys(totals).map(_ => _.length)) + 2;
+        Math.max(...Object.keys(totals).map((_) => _.length)) + 2;
       done.push('');
       for (const [key, value] of Object.entries(totals)) {
         done.push(`${key}:`.padEnd(maxStatName) + value + ' total');
@@ -183,7 +183,7 @@ export class Status {
 
   batchFinished(result: ActionResult) {
     const done = ['', `Batch execution finished`, ''];
-    result.logs.forEach(entry => {
+    result.logs.forEach((entry) => {
       if (shouldPrint(entry.level, log.level)) {
         done.push(
           Logger.print(

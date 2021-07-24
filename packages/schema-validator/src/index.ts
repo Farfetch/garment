@@ -5,7 +5,7 @@ const ajv = new Ajv({
   errorDataPath: 'configuration',
   allErrors: true,
   verbose: true,
-  useDefaults: true
+  useDefaults: true,
 });
 ajv.addMetaSchema(require('ajv/lib/refs/json-schema-draft-06.json'));
 
@@ -27,7 +27,7 @@ function filterErrors(
   for (const err of errors) {
     const dataPath = err.dataPath;
     let children: any[] = [];
-    newErrors = newErrors.filter(oldError => {
+    newErrors = newErrors.filter((oldError) => {
       if (oldError.dataPath.includes(dataPath)) {
         if (oldError.children) {
           children = children.concat(oldError.children.slice(0));

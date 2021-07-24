@@ -46,7 +46,7 @@ export class Scheduler {
   }
 
   async execute(actionGraph: Graph<Action>) {
-    await actionGraph.traverseParallel(async action => {
+    await actionGraph.traverseParallel(async (action) => {
       await this.props.rebuilder(action, actionGraph);
     }, 6);
   }

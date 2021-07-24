@@ -45,7 +45,7 @@ export default defineRunner(
   defineOptionsFromJSONSchema<LighthouseRunnerOptions>(
     require('./schema.json')
   ),
-  async ctx => {
+  async (ctx) => {
     const { logger, options, fs, project } = ctx;
     const {
       port,
@@ -54,12 +54,12 @@ export default defineRunner(
       scoreThreshold,
       config,
       chromeFlags,
-      reportFormat = 'html'
+      reportFormat = 'html',
     } = options;
 
     async function launchChromeAndRunLighthouse(url: string, flags: any) {
       const chrome = await chromeLauncher.launch({
-        chromeFlags: flags.chromeFlags
+        chromeFlags: flags.chromeFlags,
       });
       flags.port = chrome.port;
       const results = await lighthouse(url, flags, flags.config);
@@ -84,7 +84,7 @@ export default defineRunner(
 
         if (scoreThreshold) {
           logger.info('Score Thresholds:\n');
-          categories.map(cat => {
+          categories.map((cat) => {
             const categorydata: any = cat[1];
             const score = categorydata.score * 100;
             const threshold = scoreThreshold[categorydata.id];
@@ -103,7 +103,7 @@ export default defineRunner(
 
     function logAuditResults(categories: any[], lhr: any) {
       logger.info(`Audit Results:\n`);
-      categories.map(item => {
+      categories.map((item) => {
         const categorydata: any = item[1];
         logger.info(`${categorydata.title}\n`);
 

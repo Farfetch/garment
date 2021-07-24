@@ -28,7 +28,7 @@ const keys: { [key: string]: string } = {};
 
 export default defineRunner(
   defineOptionsFromJSONSchema<PostcssRunnerOptions>(require('./schema.json')),
-  async ctx => {
+  async (ctx) => {
     const { configFile } = ctx.options;
 
     const cacheKeysHash = getCacheKeys();
@@ -39,7 +39,7 @@ export default defineRunner(
 
     ctx.logger.info(`Transpiling files with PostCSS`);
 
-    ctx.input.forEach(async file => {
+    ctx.input.forEach(async (file) => {
       const { absolutePath, path, data } = file;
       const content = data.toString('utf8');
       const fileName = absolutePath || path;
@@ -47,13 +47,13 @@ export default defineRunner(
       const outputContainer = ctx.createOutputContainer(file, [
         cacheKeysHash,
         content,
-        path
+        path,
       ]);
 
       if (await outputContainer.isNotCached) {
         ctx.logger.debug('[PostCSS] Processing', path);
         const result = await postcss(plugins).process(content, {
-          from: fileName
+          from: fileName,
         });
 
         outputContainer.add(ctx.file.text(path, result.css));
@@ -71,7 +71,7 @@ export default defineRunner(
 
       let tree = dependencyTree.toList({
         filename: configFile,
-        directory: Path.dirname(configFile)
+        directory: Path.dirname(configFile),
       });
 
       keys[configFile] = tree

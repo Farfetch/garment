@@ -10,7 +10,7 @@ export class NodePackage {
     return new Map([
       ...this.dependencies.entries(),
       ...this.devDependencies.entries(),
-      ...this.peerDependencies.entries()
+      ...this.peerDependencies.entries(),
     ]);
   }
 

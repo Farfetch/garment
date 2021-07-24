@@ -44,7 +44,7 @@ function syncPackageJson(
         ) {
           newValue = {
             ...originalValue,
-            ...parsedValue
+            ...parsedValue,
           };
         }
       }
@@ -54,7 +54,7 @@ function syncPackageJson(
   };
 }
 
-export default function(options: Options): Rule {
+export default function (options: Options): Rule {
   return () => {
     if (!options.getWorkspace) {
       return;
@@ -67,10 +67,10 @@ export default function(options: Options): Rule {
       throw new Error('Provide value');
     }
     const workspace = options.getWorkspace();
-    const projectNames = projects.split(',').map(_ => _.trim());
+    const projectNames = projects.split(',').map((_) => _.trim());
 
     return chain([
-      syncPackageJson(workspace, field, value, projectNames, Boolean(merge))
+      syncPackageJson(workspace, field, value, projectNames, Boolean(merge)),
     ]);
   };
 }

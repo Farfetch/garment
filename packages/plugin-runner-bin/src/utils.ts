@@ -41,7 +41,7 @@ export function parseOptions(options: {
 
 export async function resolveBin(binOption: string, cwd = process.cwd()) {
   if (binOption === Path.basename(binOption)) {
-    return new Promise<string>(resolve => {
+    return new Promise<string>((resolve) => {
       which(cwd)(binOption, (err: any, bin: string) => {
         if (err) resolve(binOption);
         return resolve(bin);

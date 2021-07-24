@@ -50,7 +50,7 @@ export class OutputContainer {
       this.targetBaseDir = target.baseDir ?? Path.dirname(this.target);
     }
 
-    this.dependencies = dependencies.map(dep =>
+    this.dependencies = dependencies.map((dep) =>
       typeof dep === 'string' ? dep : dep.absolutePath ?? dep.path
     );
 
@@ -59,7 +59,7 @@ export class OutputContainer {
       this.logs.push({
         level,
         content: args,
-        scope: '    '
+        scope: '    ',
       });
       return false; // creating logger instance which doesn't output to the console
     });
@@ -83,7 +83,7 @@ export class OutputContainer {
     } else {
       await this.cacheProvider.set(this.hash, {
         logs: this.logs,
-        output: this.files
+        output: this.files,
       });
     }
   }
@@ -94,13 +94,13 @@ export class OutputContainer {
       cacheKeys,
       dependencies,
       logs,
-      files
+      files,
     };
   }
 
   hasErrorsOrWarnings() {
     return this.logs.some(
-      entry => entry.level === 'error' || entry.level === 'warn'
+      (entry) => entry.level === 'error' || entry.level === 'warn'
     );
   }
 }

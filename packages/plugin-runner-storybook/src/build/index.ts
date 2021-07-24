@@ -1,7 +1,7 @@
 import {
   defineOptionsFromJSONSchema,
   defineRunner,
-  defineWatch
+  defineWatch,
 } from '@garment/runner';
 
 import storybook = require('@storybook/react/standalone');
@@ -18,28 +18,28 @@ export interface StorybookBuildRunnerOptions {
   configDir?: string;
 }
 
-export const storybookRunnerOptions = defineOptionsFromJSONSchema<
-  StorybookBuildRunnerOptions
->(require('./schema.json'));
+export const storybookRunnerOptions = defineOptionsFromJSONSchema<StorybookBuildRunnerOptions>(
+  require('./schema.json')
+);
 
-export default defineRunner(storybookRunnerOptions, async ctx => {
+export default defineRunner(storybookRunnerOptions, async (ctx) => {
   const { outputDir, configDir } = ctx.options;
 
   await storybook({
     mode: 'static',
     outputDir,
-    configDir
+    configDir,
   });
   ctx.logger.success('Building Storybook');
 });
 
-export const watch = defineWatch(storybookRunnerOptions, async ctx => {
+export const watch = defineWatch(storybookRunnerOptions, async (ctx) => {
   const { outputDir, configDir } = ctx.options;
 
   return storybook({
     mode: 'static',
     outputDir,
     configDir,
-    watch: true
+    watch: true,
   });
 });

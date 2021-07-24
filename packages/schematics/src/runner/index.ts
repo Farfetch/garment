@@ -8,12 +8,12 @@ import {
   SchematicContext,
   SchematicsException,
   Tree,
-  url
+  url,
 } from '@angular-devkit/schematics';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 import {
   addPackageJsonDependencies,
-  addProjectToGarmentJson
+  addProjectToGarmentJson,
 } from '@garment/schematics-utils';
 import * as Path from 'path';
 import { applyTemplates } from '../utils/applyTemplates';
@@ -25,7 +25,7 @@ export interface PackageSchematicOptions {
   skipGarmentJson?: boolean;
 }
 
-export default function(options: PackageSchematicOptions): Rule {
+export default function (options: PackageSchematicOptions): Rule {
   return (_tree: Tree, context: SchematicContext) => {
     const { name } = options;
 
@@ -43,7 +43,7 @@ export default function(options: PackageSchematicOptions): Rule {
     context.addTask(
       new NodePackageInstallTask({
         workingDirectory: packagePath,
-        packageManager: 'yarn'
+        packageManager: 'yarn',
       })
     );
 
@@ -52,11 +52,11 @@ export default function(options: PackageSchematicOptions): Rule {
         {
           name,
           dot: '.',
-          ...strings
+          ...strings,
         },
         { interpolationStart: '___', interpolationEnd: '___' }
       ),
-      move(packagePath)
+      move(packagePath),
     ]);
 
     return chain([
@@ -70,8 +70,8 @@ export default function(options: PackageSchematicOptions): Rule {
         garmentJsonPath: '/garment.json',
         name: projectName,
         path: packagePath,
-        extendProjects: ['tspackage', 'copy-other-files']
-      })
+        extendProjects: ['tspackage', 'copy-other-files'],
+      }),
     ]);
   };
 }

@@ -9,7 +9,7 @@ import {
   SchematicContext,
   SchematicsException,
   Tree,
-  url
+  url,
 } from '@angular-devkit/schematics';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 import * as Path from 'path';
@@ -22,7 +22,7 @@ export interface PackageSchematicOptions {
   skipGarmentJson?: boolean;
 }
 
-export default function(options: PackageSchematicOptions): Rule {
+export default function (options: PackageSchematicOptions): Rule {
   return (tree: Tree, context: SchematicContext) => {
     const { name, directory } = options;
     if (!options.name) {
@@ -38,7 +38,7 @@ export default function(options: PackageSchematicOptions): Rule {
     context.addTask(
       new NodePackageInstallTask({
         workingDirectory: packagePath,
-        packageManager: 'yarn'
+        packageManager: 'yarn',
       })
     );
 
@@ -47,9 +47,9 @@ export default function(options: PackageSchematicOptions): Rule {
         packageName: dashedName,
         dot: '.',
         camelize: strings.camelize,
-        dasherize: strings.dasherize
+        dasherize: strings.dasherize,
       }),
-      move(packagePath)
+      move(packagePath),
     ]);
 
     return chain([
@@ -58,8 +58,8 @@ export default function(options: PackageSchematicOptions): Rule {
         garmentJsonPath: '/garment.json',
         name: dashedName,
         path: packagePath,
-        extendProjects: ['tspackage']
-      })
+        extendProjects: ['tspackage'],
+      }),
     ]);
   };
 }

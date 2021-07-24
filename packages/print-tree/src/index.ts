@@ -22,7 +22,7 @@ function transformTree(tree: Tree, depth = 0) {
   } else {
     return depth === 0
       ? {
-          [tree]: null
+          [tree]: null,
         }
       : null;
   }

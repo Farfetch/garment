@@ -40,7 +40,7 @@ const handler = async (argv: any) => {
       }
       if (def.next) {
         if (Array.isArray(def.next)) {
-          def.next.forEach(d => iterateDef(d, level + 1));
+          def.next.forEach((d) => iterateDef(d, level + 1));
         } else {
           iterateDef(def.next, level + 1);
         }

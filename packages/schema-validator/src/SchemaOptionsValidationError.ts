@@ -27,7 +27,7 @@ export class OptionsValidationError extends Error {
       `Invalid ${type} object.\n` +
       validationErrors
         .map(
-          err => ' - ' + indent(this.formatValidationError(err), '   ', false)
+          (err) => ' - ' + indent(this.formatValidationError(err), '   ', false)
         )
         .join('\n');
     this.name = 'OptionsValidationError';
@@ -70,7 +70,7 @@ export class OptionsValidationError extends Error {
       if (schema.properties) {
         const required = schema.required || [];
         return `object { ${Object.keys(schema.properties)
-          .map(property => {
+          .map((property) => {
             if (!required.includes(property)) return property + '?';
             return property;
           })
@@ -141,7 +141,7 @@ export class OptionsValidationError extends Error {
                 {},
                 err.parentSchema,
                 lastChild.parentSchema
-              )
+              ),
             })
           );
         }
@@ -316,12 +316,12 @@ export class OptionsValidationError extends Error {
     minLength: 2,
     minItems: 2,
     minProperties: 2,
-    absolutePath: 2
+    absolutePath: 2,
   };
 
   filterMax(array: SchemaValidationError[], fn: Function) {
     const max = array.reduce((max, item) => Math.max(max, fn(item)), 0);
-    return array.filter(item => fn(item) === max);
+    return array.filter((item) => fn(item) === max);
   }
 
   filterChildren(children: SchemaValidationError[]) {

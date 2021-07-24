@@ -49,7 +49,7 @@ const runnerOptions = defineOptionsFromJSONSchema<BabelRunnerOptions>(
   require('./schema.json')
 );
 
-export default defineRunner(runnerOptions, async ctx => {
+export default defineRunner(runnerOptions, async (ctx) => {
   const { logger, file, workspace } = ctx;
   const { configFile, env, sourceRoot, sourceMaps, babelrc } = ctx.options;
 
@@ -57,7 +57,7 @@ export default defineRunner(runnerOptions, async ctx => {
 
   const optionsByConfigKey: { [key: string]: object | null } = {};
 
-  ctx.input.forEach(async inputFile => {
+  ctx.input.forEach(async (inputFile) => {
     const { data, path, absolutePath } = inputFile;
     const partialConfig = babel.loadPartialConfig({
       cwd: workspace.cwd,
@@ -66,13 +66,13 @@ export default defineRunner(runnerOptions, async ctx => {
       configFile,
       envName: env,
       sourceMaps,
-      sourceRoot
+      sourceRoot,
     });
 
     const configDependencies = [
       partialConfig?.babelrc,
       partialConfig?.config,
-      partialConfig?.babelignore
+      partialConfig?.babelignore,
     ].filter(Boolean) as string[];
 
     const loadedOptions = babel.loadOptions(partialConfig?.options);
@@ -81,9 +81,9 @@ export default defineRunner(runnerOptions, async ctx => {
       JSON.stringify({
         env,
         sourceMaps,
-        sourceRoot: sourceRoot && workspace.relative(sourceRoot)
+        sourceRoot: sourceRoot && workspace.relative(sourceRoot),
       }),
-      babel.version
+      babel.version,
     ];
 
     if (loadedOptions) {
@@ -105,7 +105,7 @@ export default defineRunner(runnerOptions, async ctx => {
       const config = {
         ...loadedOptions,
         sourceFileName: absolutePath,
-        filename: absolutePath
+        filename: absolutePath,
       };
 
       const ast = babel.parse(data.toString('utf8'), config);

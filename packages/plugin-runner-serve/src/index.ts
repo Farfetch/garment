@@ -27,7 +27,7 @@ interface ServeRunnerOptions {
 
 export default defineRunner(
   defineOptionsFromJSONSchema<ServeRunnerOptions>(require('./schema.json')),
-  async ctx => {
+  async (ctx) => {
     const { logger, options } = ctx;
     const { publicDir, port = 3000 } = options;
 
@@ -37,7 +37,7 @@ export default defineRunner(
 
     const listen = (port: number) => {
       return new Promise((resolve, reject) => {
-        server.on('error', err => reject(err));
+        server.on('error', (err) => reject(err));
         server.listen(port, () => {
           logger.log(`Running at http://localhost:${port}`);
           resolve();

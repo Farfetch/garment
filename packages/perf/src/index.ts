@@ -13,10 +13,10 @@ const allMeasures: Measure[] = [];
 
 const config = {
   print: false,
-  filter: (_measure: Measure) => true
+  filter: (_measure: Measure) => true,
 };
 
-const performanceObserver = new PerformanceObserver(items => {
+const performanceObserver = new PerformanceObserver((items) => {
   const measures = items
     .getEntries()
     .map(({ name, duration }) => ({ name, duration }))
@@ -72,7 +72,7 @@ export function setConfig(cfg: Partial<typeof config>) {
 }
 
 function printMeasures(measures: typeof allMeasures) {
-  measures.forEach(measure =>
+  measures.forEach((measure) =>
     perfLog.info(`"${measure.name}" took ${measure.duration}ms`)
   );
 }

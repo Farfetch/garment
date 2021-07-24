@@ -63,7 +63,7 @@ export class Project {
   resolvePathTemplate(pathTemplate: string = '') {
     return Mustache.render(pathTemplate, {
       projectDir: this.fullPath,
-      projectName: this.name
+      projectName: this.name,
     });
   }
 

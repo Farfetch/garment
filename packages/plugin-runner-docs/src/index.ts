@@ -5,9 +5,9 @@ import { Project, SourceFile } from 'ts-morph';
 export default defineRunner(
   defineOptions({
     template: ['path', 'Path to the template'],
-    filename: ['string?', 'Name of the output file', 'README.md']
+    filename: ['string?', 'Name of the output file', 'README.md'],
   }),
-  async ctx => {
+  async (ctx) => {
     const { template, filename } = ctx.options;
     const packageName = ctx.project.nodePackage?.name;
 

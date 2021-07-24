@@ -7,7 +7,7 @@ import {
   SchematicsException,
   Tree,
   url,
-  move
+  move,
 } from '@angular-devkit/schematics';
 import { addPackageJsonDependencies } from '@garment/schematics-utils';
 import * as Path from 'path';
@@ -17,7 +17,7 @@ export interface PackageSchematicOptions {
   projectName: string;
 }
 
-export default function(options: PackageSchematicOptions): Rule {
+export default function (options: PackageSchematicOptions): Rule {
   return (_tree: Tree) => {
     let { projectName } = options;
 
@@ -39,11 +39,11 @@ export default function(options: PackageSchematicOptions): Rule {
       applyTemplates(
         {
           dot: '.',
-          ...strings
+          ...strings,
         },
         { interpolationStart: '___', interpolationEnd: '___' }
       ),
-      move(Path.join(packagePath, '__tests__'))
+      move(Path.join(packagePath, '__tests__')),
     ]);
 
     return chain([
@@ -51,7 +51,7 @@ export default function(options: PackageSchematicOptions): Rule {
       addPackageJsonDependencies(
         `${packagePath}/package.json`,
         'utils/fixture-helper/package.json'
-      )
+      ),
     ]);
   };
 }

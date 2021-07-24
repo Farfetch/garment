@@ -8,7 +8,7 @@ const levelsMap = {
   success: 3,
   warn: 4,
   error: 5,
-  silent: 6
+  silent: 6,
 };
 
 export type Level = keyof typeof levelsMap;
@@ -19,7 +19,7 @@ const logTypeToTextMap: { [key in Level]?: string } = {
   info: chalk.keyword('lightblue')('info'),
   warn: chalk.keyword('yellow')('warning'),
   error: chalk.keyword('darkred')('error'),
-  success: chalk.keyword('lime')('success')
+  success: chalk.keyword('lime')('success'),
 };
 
 export function shouldPrint(level: Level, currentLevel: Level) {
@@ -53,7 +53,7 @@ export class Logger {
     const joinedMeta = meta.join(' ');
 
     const indentedArgs = args
-      .map(arg => (Object(arg) !== arg ? arg : JSON.stringify(arg)))
+      .map((arg) => (Object(arg) !== arg ? arg : JSON.stringify(arg)))
       .join(' ')
       .split(/\n/)
       .join('\n' + ' '.repeat(stripAnsi(joinedMeta).length + 1));
@@ -112,7 +112,7 @@ export class Logger {
 
   private display(level: Level, ...args: any[]) {
     if (
-      !this.interceptors.every(fn => {
+      !this.interceptors.every((fn) => {
         const result = fn({ level, args });
         return typeof result === 'boolean' ? result : true;
       })
@@ -125,7 +125,7 @@ export class Logger {
           prefix: this.prefix,
           scope: this.name,
           level,
-          scopeColor: this.color
+          scopeColor: this.color,
         },
         ...args
       );

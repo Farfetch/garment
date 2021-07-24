@@ -11,7 +11,7 @@ export function getProjectsByName(
   const { projects } = workspace;
   const filesByProject = new Map<Project, string[]>();
   if (files) {
-    projectNames.forEach(path => {
+    projectNames.forEach((path) => {
       const project = projects.getByPath(path);
       if (!project) {
         throw new Error(`Project containing file "${path}" was not found`);
@@ -23,13 +23,13 @@ export function getProjectsByName(
     });
   } else {
     const workspaceProjectNames = projects.projectNames;
-    projectNames.forEach(projectName => {
+    projectNames.forEach((projectName) => {
       if (projectName.search(/[*!]/) !== -1) {
         const matchedProjects = matcher(workspaceProjectNames, [projectName]);
         if (matchedProjects.length) {
           matchedProjects
-            .map(_ => projects.get(_)!)
-            .forEach(project => {
+            .map((_) => projects.get(_)!)
+            .forEach((project) => {
               filesByProject.set(project, []);
             });
         } else {
@@ -50,6 +50,6 @@ export function getProjectsByName(
   }
   return [...filesByProject.entries()].map(([project, files]) => ({
     project,
-    files
+    files,
   }));
 }

@@ -78,7 +78,7 @@ export function renderOptions<O extends Record<string, any>>({
   options,
   project,
   workspace,
-  schema
+  schema,
 }: {
   options: O;
   project: Project;
@@ -95,7 +95,7 @@ export function renderOptions<O extends Record<string, any>>({
 }) {
   const templateData = {
     projectDir: project.fullPath,
-    projectName: project.name
+    projectName: project.name,
   };
 
   const schemaProperties = schema?.properties ?? {};
@@ -131,16 +131,16 @@ export function getRunnerContext<O extends Record<string, any>>(
     batch,
     logger,
     cacheProvider,
-    defaultCacheKeys = []
+    defaultCacheKeys = [],
   } = opts;
 
   function getContextBase(projectOptions: O, outputDir?: string) {
     return {
       options: {
         ...projectOptions,
-        outputDir
+        outputDir,
       } as O & { outputDir?: string },
-      renderTemplate
+      renderTemplate,
     };
   }
 
@@ -158,7 +158,7 @@ export function getRunnerContext<O extends Record<string, any>>(
         for (const { project, options } of batch) {
           yield {
             ...getContextBase(options),
-            project
+            project,
           };
         }
       } else {
@@ -179,7 +179,7 @@ export function getRunnerContext<O extends Record<string, any>>(
     },
     fs,
     logger,
-    file
+    file,
   };
 
   return context;

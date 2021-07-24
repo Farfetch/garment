@@ -1,18 +1,18 @@
 {
     "name": "@garment/plugin-runner-prettier",
     "license": "MIT",
-    "version": "0.15.4",
+    "version": "0.16.0",
     "main": "lib/index.js",
     "files": [
       "lib",
       "runners.json"
     ],
     "peerDependencies": {
-        "@garment/runner": "^0.15.4",
+        "@garment/runner": "^0.16.0",
         "prettier": "^2.2.1"
     },
     "devDependencies": {
-        "@garment/fixture-helper": "^0.15.4",
+        "@garment/fixture-helper": "^0.16.0",
         "@types/prettier": "^2.2.3",
         "prettier": "^2.2.1"
     }

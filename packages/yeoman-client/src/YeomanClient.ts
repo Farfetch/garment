@@ -19,15 +19,15 @@ export class YeomanClient {
         generator.match(/generator-(\w*)/) || [];
 
       const patterns = lookups
-        .map(lookup => Path.join(generatorDir, lookup))
-        .filter(path => fs.existsSync(path));
+        .map((lookup) => Path.join(generatorDir, lookup))
+        .filter((path) => fs.existsSync(path));
 
       for (const pattern of patterns) {
         const files = globby.sync('*/index.js', {
           cwd: pattern,
-          absolute: true
+          absolute: true,
         });
-        files.forEach(file => this.tryRegister(file, namespace));
+        files.forEach((file) => this.tryRegister(file, namespace));
       }
     }
   }
@@ -38,7 +38,7 @@ export class YeomanClient {
 
   run(name: string, options: any = {}) {
     return new Promise((resolve, reject) => {
-      this.env.run(name, options, err => {
+      this.env.run(name, options, (err) => {
         if (err) {
           return reject(err);
         }

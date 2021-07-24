@@ -5,12 +5,12 @@ import {
   PathTemplateData,
   PathTemplateOptions,
   Rule,
-  TEMPLATE_FILENAME_RE
+  TEMPLATE_FILENAME_RE,
 } from '@angular-devkit/schematics';
 import {
   composeFileOperators,
   forEach,
-  when
+  when,
 } from '@angular-devkit/schematics/src/rules/base';
 
 export function applyTemplates<T>(
@@ -19,7 +19,7 @@ export function applyTemplates<T>(
 ): Rule {
   return forEach(
     when(
-      path => path.endsWith('.template'),
+      (path) => path.endsWith('.template'),
       composeFileOperators([
         applyContentTemplate(options),
         // See above for this weird cast.
@@ -27,12 +27,12 @@ export function applyTemplates<T>(
           (options as {}) as PathTemplateData,
           pathTemplateOptions
         ),
-        entry => {
+        (entry) => {
           return {
             content: entry.content,
-            path: entry.path.replace(TEMPLATE_FILENAME_RE, '')
+            path: entry.path.replace(TEMPLATE_FILENAME_RE, ''),
           } as FileEntry;
-        }
+        },
       ])
     )
   );

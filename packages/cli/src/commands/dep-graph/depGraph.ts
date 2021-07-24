@@ -8,5 +8,5 @@ export async function run() {
 
   dependencyGraph.cleanUnnecessaryDependencies();
 
-  vizualizeGraph(dependencyGraph, { getNodeContent: node => node.name });
+  vizualizeGraph(dependencyGraph, { getNodeContent: (node) => node.name });
 }

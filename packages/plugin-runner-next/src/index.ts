@@ -26,14 +26,14 @@ interface NextRunnerOptions {
 
 export default defineRunner(
   defineOptionsFromJSONSchema<NextRunnerOptions>(require('./schema.json')),
-  async ctx => {
+  async (ctx) => {
     const { options } = ctx;
     const { appPath, command = 'dev' } = options;
 
     await execa('next', [command], {
       cwd: appPath,
       stderr: 'inherit',
-      stdout: 'inherit'
+      stdout: 'inherit',
     });
   }
 );

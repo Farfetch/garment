@@ -14,7 +14,7 @@ export async function run(options: InitOptions) {
     schematicName: 'init',
     options: {
       from,
-      withPreset
-    }
+      withPreset,
+    },
   });
 }

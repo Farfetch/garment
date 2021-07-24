@@ -41,14 +41,14 @@ export interface BinRunnerOptions {
 
 export default defineRunner(
   defineOptionsFromJSONSchema<BinRunnerOptions>(require('./schema.json')),
-  async ctx => {
+  async (ctx) => {
     const { logger, options, project, workspace, renderTemplate } = ctx;
     const { stream, env, longRunning = false } = options;
-    const [binOption, ...args] = parseOptions(options).map(arg =>
+    const [binOption, ...args] = parseOptions(options).map((arg) =>
       renderTemplate(arg, {
         projectDir: project.fullPath,
         workspaceDir: workspace.cwd,
-        projectName: project.name
+        projectName: project.name,
       })
     );
 
@@ -62,7 +62,7 @@ export default defineRunner(
         stdin: 'inherit',
         stdout: stream ? 'inherit' : 'pipe',
         stderr: stream ? 'inherit' : 'pipe',
-        env
+        env,
       });
 
       if (!longRunning) {

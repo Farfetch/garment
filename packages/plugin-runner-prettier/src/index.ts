@@ -32,18 +32,21 @@ export default defineRunner(runnerOptions, async (ctx) => {
     const fixes: File[] = [];
 
     const prettierConfig = await prettier.resolveConfig(configFile);
-    // TODO validate that the config exists maybe
+    if (!prettierConfig) {
+      logger.info(`Prettier config not found`);
+      return;
+    }
 
     files.forEach((file) => {
       //TODO What to do about errors like this?
       // error SyntaxError: Unexpected token, expected ";" (2:11)
-      const isPrettified = prettier.check(file.data.toString('utf8'), {
+      const isChecked = prettier.check(file.data.toString('utf8'), {
         ...prettierConfig,
         filepath: file.absolutePath,
       });
 
-      // If is not prettified and is to fix
-      if (!isPrettified && fix) {
+      if (!isChecked && fix) {
+        logger.info(`Going to format`);
         logger.warn(`output`, file.data.toString('utf8'));
         const output = prettier.format(file.data.toString('utf8'), {
           ...prettierConfig,

@@ -33,11 +33,11 @@ export function watch(
 
   const watcher = chokidar.watch(dirsToWatch, {
     ignoreInitial: true,
-    ignored: [/node_modules/, ...ignore]
+    ignored: [/node_modules/, ...ignore],
   });
 
-  ['add', 'change', 'unlink'].forEach(eventName => {
-    watcher.on(eventName, path => {
+  ['add', 'change', 'unlink'].forEach((eventName) => {
+    watcher.on(eventName, (path) => {
       cb({ type: eventName as any, path });
     });
   });

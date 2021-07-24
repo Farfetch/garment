@@ -57,8 +57,8 @@ export async function run(argv: GenerateCommandOptions) {
       argv: _.slice(1),
       options: {
         ...restOptions,
-        getWorkspace: () => workspace
-      }
+        getWorkspace: () => workspace,
+      },
     });
   }
 

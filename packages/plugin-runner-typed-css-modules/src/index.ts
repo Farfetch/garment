@@ -6,18 +6,18 @@ import * as DtsCreator from 'typed-css-modules';
  */
 export interface RunnerOptions {}
 
-export default defineRunner(async ctx => {
+export default defineRunner(async (ctx) => {
   const { logger } = ctx;
 
   const typesCreator = new DtsCreator({
     rootDir: '.',
     searchDir: '.',
-    outDir: '.'
+    outDir: '.',
   });
 
   logger.info(`Generating types for CSS modules`);
 
-  ctx.input.forEach(async file => {
+  ctx.input.forEach(async (file) => {
     const content = await typesCreator.create(
       file.path,
       file.data.toString('utf8')

@@ -59,7 +59,7 @@ function addDependency(
 
     const dependencies = sortObject({
       ...(packageJson[depField] || {}),
-      [to.name]: `^${to.version}`
+      [to.name]: `^${to.version}`,
     });
 
     packageJson[depField] = dependencies;
@@ -68,7 +68,7 @@ function addDependency(
   };
 }
 
-export default function(options: Options): Rule {
+export default function (options: Options): Rule {
   return () => {
     if (!options.getWorkspace) {
       return;

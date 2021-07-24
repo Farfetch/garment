@@ -15,7 +15,7 @@ export async function run(options: ActionGraphCommandOptions) {
   const dependencyGraph = dependencyGraphFromWorkspace(workspace);
 
   const projects = projectNames.length
-    ? projectNames.map(projectName => {
+    ? projectNames.map((projectName) => {
         const project = workspace.projects.get(projectName);
         if (!project) {
           throw new Error(`Project "${projectName}" does not exist`);
@@ -29,9 +29,9 @@ export async function run(options: ActionGraphCommandOptions) {
     dependencyGraph,
     task: {
       name: task,
-      projects: projects.map(project => ({ project, files: [] }))
+      projects: projects.map((project) => ({ project, files: [] })),
     },
-    lifecycle: true
+    lifecycle: true,
   });
 
   vizualizeGraph(actionGraph, {
@@ -41,7 +41,7 @@ export async function run(options: ActionGraphCommandOptions) {
         `task: ${task}`,
         `id: ${id}`,
         `proj: ${project.name}`,
-        `opts: ${options.delay}`
-      ].join('\n')
+        `opts: ${options.delay}`,
+      ].join('\n'),
   });
 }

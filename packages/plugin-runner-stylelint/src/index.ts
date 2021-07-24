@@ -1,7 +1,7 @@
 import {
   defineOptionsFromJSONSchema,
   defineRunner,
-  File
+  File,
 } from '@garment/runner';
 import chalk from 'chalk';
 import * as stylelint from 'stylelint';
@@ -35,21 +35,21 @@ export interface StylelintRunnerOptions {
 
 export default defineRunner(
   defineOptionsFromJSONSchema<StylelintRunnerOptions>(require('./schema.json')),
-  async ctx => {
+  async (ctx) => {
     const { logger } = ctx;
     const { configFile, outputDir, fix: fixFlag } = ctx.options;
     const fix = Boolean(outputDir) && fixFlag;
 
-    ctx.input(async files => {
+    ctx.input(async (files) => {
       const fixes: File[] = [];
 
-      await mapAsyncSequence(files, async file => {
+      await mapAsyncSequence(files, async (file) => {
         const { results, output } = await stylelint.lint({
           code: file.data.toString('utf8'),
           codeFilename: file.absolutePath,
           configFile,
           fix,
-          formatter: 'string'
+          formatter: 'string',
         });
 
         const warningResults = getResultsBySeverity(results, 'warning');
@@ -78,7 +78,7 @@ function getResultsBySeverity(
 ): LintResult[] {
   const filtered: LintResult[] = [];
 
-  results.forEach(result => {
+  results.forEach((result) => {
     const filteredMessages = result.warnings.filter(
       (warning: any) => warning.severity === severityLevel
     );
@@ -87,7 +87,7 @@ function getResultsBySeverity(
       filtered.push({
         ...result,
         warnings: filteredMessages,
-        errored: severityLevel === 'error'
+        errored: severityLevel === 'error',
       });
     }
   });
@@ -101,7 +101,7 @@ function transformResults(results: LintResult[]) {
 
   return (
     results
-      .map(result => {
+      .map((result) => {
         const output = `\n${chalk.underline(result.source)}\n`;
 
         const tableResult = result.warnings.map((warning: any) => {
@@ -114,7 +114,7 @@ function transformResults(results: LintResult[]) {
             chalk.dim(`${warning.line}.${warning.column}`),
             severity === 'warning' ? warningIcon : errorIcon,
             text,
-            chalk.dim(warning.rule)
+            chalk.dim(warning.rule),
           ];
         });
 
