@@ -16,7 +16,18 @@ Object {
       "args": Array [
         "
 /test_path/test/index.js
+  1:13  error  Insert \`;⏎\`        prettier/prettier
   1:13  error  Missing semicolon  semi
+  
+",
+      ],
+      "level": "error",
+    },
+    Object {
+      "args": Array [
+        "
+/test_path/test/foo.js
+  1:9  error  Replace \`\\"Im·still·using·vars\\";\` with \`'Im·still·using·vars';⏎\`  prettier/prettier
   1 error and 0 warnings potentially fixable with the \`--fix\` option.
 ",
       ],
@@ -27,6 +38,7 @@ Object {
         "
 /test_path/test/foo.js
   1:1  warning  Unexpected var, use let or const instead  no-var
+  1 error and 0 warnings potentially fixable with the \`--fix\` option.
 ",
       ],
       "level": "warn",
@@ -41,12 +53,14 @@ exports[`Emits fixed files 1`] = `
 Object {
   "collectedOutput": Array [
     Object {
-      "data": "const a = 10;",
+      "data": "const a = 10;
+",
       "path": "index.js",
       "type": "text",
     },
     Object {
-      "data": "let a = \\"Im still using vars\\";",
+      "data": "let a = 'Im still using vars';
+",
       "path": "foo.js",
       "type": "text",
     },
@@ -82,8 +96,9 @@ Object {
       "args": Array [
         "
 /test_path/test/index.js
+  1:13  error  Insert \`;⏎\`        prettier/prettier
   1:13  error  Missing semicolon  semi
-  1 error and 0 warnings potentially fixable with the \`--fix\` option.
+  
 ",
       ],
       "level": "error",

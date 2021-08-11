@@ -1,5 +1,5 @@
 {
-  "plugins": ["import", "node", "monorepo", "@typescript-eslint"],
+  "plugins": ["import", "node", "monorepo", "@typescript-eslint", "prettier"],
   "rules": {
     "node/no-extraneous-require": ["error"],
     "node/no-extraneous-import": ["error"],
@@ -16,5 +16,9 @@
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "sourceType": "module"
-  }
+  },
+  "extends": [
+    "plugin:prettier/recommended",
+    "prettier"
+    ]
 }

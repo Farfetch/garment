@@ -4,8 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "@garment/cli": "^0.13.14",
-    "@garment/plugin-runner-clean": "^0.13.13",
-    "@garment/plugin-runner-ts": "^0.13.13"
+    "@garment/cli": "^0.16.0",
+    "@garment/plugin-runner-clean": "^0.16.0",
+    "@garment/plugin-runner-ts": "^0.16.0"
   }
 }
