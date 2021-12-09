@@ -13,6 +13,6 @@
     "@garment/runner": "^0.13.2"
   },
   "devDependencies": {
-    "next": "^9.3.4"
+    "next": "^11.1.3"
   }
 }
