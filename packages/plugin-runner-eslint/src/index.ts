@@ -36,9 +36,15 @@ enum SeverityLevel {
 export default defineRunner(
   defineOptionsFromJSONSchema<EslintRunnerOptions>(require('./schema.json')),
   async function(ctx) {
-    const { logger, options, input, workspace } = ctx;
+    const { logger, options, input, workspace, project } = ctx;
     const { configFile, outputDir, fix: fixFlag } = options;
     const fix = Boolean(outputDir) && fixFlag;
+
+    /*
+     * Updates the cwd to be the project
+     * In this way the TS parser will only parse the project files
+     */
+    process.chdir(project.fullPath);
 
     logger.info(`Linting files with ESLint`);
 
