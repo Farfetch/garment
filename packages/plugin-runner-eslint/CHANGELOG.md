@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.2](https://github.com/Farfetch/garment/compare/v0.16.0...v0.16.2) (2022-01-06)
+
+
+### Bug Fixes
+
+* Eslint not running on lint staged ([#63](https://github.com/Farfetch/garment/issues/63)) ([4b9c92f](https://github.com/Farfetch/garment/commit/4b9c92f46a279c289d362476779ba6cfbab8a118))
+* Updates Eslint process to run with project directory ([#73](https://github.com/Farfetch/garment/issues/73)) ([ad55434](https://github.com/Farfetch/garment/commit/ad55434b453d5697962df82f457683ad07507d33))
+
+
+
+
+
 ## [0.16.1](https://github.com/Farfetch/garment/compare/v0.16.0...v0.16.1) (2022-01-06)
 
 
