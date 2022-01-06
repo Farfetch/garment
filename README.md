@@ -18,7 +18,7 @@ As an application codebase grows in size and number of contributors it's a good 
 
 ### Autonomy
 
-Garment allows to definining tasks, configurations, and tooling per project ensuring that projects and teams remain autonomous while working in the same repository
+Garment allows to defining tasks, configurations, and tooling per project ensuring that projects and teams remain autonomous while working in the same repository
 
 ### Developer Experience
 
