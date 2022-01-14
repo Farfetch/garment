@@ -40,12 +40,6 @@ export default defineRunner(
     const { configFile, outputDir, fix: fixFlag } = options;
     const fix = Boolean(outputDir) && fixFlag;
 
-    /*
-     * Updates the cwd to be the project
-     * In this way the TS parser will only parse the project files
-     */
-    process.chdir(project.fullPath);
-
     logger.info(`Linting files with ESLint`);
 
     const cliEngineOpts: CLIEngine.Options = { fix, cwd: workspace.cwd };
@@ -58,6 +52,12 @@ export default defineRunner(
     const cli = new CLIEngine(cliEngineOpts);
 
     ctx.input(files => {
+      /*
+       * Updates the cwd to be the project
+       * In this way the TS parser will only parse the project files
+       */
+      process.chdir(project.fullPath);
+
       const fixes: File[] = [];
 
       files.forEach(file => {
