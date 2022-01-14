@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.3](https://github.com/Farfetch/garment/compare/v0.16.2...v0.16.3) (2022-01-14)
+
+
+### Bug Fixes
+
+* Resolve bug on eslint when linting multi projects ([#80](https://github.com/Farfetch/garment/issues/80)) ([bba318b](https://github.com/Farfetch/garment/commit/bba318be2e9e02fc87145bf06f53171a1ba27d70))
+
+
+
+
+
 ## [0.16.2](https://github.com/Farfetch/garment/compare/v0.16.0...v0.16.2) (2022-01-06)
 
 
