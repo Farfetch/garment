@@ -1,4 +1,5 @@
 import { defineRunner, defineOptionsFromJSONSchema } from '@garment/runner';
+import * as optionsSchema from './schema.json';
 import { parseOptions, resolveBin } from './utils';
 import execa = require('execa');
 
@@ -40,7 +41,7 @@ export interface BinRunnerOptions {
 }
 
 export default defineRunner(
-  defineOptionsFromJSONSchema<BinRunnerOptions>(require('./schema.json')),
+  defineOptionsFromJSONSchema<BinRunnerOptions>(optionsSchema),
   async ctx => {
     const { logger, options, project, workspace, renderTemplate } = ctx;
     const { stream, env, longRunning = false } = options;
@@ -79,6 +80,55 @@ export default defineRunner(
       if (!stream) {
         logger.info(error.stdout);
         logger.error(error.stderr);
+      }
+    }
+  }
+);
+
+export const batchRunner = defineRunner(
+  defineOptionsFromJSONSchema<BinRunnerOptions>(optionsSchema),
+  async ctx => {
+    const { workspace, logger, renderTemplate } = ctx;
+
+    for (const item of ctx.batch()) {
+      const { options, project } = item;
+      const { stream, env, longRunning = false } = options;
+      const [binOption, ...args] = parseOptions(options).map(arg =>
+        renderTemplate(arg, {
+          projectDir: project.fullPath,
+          workspaceDir: workspace.cwd,
+          projectName: project.name
+        })
+      );
+
+      const bin = await resolveBin(binOption, workspace.cwd);
+      logger.debug('bin:', bin);
+      logger.debug('args:', args);
+
+      try {
+        const promise = execa(bin, args, {
+          cwd: project.fullPath,
+          stdin: 'inherit',
+          stdout: stream ? 'inherit' : 'pipe',
+          stderr: stream ? 'inherit' : 'pipe',
+          env
+        });
+
+        if (!longRunning) {
+          const { stderr, stdout } = await promise;
+
+          if (!stream) {
+            logger.info(stdout);
+            if (stderr) {
+              logger.info(stderr);
+            }
+          }
+        }
+      } catch (error) {
+        if (!stream) {
+          logger.info(error.stdout);
+          logger.error(error.stderr);
+        }
       }
     }
   }

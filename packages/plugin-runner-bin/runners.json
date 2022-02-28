@@ -1,0 +1,13 @@
+{
+    "runners": {
+        "default": {
+        "handler": "./lib",
+        "description": "Runs bin"
+        },
+        "batch": {
+        "handler": "./lib#batchRunner",
+        "description": "Runs bin in batch mode",
+        "batch": true
+        }
+    }
+}
