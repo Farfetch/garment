@@ -1,7 +1,7 @@
 {
   "name": "@garment/plugin-runner-next",
   "license": "MIT",
-  "version": "0.17.0",
+  "version": "0.18.0",
   "main": "lib/index.js",
   "files": [
     "lib"

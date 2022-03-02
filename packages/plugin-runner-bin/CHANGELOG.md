@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.18.0](https://github.com/farfetch/garment/compare/v0.16.3...v0.18.0) (2022-03-02)
+
+
+### Features
+
+* Add batch mode for plugin-runner-bin ([#85](https://github.com/farfetch/garment/issues/85)) ([c960b15](https://github.com/farfetch/garment/commit/c960b15c4632e7281e98c7bfdfe1a839cf6f8a3b))
+
+
+
+
+
 # [0.17.0](https://github.com/Farfetch/garment/compare/v0.16.3...v0.17.0) (2022-03-02)
 
 
