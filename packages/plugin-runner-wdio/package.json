@@ -1,7 +1,7 @@
 {
   "name": "@garment/plugin-runner-wdio",
   "license": "MIT",
-  "version": "0.16.0",
+  "version": "0.17.0",
   "main": "lib/index.js",
   "files": [
     "lib",
@@ -14,7 +14,7 @@
     "selenium-webdriver": "^4.0.0-alpha.4"
   },
   "devDependencies": {
-    "@garment/fixture-helper": "^0.16.0",
+    "@garment/fixture-helper": "^0.17.0",
     "@wdio/cli": "^5.12.1",
     "@wdio/spec-reporter": "^5.12.1",
     "chromedriver": "^75.1.0",

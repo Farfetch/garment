@@ -1,15 +1,15 @@
 {
   "name": "@garment/fixture-helper",
   "license": "MIT",
-  "version": "0.16.0",
+  "version": "0.17.0",
   "main": "lib/index.js",
   "files": [
     "lib"
   ],
   "dependencies": {
-    "@garment/logger": "^0.16.0",
-    "@garment/runner": "^0.16.0",
-    "@garment/workspace": "^0.16.0",
+    "@garment/logger": "^0.17.0",
+    "@garment/runner": "^0.17.0",
+    "@garment/workspace": "^0.17.0",
     "fs-extra": "8.1.0",
     "globby": "10.0.1",
     "strip-ansi": "^5.2.0",

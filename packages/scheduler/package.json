@@ -1,17 +1,17 @@
 {
   "name": "@garment/scheduler",
   "license": "MIT",
-  "version": "0.16.0",
+  "version": "0.17.0",
   "main": "lib/index.js",
   "files": [
     "lib"
   ],
   "dependencies": {
-    "@garment/dependency-graph": "^0.16.0",
-    "@garment/logger": "^0.16.0",
-    "@garment/runner": "^0.16.0",
-    "@garment/watcher": "^0.16.0",
-    "@garment/workspace": "^0.16.0",
+    "@garment/dependency-graph": "^0.17.0",
+    "@garment/logger": "^0.17.0",
+    "@garment/runner": "^0.17.0",
+    "@garment/watcher": "^0.17.0",
+    "@garment/workspace": "^0.17.0",
     "@types/glob-parent": "^3.1.1",
     "fs-extra": "8.1.0",
     "glob-parent": "^5.0.0",

@@ -1,6 +1,6 @@
 {
   "name": "@garment/dependency-graph",
-  "version": "0.16.0",
+  "version": "0.17.0",
   "main": "lib/index.js",
   "license": "MIT",
   "files": [
