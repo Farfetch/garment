@@ -41,3 +41,32 @@ test('Handles multiple projects sharing the same config and one having different
 
   expect(replaceTestPath(jestConfig, cwd)).toMatchSnapshot();
 });
+
+test('Handle multiple projects sharing the same config, when one of the projects contains Jest Projects.', async () => {
+  const cwd = await initFixture('basic');
+  const { context } = await createBatchContext<JestRunnerOptions>(
+    {
+      foo: { configFile: 'jest.config.js' },
+      test: { configFile: '{{projectDir}}/jest.projects.config.js' }
+    },
+    { cwd, schema: require('../src/schema.json') }
+  );
+
+  const jestConfig = await getConfig(context);
+
+  expect(replaceTestPath(jestConfig, cwd)).toMatchSnapshot();
+});
+
+test('Handle project that contains Jest Projects.', async () => {
+  const cwd = await initFixture('basic');
+  const { context } = await createBatchContext<JestRunnerOptions>(
+    {
+      test: { configFile: '{{projectDir}}/jest.projects.config.js' }
+    },
+    { cwd, schema: require('../src/schema.json') }
+  );
+
+  const jestConfig = await getConfig(context);
+
+  expect(replaceTestPath(jestConfig, cwd)).toMatchSnapshot();
+});

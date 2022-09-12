@@ -148,7 +148,19 @@ export async function getConfig(ctx: Context<JestRunnerOptions>) {
     }
 
     if (isMultipleConfigs && jestConfig.projects) {
-      jestConfig.projects.push(projectConfig as Config.ProjectConfig);
+      if (projectConfig.projects && projectConfig.projects.length > 0) {
+        const newProjects = projectConfig.projects as Config.ProjectConfig[];
+
+        newProjects.forEach(project => {
+          if (projectConfig.rootDir) {
+            project.rootDir = projectConfig.rootDir;
+          }
+        });
+
+        jestConfig.projects.push(...newProjects);
+      } else {
+        jestConfig.projects.push(projectConfig as Config.ProjectConfig);
+      }
     } else {
       Object.assign(jestConfig, projectConfig);
     }
