@@ -1,5 +1,47 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Handle multiple projects sharing the same config, when one of the projects contains Jest Projects. 1`] = `
+Object {
+  "collectCoverage": true,
+  "projects": Array [
+    Object {
+      "rootDir": "/test_path",
+      "roots": Array [
+        "<rootDir>/foo",
+      ],
+      "testEnvironment": "jsdom",
+    },
+    Object {
+      "name": "project_1",
+      "rootDir": "/test_path/test",
+    },
+    Object {
+      "name": "project_2",
+      "rootDir": "/test_path/test",
+    },
+  ],
+  "rootDir": "/test_path",
+}
+`;
+
+exports[`Handle project that contains Jest Projects. 1`] = `
+Object {
+  "projects": Array [
+    Object {
+      "name": "project_1",
+    },
+    Object {
+      "name": "project_2",
+    },
+  ],
+  "rootDir": "/test_path/test",
+  "roots": Array [
+    "<rootDir>/",
+  ],
+  "testEnvironment": "node",
+}
+`;
+
 exports[`Handles multiple projects sharing the same config 1`] = `
 Object {
   "collectCoverage": true,
