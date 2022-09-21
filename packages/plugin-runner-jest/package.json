@@ -1,7 +1,7 @@
 {
   "name": "@garment/plugin-runner-jest",
   "license": "MIT",
-  "version": "0.18.0",
+  "version": "0.18.1",
   "files": [
     "lib",
     "runners.json"

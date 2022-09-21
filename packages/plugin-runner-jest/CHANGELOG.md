@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.1](https://github.com/Farfetch/garment/compare/v0.18.0...v0.18.1) (2022-09-21)
+
+
+### Bug Fixes
+
+* **plugin-runner-jest:** Prepare plugin to deal with projects that has more than one projects ([#94](https://github.com/Farfetch/garment/issues/94)) ([c94f1ae](https://github.com/Farfetch/garment/commit/c94f1ae6cc1492542700084f774363512479a102))
+
+
+
+
+
 # [0.18.0](https://github.com/farfetch/garment/compare/v0.16.3...v0.18.0) (2022-03-02)
 
 **Note:** Version bump only for package @garment/plugin-runner-jest
