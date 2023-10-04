@@ -12,12 +12,12 @@
   },
   "peerDependencies": {
     "@garment/runner": "^0.13.2",
-    "postcss": "6.0.23"
+    "postcss": "8.4.31"
   },
   "devDependencies": {
     "@garment/fixture-helper": "^0.18.0",
     "@types/dependency-tree": "^6.1.0",
-    "postcss": "6.0.23",
+    "postcss": "8.4.31",
     "postcss-custom-properties": "^6.0.23",
     "postcss-import": "^11.1.0"
   }
