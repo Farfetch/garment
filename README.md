@@ -1,10 +1,9 @@
-**This project is no longer being actively maintained.** 
-
-FARFETCH has decided to archive this project, as widely adopted alternatives, like [Nx](https://nx.dev/), have become available.
-
-We won't be accepting pull requests or responding to issues for this project anymore. Thank you for your understanding.
-
 # Garment
+
+> This project is no longer being actively maintained.
+FARFETCH has decided to archive this project, as widely adopted alternatives, like [Nx](https://nx.dev/), have become available.
+> 
+> We won't be accepting pull requests or responding to issues for this project anymore. Thank you for your understanding.
 
 Garment is a toolkit for building applications using modern tools and scalable development practices. It encourages the monorepo way of building applications and provides a consistent developer experience across projects.
 
